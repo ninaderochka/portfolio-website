@@ -11,7 +11,10 @@ function Navbar() {
       setNavbarOpen(!navbarOpen);
     };
   return (
-    <div className="bg-beige h-20">
+    <div>
+<main className="bg-beige h-20">
+<nav>
+<section className='m-h-screen'>
 
 <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4 px-6">
             <h1 className="font-sans font-extrabold text-lg mr-8"><Link to="/">ninaderochka</Link></h1>
@@ -20,7 +23,7 @@ function Navbar() {
       <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
     </button>
     <div className={`w-full md:w-auto md:flex md:flex-grow md:justify-between z-50 ${navbarOpen ? "block" : "hidden"}`} id="navbar-default">
-            <ul className="font-sans font-medium text-base flex flex-col p-4 border border-gray-100 rounded-lg items-center bg-beige md:border-0 md:p-0 mt-4 md:flex-row md:space-x-6 md:mt-0 md:ml-auto">
+            <ul className="font-sans font-medium text-lg flex flex-col p-4 border border-gray-100 rounded-lg items-center bg-beige md:border-0 md:p-0 mt-4 md:flex-row md:space-x-6 md:mt-0 md:ml-auto md:text-base">
                 <li className="flex items-center"><Link to="/Bio">Bio</Link></li>
                 <span className="hidden text-2xl md:flex items-center mt-2">*</span>
                 <li className="flex items-center"><Link to="/Works">Works</Link></li>
@@ -29,6 +32,9 @@ function Navbar() {
             </ul>
     </div>
         </div>
+</section>
+</nav>
+</main>
     </div>
   )
 }
