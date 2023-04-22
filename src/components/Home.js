@@ -12,8 +12,9 @@ import skills5 from '../skills/skills-05.png';
 import skills6 from '../skills/skills-06.png';
 import skills7 from '../skills/skills-07.png';
 import skills8 from '../skills/skills-08.png';
-
-
+import PortfolioIsotope from './PortfolioIsotope'
+import shapeImage from '../shape.png';
+import formShape from '../formshape.png'
 
 
 function Home() {
@@ -27,16 +28,26 @@ function Home() {
     skills7,
     skills8,
   ].map((path, index) => (
-    <img key={index} src={path} alt={`Skill ${index + 1}`} />
+    <img className= "h-20 md:h-24 mx-auto" key={index} src={path} alt={`Skill ${index + 1}`} />
   ));
 
   const [ wiggle, setWiggle ] = useState(false);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Submitting form with name=${name}, email=${email}, and message=${message}`);
+  };
+
   return (
-<div className='bg-beige justify-center'>
+<div className='bg-beige justify-center overflow-x-hidden'>
   
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto md:space-x-11 md:max-w-6xl md:justify-start">
   <div className="mx-auto max-w-md text-center md:text-left">
-    <h2 className="font-agrandir text-6.5xl text-orange whitespace-nowrap">Hey there!</h2>
+    <h2 className="font-agrandir text-6.5xl text-orange whitespace-nowrap sm:mx-auto">hey there!</h2>
     <h3 className="font-agrandir text-8xl text-orange py-5 whitespace-nowrap leading-12">I'm nina</h3>
     <p className="font-sans font-light text-3xl tracking-tight leading-9">
       I'm a professional pixel polisher &amp; front-end fanatic, with a passion for creating designs that are both beautiful &amp; functional.
@@ -61,15 +72,66 @@ function Home() {
 <a href='https://www.linkedin.com/in/nina-hawari-01b442b2/' target="_blank" rel="noopener noreferrer"><AiFillLinkedin /></a>
 <a href="https://github.com/ninaderochka" target="_blank" rel="noopener noreferrer"><AiOutlineGithub /></a>
 
-      </div>
+      </div> 
 </div>
 <div
-      className="md:w-full md:h-72 w-full bg-no-repeat md:bg-repeat"
-      style={{ backgroundImage: `url(${purple})` }}
-    >
-      <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
-      <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-8'>{images}</div>
+className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto" style={{ backgroundImage: `url(${purple})` }}>
+<h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
+      <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
+    <PortfolioIsotope />
+    <section>
+    <div className='bg-pink min-h-fit'>
+  <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
+  <div className='flex flex-wrap justify-center'>
+  <div className='relative mx-2 md:mx-8 my-10 mt-20 md:flex'>
+    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>logo design</p>
+  </div>
+  <div className='relative mx-2 md:mx-8 my-10 mt-20'>
+    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web deisgn</p>
+  </div>
+  <div className='relative mx-2 md:mx-8 my-10 mt-20'>
+    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>visual identity</p>
+  </div>
+</div>
+</div>
+    </section>
+    <section className='mx-auto'>
+    <div className='relative h-screen'>
+  <h1 className='text-orange font-agrandir text-8xl z-10 absolute'>let's<br /> talk</h1>
+  <div className="absolute top-0 transform translate-x-1/2">
+    <img className="h-60" src={formShape} alt="Shape" />
+    <a className="underline" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
+  </div>
+  <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="message">Message:</label>
+        <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+</div>
+    </section>
+    <footer className='h-14 w-screen bg-orange flex justify-between mx-auto p-4 px-6 items-center'>
+      <p className='font-sans text-xl'>© nina derochka</p>
+      <div className='flex text-2xl'>
+        <a href='https://www.linkedin.com/in/nina-hawari-01b442b2/' target="_blank" rel="noopener noreferrer"><AiFillLinkedin /></a>
+<a href="https://github.com/ninaderochka" target="_blank" rel="noopener noreferrer"><AiOutlineGithub /></a>
+        </div>
+
+
+    </footer>
 </div>
   )
 }

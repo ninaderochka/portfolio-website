@@ -10,7 +10,7 @@ module.exports = {
       fontSize: {
         '3xl': '1.85rem',
         '7.5xl': '5.5rem',
-        '6.5xl': '4rem'
+        '6.5xl': '4.2rem'
       },
       lineHeight: {
         '12': '3rem',
@@ -23,6 +23,7 @@ module.exports = {
         'orange': '#f85800',
         'neon': '#cfe800',
         'purple': '#9700ff',
+        'pink': '#ffcaf1'
       },
       keyframes: {
         wiggle: {
