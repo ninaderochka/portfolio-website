@@ -12,10 +12,11 @@ import skills5 from '../skills/skills-05.png';
 import skills6 from '../skills/skills-06.png';
 import skills7 from '../skills/skills-07.png';
 import skills8 from '../skills/skills-08.png';
-import PortfolioIsotope from './PortfolioIsotope'
 import shapeImage from '../shape.png';
 import formShape from '../formshape.png'
-
+import submitButton from '../submitbutton.png'
+import arrow from '../arrow.png'
+import PortfolioGrid from './PortfolioGrid';
 
 function Home() {
   const images = [
@@ -41,7 +42,6 @@ function Home() {
     e.preventDefault();
     console.log(`Submitting form with name=${name}, email=${email}, and message=${message}`);
   };
-
   return (
 <div className='bg-beige justify-center overflow-x-hidden'>
   
@@ -56,14 +56,14 @@ function Home() {
   <div className="relative flex-shrink-0 mt-10 md:mt-0">
   <img className="p-10 h-128 hidden md:block md:ml-24" src={nina} alt="nina" />
   <button
-  className={`h-52 w-52 absolute bottom-0 left-0 outline-none border-none cursor-pointer ${
+  className={`h-52 w-52 absolute bottom-0 translate-x-1/2 focus:outline-none border-none cursor-pointer ${
     wiggle ? 'animate-wiggle' : ''
   }`}
   onMouseEnter={() => setWiggle(true)}
   onMouseLeave={() => setWiggle(false)}
   style={wiggle ? { animation: 'wiggle 1s ease-in-out infinite' } : {}}
 >
-  <img className="hidden h-full w-full object-contain md:block outline-none border-none" src={button} alt="show me" />
+  <img className="hidden h-full w-full object-contain md:block focus:outline-none  border-none" src={button} alt="show me" />
 </button>
 
   <img className='absolute animate-spin h-48 w-48 bottom-0 right-0' src={spinner} alt="spin" />
@@ -79,7 +79,12 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
-    <PortfolioIsotope />
+    <section>
+      <div className='min-h-fit max-w-7xl mx-auto m-6'>
+
+   <PortfolioGrid />
+      </div>
+    </section>
     <section>
     <div className='bg-pink min-h-fit'>
   <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
@@ -90,7 +95,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
     <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
-    <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web deisgn</p>
+    <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web design</p>
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
     <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
@@ -99,29 +104,35 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 </div>
 </div>
     </section>
-    <section className='mx-auto'>
-    <div className='relative h-screen'>
+    <section className='mx-auto md:flex justify-evenly m-10'>
+    <div className='relative flex-row h-fit text-left'>
   <h1 className='text-orange font-agrandir text-8xl z-10 absolute'>let's<br /> talk</h1>
-  <div className="absolute top-0 transform translate-x-1/2">
-    <img className="h-60" src={formShape} alt="Shape" />
-    <a className="underline" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
+  <div className="absolute top-0 left-0 transform translate-x-3/4">
+    <img className="h-60 object-contain" src={formShape} alt="Shape" />
+    <a className="underline left-0" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
   </div>
-  <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+</div>
+
+<div className='md:flex'>
+
+  <form className="font-sans text-left w-96 ml-10" onSubmit={handleSubmit}>
+      <div className='bg-opacity-0 border-solid border-2 border-black p-2 mb-4'>
+        <input className=' bg-transparent w-full outline-none' type="text" id="name" placeholder="your name" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <div className='border-solid border-2 border-black fill-beige p-2 mb-4'>
+        <input className=' bg-transparent w-full outline-none' type="email" id="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </div>
-      <div>
-        <label htmlFor="message">Message:</label>
-        <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} />
+      <div className='border-solid border-2 border-black fill-beige p-2 mb-4 bg-transparent'>
+        <textarea className=' bg-transparent w-full outline-none' id="message" placeholder="your message" value={message} onChange={(e) => setMessage(e.target.value)} />
       </div>
-      <button type="submit">Submit</button>
+      <div className='flex gap-2 items-center'>
+
+      <button className="focus:outline-none" type="submit"><img className="h-24" src={submitButton} alt="submit"></img></button>
+      <img className="h-24" src={arrow} alt="arrow" />
+      </div>
     </form>
 </div>
+
     </section>
     <footer className='h-14 w-screen bg-orange flex justify-between mx-auto p-4 px-6 items-center'>
       <p className='font-sans text-xl'>© nina derochka</p>
