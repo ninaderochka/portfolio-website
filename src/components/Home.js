@@ -86,19 +86,19 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
       </div>
     </section>
     <section>
-    <div className='bg-pink min-h-fit'>
+    <div className='bg-pink min-h-fit grid grid-flow-row'>
   <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
   <div className='flex flex-wrap justify-center'>
   <div className='relative mx-2 md:mx-8 my-10 mt-20 md:flex'>
-    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <img className="md:h-80 h-24" src={shapeImage} alt="Shape" />
     <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>logo design</p>
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
-    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <img className="md:h-80 h-24" src={shapeImage} alt="Shape" />
     <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web design</p>
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
-    <img className="md:h-80 h-40" src={shapeImage} alt="Shape" />
+    <img className="md:h-80 h-24" src={shapeImage} alt="Shape" />
     <p className=' text-beige font-agrandir md:text-5xl text-2xl text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>visual identity</p>
   </div>
 </div>
