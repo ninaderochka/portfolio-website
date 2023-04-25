@@ -42,12 +42,18 @@ function Home() {
     e.preventDefault();
     console.log(`Submitting form with name=${name}, email=${email}, and message=${message}`);
   };
+
+  const handleClick = () => {
+    console.log("Link clicked");
+    const element = document.getElementById("portfolio-grid");
+    element.scrollIntoView({ behavior: "smooth" });
+  };
   return (
 <div className='bg-beige justify-center overflow-x-hidden'>
   
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto md:space-x-11 md:max-w-6xl md:justify-start">
   <div className="mx-auto max-w-md text-center md:text-left">
-    <h2 className="font-agrandir text-6.5xl text-orange whitespace-nowrap sm:mx-auto">hey there!</h2>
+    <h2 className="font-agrandir text-6.5xl text-orange whitespace-nowrap items-center">hey there!</h2>
     <h3 className="font-agrandir text-8xl text-orange py-5 whitespace-nowrap leading-12">I'm nina</h3>
     <p className="font-sans font-light text-3xl tracking-tight leading-9">
       I'm a professional pixel polisher &amp; front-end fanatic, with a passion for creating designs that are both beautiful &amp; functional.
@@ -55,6 +61,7 @@ function Home() {
   </div>
   <div className="relative flex-shrink-0 mt-10 md:mt-0">
   <img className="p-10 h-128 hidden md:block md:ml-24" src={nina} alt="nina" />
+ 
   <button
   className={`h-52 w-52 absolute bottom-0 translate-x-1/2 focus:outline-none border-none cursor-pointer ${
     wiggle ? 'animate-wiggle' : ''
@@ -62,9 +69,11 @@ function Home() {
   onMouseEnter={() => setWiggle(true)}
   onMouseLeave={() => setWiggle(false)}
   style={wiggle ? { animation: 'wiggle 1s ease-in-out infinite' } : {}}
+ onClick={handleClick}
 >
   <img className="hidden h-full w-full object-contain md:block focus:outline-none  border-none" src={button} alt="show me" />
 </button>
+
 
   <img className='absolute animate-spin h-48 w-48 bottom-0 right-0' src={spinner} alt="spin" />
   </div>
@@ -79,7 +88,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
-    <section>
+    <section id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
    <PortfolioGrid />
@@ -104,26 +113,27 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 </div>
 </div>
     </section>
-    <section className='mx-auto md:flex justify-evenly m-10'>
-    <div className='relative flex-row h-fit text-left'>
-  <h1 className='text-orange font-agrandir text-8xl z-10 absolute'>let's<br /> talk</h1>
-  <div className="absolute top-0 left-0 transform translate-x-3/4">
+    <section className='mx-auto md:flex md:justify-evenly m-10 space-y-9 md:space-y-0'>
+
+    <div className='relative h-fit text-left flex flex-col md:justify-between items-center'>
+  <h1 className='text-orange font-agrandir text-8xl relative z-10'>let's<br /> talk</h1>
+  <a className="underline flex justify-start text-2xl mt-14 md:mb-4" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
+  <div className="absolute top-0 left-0 z-0 transform translate-x-3/4">
     <img className="h-60 object-contain" src={formShape} alt="Shape" />
-    <a className="underline left-0" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
   </div>
 </div>
-
 <div className='md:flex'>
 
-  <form className="font-sans text-left w-96 ml-10" onSubmit={handleSubmit}>
+<form className="font-sans text-left flex flex-col justify-center items-center mx-auto" onSubmit={handleSubmit}>
+
       <div className='bg-opacity-0 border-solid border-2 border-black p-2 mb-4'>
-        <input className=' bg-transparent w-full outline-none' type="text" id="name" placeholder="your name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className='bg-transparent w-96 outline-none' type="text" id="name" placeholder="your name" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <div className='border-solid border-2 border-black fill-beige p-2 mb-4'>
-        <input className=' bg-transparent w-full outline-none' type="email" id="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input className=' bg-transparent w-96 outline-none' type="email" id="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className='border-solid border-2 border-black fill-beige p-2 mb-4 bg-transparent'>
-        <textarea className=' bg-transparent w-full outline-none' id="message" placeholder="your message" value={message} onChange={(e) => setMessage(e.target.value)} />
+        <textarea className=' bg-transparent w-96 outline-none' id="message" placeholder="your message" value={message} onChange={(e) => setMessage(e.target.value)} />
       </div>
       <div className='flex gap-2 items-center'>
 

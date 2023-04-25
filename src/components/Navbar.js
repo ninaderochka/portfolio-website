@@ -10,6 +10,7 @@ function Navbar() {
     const toggleNavbar = () => {
       setNavbarOpen(!navbarOpen);
     };
+
   return (
     <div>
 <main className="bg-beige h-20">
@@ -28,7 +29,7 @@ function Navbar() {
                 <span className="hidden text-2xl md:flex items-center mt-2">*</span>
                 <li className="flex items-center"><Link to="/Works">Works</Link></li>
                 <span className="hidden md:block text-2xl mt-2">*</span>
-                <li className="flex items-center"><Link to="/Contact">Contact</Link></li>
+                <li className="flex items-center"><Link to="/#contact">Contact</Link></li>
             </ul>
     </div>
         </div>
