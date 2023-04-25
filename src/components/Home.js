@@ -42,6 +42,11 @@ function Home() {
     e.preventDefault();
     console.log(`Submitting form with name=${name}, email=${email}, and message=${message}`);
   };
+  const handleClick = () => {
+    console.log("Link clicked");
+    const element = document.getElementById("portfolio-grid");
+    element.scrollIntoView({ behavior: "smooth" });
+  };
   return (
 <div className='bg-beige justify-center overflow-x-hidden'>
   
@@ -62,6 +67,7 @@ function Home() {
   onMouseEnter={() => setWiggle(true)}
   onMouseLeave={() => setWiggle(false)}
   style={wiggle ? { animation: 'wiggle 1s ease-in-out infinite' } : {}}
+  onClick={handleClick}
 >
   <img className="hidden h-full w-full object-contain md:block focus:outline-none  border-none" src={button} alt="show me" />
 </button>
@@ -80,7 +86,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
     <section>
-      <div className='min-h-fit max-w-7xl mx-auto m-6'>
+      <div id="portfolio-grid" className='min-h-fit max-w-7xl mx-auto m-6'>
 
    <PortfolioGrid />
       </div>
@@ -104,7 +110,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 </div>
 </div>
     </section>
-    <section className='mx-auto md:flex justify-evenly m-10'>
+    <section name="contact" id="contact" className='mx-auto md:flex justify-evenly m-10'>
     <div className='relative flex-row h-fit text-left'>
   <h1 className='text-orange font-agrandir text-8xl z-10 absolute'>let's<br /> talk</h1>
   <div className="absolute top-0 left-0 transform translate-x-3/4">
