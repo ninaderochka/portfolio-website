@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import CustomCursor from './CustomCursor';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Bio from './Bio';
@@ -26,6 +27,7 @@ function AppRouter() {
         <Route path="/" element={<PortfolioGrid projects={projects} />} />
         <Route path="/projects/:projectId" element={<ProjectDetails projects={projects} />} />
       </Routes>
+      <CustomCursor />
     </BrowserRouter>
   );
 }
