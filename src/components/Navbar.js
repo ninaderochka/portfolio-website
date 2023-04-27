@@ -1,16 +1,41 @@
 import React, { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink} from 'react-router-dom';
+import { Link as ScrollLink,  animateScroll } from 'react-scroll';
+
 
 
 function Navbar() {
 
     const [navbarOpen, setNavbarOpen] = useState(false);
-  
+
+
     // function to toggle navbar state
     const toggleNavbar = () => {
       setNavbarOpen(!navbarOpen);
     };
+
+    const handleWorksClick = () => {
+      if (window.location.pathname === '/') {
+        console.log(window.location.pathname);
+        // We are already on the homepage, so scroll to the portfolio section
+        window.scrollTo({
+          top: document.getElementById('portfolio-grid').offsetTop - 100,
+          behavior: 'smooth',
+        });
+      } else {
+        // We are on a different page, so navigate to the homepage and then scroll to the portfolio section
+        window.location.assign('/#portfolio-grid');
+        setTimeout(() => {
+          animateScroll.scrollTo('portfolio-grid', {
+            duration: 400,
+            offset: -100,
+            smooth: true,
+          });
+        }, 0);
+      }
+    };
+    
+    
   return (
     <div>
 <main className="bg-beige h-20">
@@ -27,17 +52,9 @@ function Navbar() {
             <ul className="font-sans font-medium text-lg flex flex-col p-4 border border-gray-100 rounded-lg items-center bg-beige md:border-0 md:p-0 mt-4 md:flex-row md:space-x-6 md:mt-0 md:ml-auto md:text-base">
                 <li className="flex items-center"><RouterLink to="/Bio">Bio</RouterLink></li>
                 <span className="hidden text-2xl md:flex items-center mt-2">*</span>
-                <li className="flex items-center cursor-pointer"> <ScrollLink
-    to="portfolio-grid"
-    smooth={true}
-    duration={400}
-    offset={-100} // adjust this value to your preference
-    spy={true}
-    exact="true"
-    activeClass="active"
-  >
-    Works
-  </ScrollLink></li>
+                <li className="flex items-center cursor-pointer"  onClick={handleWorksClick}>
+Works
+</li>
                 <span className="hidden md:block text-2xl mt-2">*</span>
                 <li className="flex items-center cursor-pointer"> <ScrollLink
     to="contact"

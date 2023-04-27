@@ -1,37 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CrossRoads from '../projects/CrossRoads.jpg'
-import MadLibz from '../projects/MadlibzCover.jpg'
-import Muggles from '../projects/MugglesCover.jpg'
-
-const projects = [
-  {
-    id: 'project1',
-    title: 'CrossRoads',
-    imageUrl: CrossRoads,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    id: 'project2',
-    title: 'Alice is Mad',
-    imageUrl: MadLibz,
-    description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    id: 'project2',
-    title: 'Fancy a Movie?',
-    imageUrl: Muggles,
-    description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  // Add more projects here
-];
+import projects from './data';
 
 const PortfolioGrid = () => {
   return (
     <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
       {projects.map(project => (
         <Link to={`/projects/${project.id}`} key={project.id}>
-          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+          <div className="relative h-full">
+            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-purple opacity-0 hover:opacity-70 flex items-center justify-center transition duration-300">
+              <h3 className="text-white font-sans text-lg uppercase font-medium opacity-100">{project.title}</h3>
+            </div>
+          </div>
         </Link>
       ))}
     </div>
@@ -39,3 +20,4 @@ const PortfolioGrid = () => {
 };
 
 export default PortfolioGrid;
+

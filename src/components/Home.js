@@ -95,7 +95,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
-    <section id="portfolio-grid" >
+    <section name="portfolio-grid" id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
    <PortfolioGrid />
