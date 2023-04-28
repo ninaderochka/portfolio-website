@@ -119,6 +119,7 @@ if (true) {
 /* unused harmony reexport UNSAFE_LocationContext */
 /* unused harmony reexport UNSAFE_NavigationContext */
 /* unused harmony reexport UNSAFE_RouteContext */
+/* unused harmony reexport UNSAFE_useRouteId */
 /* unused harmony reexport createMemoryRouter */
 /* unused harmony reexport createPath */
 /* unused harmony reexport createRoutesFromChildren */
@@ -148,7 +149,7 @@ if (true) {
 /* unused harmony reexport useNavigationType */
 /* unused harmony reexport useOutlet */
 /* unused harmony reexport useOutletContext */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1_react_router__["p"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1_react_router__["q"]; });
 /* unused harmony reexport useResolvedPath */
 /* unused harmony reexport useRevalidator */
 /* unused harmony reexport useRouteError */
@@ -156,7 +157,7 @@ if (true) {
 /* unused harmony reexport useRoutes */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__remix_run_router__ = __webpack_require__(7);
 /**
- * React Router DOM v6.10.0
+ * React Router DOM v6.11.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -274,16 +275,26 @@ function getSearchParamsForLocation(locationSearch, defaultSearchParams) {
 
   return searchParams;
 }
-function getFormSubmissionInfo(target, defaultAction, options) {
+function getFormSubmissionInfo(target, options, basename) {
   let method;
-  let action;
+  let action = null;
   let encType;
   let formData;
 
   if (isFormElement(target)) {
     let submissionTrigger = options.submissionTrigger;
+
+    if (options.action) {
+      action = options.action;
+    } else {
+      // When grabbing the action from the element, it will have had the basename
+      // prefixed to ensure non-JS scenarios work, so strip it since we'll
+      // re-prefix in the router
+      let attr = target.getAttribute("action");
+      action = attr ? Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["q" /* stripBasename */])(attr, basename) : null;
+    }
+
     method = options.method || target.getAttribute("method") || defaultMethod;
-    action = options.action || target.getAttribute("action") || defaultAction;
     encType = options.encType || target.getAttribute("enctype") || defaultEncType;
     formData = new FormData(target);
 
@@ -298,8 +309,17 @@ function getFormSubmissionInfo(target, defaultAction, options) {
     } // <button>/<input type="submit"> may override attributes of <form>
 
 
+    if (options.action) {
+      action = options.action;
+    } else {
+      // When grabbing the action from the element, it will have had the basename
+      // prefixed to ensure non-JS scenarios work, so strip it since we'll
+      // re-prefix in the router
+      let attr = target.getAttribute("formaction") || form.getAttribute("action");
+      action = attr ? Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["q" /* stripBasename */])(attr, basename) : null;
+    }
+
     method = options.method || target.getAttribute("formmethod") || form.getAttribute("method") || defaultMethod;
-    action = options.action || target.getAttribute("formaction") || form.getAttribute("action") || defaultAction;
     encType = options.encType || target.getAttribute("formenctype") || form.getAttribute("enctype") || defaultEncType;
     formData = new FormData(form); // Include name + value from a <button>, appending in case the button name
     // matches an existing input name
@@ -311,7 +331,7 @@ function getFormSubmissionInfo(target, defaultAction, options) {
     throw new Error("Cannot submit element that is not <form>, <button>, or " + "<input type=\"submit|image\">");
   } else {
     method = options.method || defaultMethod;
-    action = options.action || defaultAction;
+    action = options.action || null;
     encType = options.encType || defaultEncType;
 
     if (target instanceof FormData) {
@@ -331,13 +351,8 @@ function getFormSubmissionInfo(target, defaultAction, options) {
     }
   }
 
-  let {
-    protocol,
-    host
-  } = window.location;
-  let url = new URL(action, protocol + "//" + host);
   return {
-    url,
+    action,
     method: method.toLowerCase(),
     encType,
     formData
@@ -350,25 +365,29 @@ const _excluded = ["onClick", "relative", "reloadDocument", "replace", "state", 
 function createBrowserRouter(routes, opts) {
   return Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["j" /* createRouter */])({
     basename: opts == null ? void 0 : opts.basename,
-    future: opts == null ? void 0 : opts.future,
+    future: _extends({}, opts == null ? void 0 : opts.future, {
+      v7_prependBasename: true
+    }),
     history: Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["f" /* createBrowserHistory */])({
       window: opts == null ? void 0 : opts.window
     }),
     hydrationData: (opts == null ? void 0 : opts.hydrationData) || parseHydrationData(),
     routes,
-    detectErrorBoundary: __WEBPACK_IMPORTED_MODULE_1_react_router__["h" /* UNSAFE_detectErrorBoundary */]
+    mapRouteProperties: __WEBPACK_IMPORTED_MODULE_1_react_router__["h" /* UNSAFE_mapRouteProperties */]
   }).initialize();
 }
 function createHashRouter(routes, opts) {
   return Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["j" /* createRouter */])({
     basename: opts == null ? void 0 : opts.basename,
-    future: opts == null ? void 0 : opts.future,
+    future: _extends({}, opts == null ? void 0 : opts.future, {
+      v7_prependBasename: true
+    }),
     history: Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["g" /* createHashHistory */])({
       window: opts == null ? void 0 : opts.window
     }),
     hydrationData: (opts == null ? void 0 : opts.hydrationData) || parseHydrationData(),
     routes,
-    detectErrorBoundary: __WEBPACK_IMPORTED_MODULE_1_react_router__["h" /* UNSAFE_detectErrorBoundary */]
+    mapRouteProperties: __WEBPACK_IMPORTED_MODULE_1_react_router__["h" /* UNSAFE_mapRouteProperties */]
   }).initialize();
 }
 
@@ -538,21 +557,26 @@ const Link = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["forwardRef"](func
     absoluteHref = to; // Only check for external origins client-side
 
     if (isBrowser) {
-      let currentUrl = new URL(window.location.href);
-      let targetUrl = to.startsWith("//") ? new URL(currentUrl.protocol + to) : new URL(to);
-      let path = Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["q" /* stripBasename */])(targetUrl.pathname, basename);
+      try {
+        let currentUrl = new URL(window.location.href);
+        let targetUrl = to.startsWith("//") ? new URL(currentUrl.protocol + to) : new URL(to);
+        let path = Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["q" /* stripBasename */])(targetUrl.pathname, basename);
 
-      if (targetUrl.origin === currentUrl.origin && path != null) {
-        // Strip the protocol/origin/basename for same-origin absolute URLs
-        to = path + targetUrl.search + targetUrl.hash;
-      } else {
-        isExternal = true;
+        if (targetUrl.origin === currentUrl.origin && path != null) {
+          // Strip the protocol/origin/basename for same-origin absolute URLs
+          to = path + targetUrl.search + targetUrl.hash;
+        } else {
+          isExternal = true;
+        }
+      } catch (e) {
+        // We can't do external URL detection without a valid URL
+         false ? UNSAFE_warning(false, "<Link to=\"" + to + "\"> contains an invalid URL which will probably break " + "when clicked - please update to a valid URL path.") : void 0;
       }
     }
   } // Rendered into <a href> for relative URLs
 
 
-  let href = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["k" /* useHref */])(to, {
+  let href = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useHref */])(to, {
     relative
   });
   let internalOnClick = useLinkClickHandler(to, {
@@ -603,10 +627,10 @@ const NavLink = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["forwardRef"](f
   } = _ref5,
       rest = _objectWithoutPropertiesLoose(_ref5, _excluded2);
 
-  let path = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["q" /* useResolvedPath */])(to, {
+  let path = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["r" /* useResolvedPath */])(to, {
     relative: rest.relative
   });
-  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useLocation */])();
+  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useLocation */])();
   let routerState = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](__WEBPACK_IMPORTED_MODULE_1_react_router__["e" /* UNSAFE_DataRouterStateContext */]);
   let {
     navigator
@@ -793,9 +817,9 @@ function useLinkClickHandler(to, _temp) {
     preventScrollReset,
     relative
   } = _temp === void 0 ? {} : _temp;
-  let navigate = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["n" /* useNavigate */])();
-  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useLocation */])();
-  let path = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["q" /* useResolvedPath */])(to, {
+  let navigate = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["o" /* useNavigate */])();
+  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useLocation */])();
+  let path = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["r" /* useResolvedPath */])(to, {
     relative
   });
   return __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"](event => {
@@ -803,7 +827,7 @@ function useLinkClickHandler(to, _temp) {
       event.preventDefault(); // If the URL hasn't changed, a regular <a> will do a replace instead of
       // a push, so do the same here unless the replace prop is explicitly set
 
-      let replace = replaceProp !== undefined ? replaceProp : Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["i" /* createPath */])(location) === Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["i" /* createPath */])(path);
+      let replace = replaceProp !== undefined ? replaceProp : Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["j" /* createPath */])(location) === Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["j" /* createPath */])(path);
       navigate(to, {
         replace,
         state,
@@ -822,12 +846,12 @@ function useSearchParams(defaultInit) {
    false ? UNSAFE_warning(typeof URLSearchParams !== "undefined", "You cannot use the `useSearchParams` hook in a browser that does not " + "support the URLSearchParams API. If you need to support Internet " + "Explorer 11, we recommend you load a polyfill such as " + "https://github.com/ungap/url-search-params\n\n" + "If you're unsure how to load polyfills, we recommend you check out " + "https://polyfill.io/v3/ which provides some recommendations about how " + "to load polyfills only for users that need them, instead of for every " + "user.") : void 0;
   let defaultSearchParamsRef = __WEBPACK_IMPORTED_MODULE_0_react__["useRef"](createSearchParams(defaultInit));
   let hasSetSearchParamsRef = __WEBPACK_IMPORTED_MODULE_0_react__["useRef"](false);
-  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useLocation */])();
+  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useLocation */])();
   let searchParams = __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => // Only merge in the defaults if we haven't yet called setSearchParams.
   // Once we call that we want those to take precedence, otherwise you can't
   // remove a param with setSearchParams({}) if it has an initial value
   getSearchParamsForLocation(location.search, hasSetSearchParamsRef.current ? null : defaultSearchParamsRef.current), [location.search]);
-  let navigate = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["n" /* useNavigate */])();
+  let navigate = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["o" /* useNavigate */])();
   let setSearchParams = __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"]((nextInit, navigateOptions) => {
     const newSearchParams = createSearchParams(typeof nextInit === "function" ? nextInit(searchParams) : nextInit);
     hasSetSearchParamsRef.current = true;
@@ -844,11 +868,14 @@ function useSubmit() {
   return useSubmitImpl();
 }
 
-function useSubmitImpl(fetcherKey, routeId) {
+function useSubmitImpl(fetcherKey, fetcherRouteId) {
   let {
     router
   } = useDataRouterContext(DataRouterHook.UseSubmitImpl);
-  let defaultAction = useFormAction();
+  let {
+    basename
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](__WEBPACK_IMPORTED_MODULE_1_react_router__["f" /* UNSAFE_NavigationContext */]);
+  let currentRouteId = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["i" /* UNSAFE_useRouteId */])();
   return __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"](function (target, options) {
     if (options === void 0) {
       options = {};
@@ -859,14 +886,13 @@ function useSubmitImpl(fetcherKey, routeId) {
     }
 
     let {
+      action,
       method,
       encType,
-      formData,
-      url
-    } = getFormSubmissionInfo(target, defaultAction, options);
-    let href = url.pathname + url.search;
+      formData
+    } = getFormSubmissionInfo(target, options, basename); // Base options shared between fetch() and navigate()
+
     let opts = {
-      replace: options.replace,
       preventScrollReset: options.preventScrollReset,
       formData,
       formMethod: method,
@@ -874,13 +900,18 @@ function useSubmitImpl(fetcherKey, routeId) {
     };
 
     if (fetcherKey) {
-      !(routeId != null) ?  false ? UNSAFE_invariant(false, "No routeId available for useFetcher()") : Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
-      router.fetch(fetcherKey, routeId, href, opts);
+      !(fetcherRouteId != null) ?  false ? UNSAFE_invariant(false, "No routeId available for useFetcher()") : Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+      router.fetch(fetcherKey, fetcherRouteId, action, opts);
     } else {
-      router.navigate(href, opts);
+      router.navigate(action, _extends({}, opts, {
+        replace: options.replace,
+        fromRouteId: currentRouteId
+      }));
     }
-  }, [defaultAction, router, fetcherKey, routeId]);
-}
+  }, [router, basename, fetcherKey, fetcherRouteId, currentRouteId]);
+} // v7: Eventually we should deprecate this entirely in favor of using the
+// router method directly?
+
 
 function useFormAction(action, _temp2) {
   let {
@@ -894,7 +925,7 @@ function useFormAction(action, _temp2) {
   let [match] = routeContext.matches.slice(-1); // Shallow clone path so we can modify it below, otherwise we modify the
   // object referenced by useMemo inside useResolvedPath
 
-  let path = _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["q" /* useResolvedPath */])(action ? action : ".", {
+  let path = _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["r" /* useResolvedPath */])(action ? action : ".", {
     relative
   })); // Previously we set the default action to ".". The problem with this is that
   // `useResolvedPath(".")` excludes search params and the hash of the resolved
@@ -903,7 +934,7 @@ function useFormAction(action, _temp2) {
   // https://github.com/remix-run/remix/issues/927
 
 
-  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useLocation */])();
+  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useLocation */])();
 
   if (action == null) {
     // Safe to write to these directly here since if action was undefined, we
@@ -933,7 +964,7 @@ function useFormAction(action, _temp2) {
     path.pathname = path.pathname === "/" ? basename : Object(__WEBPACK_IMPORTED_MODULE_2__remix_run_router__["l" /* joinPaths */])([basename, path.pathname]);
   }
 
-  return Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["i" /* createPath */])(path);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["j" /* createPath */])(path);
 }
 
 function createFetcherForm(fetcherKey, routeId) {
@@ -991,7 +1022,7 @@ function useFetcher() {
     // fetcher is no longer around.
     return () => {
       if (!router) {
-        console.warn("No fetcher available to clean up from useFetcher()");
+        console.warn("No router available to clean up from useFetcher()");
         return;
       }
 
@@ -1027,9 +1058,9 @@ function useScrollRestoration(_temp3) {
     restoreScrollPosition,
     preventScrollReset
   } = useDataRouterState(DataRouterStateHook.UseScrollRestoration);
-  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["l" /* useLocation */])();
-  let matches = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useMatches */])();
-  let navigation = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["o" /* useNavigation */])(); // Trigger manual scroll restoration while we're active
+  let location = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["m" /* useLocation */])();
+  let matches = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["n" /* useMatches */])();
+  let navigation = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["p" /* useNavigation */])(); // Trigger manual scroll restoration while we're active
 
   __WEBPACK_IMPORTED_MODULE_0_react__["useEffect"](() => {
     window.history.scrollRestoration = "manual";
@@ -1161,7 +1192,7 @@ function usePrompt(_ref8) {
     when,
     message
   } = _ref8;
-  let blocker = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["j" /* unstable_useBlocker */])(when);
+  let blocker = Object(__WEBPACK_IMPORTED_MODULE_1_react_router__["k" /* unstable_useBlocker */])(when);
   __WEBPACK_IMPORTED_MODULE_0_react__["useEffect"](() => {
     if (blocker.state === "blocked" && !when) {
       blocker.reset();
@@ -1624,7 +1655,7 @@ if (true) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return resolveTo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return stripBasename; });
 /**
- * @remix-run/router v1.5.0
+ * @remix-run/router v1.6.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -2159,7 +2190,7 @@ function isIndexRoute(route) {
 // solely with AgnosticDataRouteObject's within the Router
 
 
-function convertRoutesToDataRoutes(routes, detectErrorBoundary, parentPath, manifest) {
+function convertRoutesToDataRoutes(routes, mapRouteProperties, parentPath, manifest) {
   if (parentPath === void 0) {
     parentPath = [];
   }
@@ -2175,24 +2206,22 @@ function convertRoutesToDataRoutes(routes, detectErrorBoundary, parentPath, mani
     invariant(!manifest[id], "Found a route id collision on id \"" + id + "\".  Route " + "id's must be globally unique within Data Router usages");
 
     if (isIndexRoute(route)) {
-      let indexRoute = _extends({}, route, {
-        hasErrorBoundary: detectErrorBoundary(route),
+      let indexRoute = _extends({}, route, mapRouteProperties(route), {
         id
       });
 
       manifest[id] = indexRoute;
       return indexRoute;
     } else {
-      let pathOrLayoutRoute = _extends({}, route, {
+      let pathOrLayoutRoute = _extends({}, route, mapRouteProperties(route), {
         id,
-        hasErrorBoundary: detectErrorBoundary(route),
         children: undefined
       });
 
       manifest[id] = pathOrLayoutRoute;
 
       if (route.children) {
-        pathOrLayoutRoute.children = convertRoutesToDataRoutes(route.children, detectErrorBoundary, treePath, manifest);
+        pathOrLayoutRoute.children = convertRoutesToDataRoutes(route.children, mapRouteProperties, treePath, manifest);
       }
 
       return pathOrLayoutRoute;
@@ -3044,7 +3073,9 @@ const ABSOLUTE_URL_REGEX = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 const isServer = !isBrowser;
 
-const defaultDetectErrorBoundary = route => Boolean(route.hasErrorBoundary); //#endregion
+const defaultMapRouteProperties = route => ({
+  hasErrorBoundary: Boolean(route.hasErrorBoundary)
+}); //#endregion
 ////////////////////////////////////////////////////////////////////////////////
 //#region createRouter
 ////////////////////////////////////////////////////////////////////////////////
@@ -3056,15 +3087,31 @@ const defaultDetectErrorBoundary = route => Boolean(route.hasErrorBoundary); //#
 
 function createRouter(init) {
   invariant(init.routes.length > 0, "You must provide a non-empty routes array to createRouter");
-  let detectErrorBoundary = init.detectErrorBoundary || defaultDetectErrorBoundary; // Routes keyed by ID
+  let mapRouteProperties;
+
+  if (init.mapRouteProperties) {
+    mapRouteProperties = init.mapRouteProperties;
+  } else if (init.detectErrorBoundary) {
+    // If they are still using the deprecated version, wrap it with the new API
+    let detectErrorBoundary = init.detectErrorBoundary;
+
+    mapRouteProperties = route => ({
+      hasErrorBoundary: detectErrorBoundary(route)
+    });
+  } else {
+    mapRouteProperties = defaultMapRouteProperties;
+  } // Routes keyed by ID
+
 
   let manifest = {}; // Routes in tree format for matching
 
-  let dataRoutes = convertRoutesToDataRoutes(init.routes, detectErrorBoundary, undefined, manifest);
-  let inFlightDataRoutes; // Config driven behavior flags
+  let dataRoutes = convertRoutesToDataRoutes(init.routes, mapRouteProperties, undefined, manifest);
+  let inFlightDataRoutes;
+  let basename = init.basename || "/"; // Config driven behavior flags
 
   let future = _extends({
-    v7_normalizeFormMethod: false
+    v7_normalizeFormMethod: false,
+    v7_prependBasename: false
   }, init.future); // Cleanup function for history
 
 
@@ -3084,7 +3131,7 @@ function createRouter(init) {
   // SSR did the initial scroll restoration.
 
   let initialScrollRestored = init.hydrationData != null;
-  let initialMatches = matchRoutes(dataRoutes, init.history.location, init.basename);
+  let initialMatches = matchRoutes(dataRoutes, init.history.location, basename);
   let initialErrors = null;
 
   if (initialMatches == null) {
@@ -3136,7 +3183,7 @@ function createRouter(init) {
 
   let isUninterruptedRevalidation = false; // Use this internal flag to force revalidation of all loaders:
   //  - submissions (completed or interrupted)
-  //  - useRevalidate()
+  //  - useRevalidator()
   //  - X-Remix-Revalidate (from redirect)
 
   let isRevalidationRequired = false; // Use this internal array to capture routes that require revalidation due
@@ -3155,7 +3202,7 @@ function createRouter(init) {
 
   let pendingNavigationLoadId = -1; // Fetchers that triggered data reloads as a result of their actions
 
-  let fetchReloadIds = new Map(); // Fetchers that triggered redirect navigations from their actions
+  let fetchReloadIds = new Map(); // Fetchers that triggered redirect navigations
 
   let fetchRedirectIds = new Set(); // Most recent href/match for fetcher.load calls for fetchers
 
@@ -3351,11 +3398,12 @@ function createRouter(init) {
       return;
     }
 
+    let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, to, opts == null ? void 0 : opts.fromRouteId, opts == null ? void 0 : opts.relative);
     let {
       path,
       submission,
       error
-    } = normalizeNavigateOptions(to, future, opts);
+    } = normalizeNavigateOptions(future.v7_normalizeFormMethod, false, normalizedPath, opts);
     let currentLocation = state.location;
     let nextLocation = createLocation(state.location, path, opts && opts.state); // When using navigate as a PUSH/REPLACE we aren't reading an already-encoded
     // URL from window.location, so we need to encode it here so the behavior
@@ -3471,7 +3519,7 @@ function createRouter(init) {
     pendingPreventScrollReset = (opts && opts.preventScrollReset) === true;
     let routesToUse = inFlightDataRoutes || dataRoutes;
     let loadingNavigation = opts && opts.overrideNavigation;
-    let matches = matchRoutes(routesToUse, location, init.basename); // Short circuit with a 404 on the root error boundary if we match nothing
+    let matches = matchRoutes(routesToUse, location, basename); // Short circuit with a 404 on the root error boundary if we match nothing
 
     if (!matches) {
       let error = getInternalRouterError(404, {
@@ -3594,7 +3642,7 @@ function createRouter(init) {
         })
       };
     } else {
-      result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, detectErrorBoundary, router.basename);
+      result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename);
 
       if (request.signal.aborted) {
         return {
@@ -3686,13 +3734,14 @@ function createRouter(init) {
       formEncType: loadingNavigation.formEncType
     } : undefined;
     let routesToUse = inFlightDataRoutes || dataRoutes;
-    let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, activeSubmission, location, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, fetchLoadMatches, routesToUse, init.basename, pendingActionData, pendingError); // Cancel pending deferreds for no-longer-matched routes or routes we're
+    let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, activeSubmission, location, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, fetchLoadMatches, routesToUse, basename, pendingActionData, pendingError); // Cancel pending deferreds for no-longer-matched routes or routes we're
     // about to reload.  Note that if this is an action reload we would have
     // already cancelled all pending deferreds so this would be a no-op
 
     cancelActiveDeferreds(routeId => !(matches && matches.some(m => m.route.id === routeId)) || matchesToLoad && matchesToLoad.some(m => m.route.id === routeId)); // Short circuit if we have no loaders to run
 
     if (matchesToLoad.length === 0 && revalidatingFetchers.length === 0) {
+      let updatedFetchers = markFetchRedirectsDone();
       completeNavigation(location, _extends({
         matches,
         loaderData: {},
@@ -3700,6 +3749,8 @@ function createRouter(init) {
         errors: pendingError || null
       }, pendingActionData ? {
         actionData: pendingActionData
+      } : {}, updatedFetchers ? {
+        fetchers: new Map(state.fetchers)
       } : {}));
       return {
         shortCircuited: true
@@ -3737,7 +3788,21 @@ function createRouter(init) {
     }
 
     pendingNavigationLoadId = ++incrementingLoadId;
-    revalidatingFetchers.forEach(rf => fetchControllers.set(rf.key, pendingNavigationController));
+    revalidatingFetchers.forEach(rf => {
+      if (rf.controller) {
+        // Fetchers use an independent AbortController so that aborting a fetcher
+        // (via deleteFetcher) does not abort the triggering navigation that
+        // triggered the revalidation
+        fetchControllers.set(rf.key, rf.controller);
+      }
+    }); // Proxy navigation abort through to revalidation fetchers
+
+    let abortPendingFetchRevalidations = () => revalidatingFetchers.forEach(f => abortFetcher(f.key));
+
+    if (pendingNavigationController) {
+      pendingNavigationController.signal.addEventListener("abort", abortPendingFetchRevalidations);
+    }
+
     let {
       results,
       loaderResults,
@@ -3752,6 +3817,10 @@ function createRouter(init) {
     // circuited because fetchControllers would have been aborted and
     // reassigned to new controllers for the next navigation
 
+
+    if (pendingNavigationController) {
+      pendingNavigationController.signal.removeEventListener("abort", abortPendingFetchRevalidations);
+    }
 
     revalidatingFetchers.forEach(rf => fetchControllers.delete(rf.key)); // If any loaders returned a redirect Response, start a new REPLACE navigation
 
@@ -3782,12 +3851,13 @@ function createRouter(init) {
         }
       });
     });
-    markFetchRedirectsDone();
+    let updatedFetchers = markFetchRedirectsDone();
     let didAbortFetchLoads = abortStaleFetchLoads(pendingNavigationLoadId);
+    let shouldUpdateFetchers = updatedFetchers || didAbortFetchLoads || revalidatingFetchers.length > 0;
     return _extends({
       loaderData,
       errors
-    }, didAbortFetchLoads || revalidatingFetchers.length > 0 ? {
+    }, shouldUpdateFetchers ? {
       fetchers: new Map(state.fetchers)
     } : {});
   }
@@ -3804,11 +3874,12 @@ function createRouter(init) {
 
     if (fetchControllers.has(key)) abortFetcher(key);
     let routesToUse = inFlightDataRoutes || dataRoutes;
-    let matches = matchRoutes(routesToUse, href, init.basename);
+    let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, href, routeId, opts == null ? void 0 : opts.relative);
+    let matches = matchRoutes(routesToUse, normalizedPath, basename);
 
     if (!matches) {
       setFetcherError(key, routeId, getInternalRouterError(404, {
-        pathname: href
+        pathname: normalizedPath
       }));
       return;
     }
@@ -3816,7 +3887,7 @@ function createRouter(init) {
     let {
       path,
       submission
-    } = normalizeNavigateOptions(href, future, opts, true);
+    } = normalizeNavigateOptions(future.v7_normalizeFormMethod, true, normalizedPath, opts);
     let match = getTargetMatch(matches, path);
     pendingPreventScrollReset = (opts && opts.preventScrollReset) === true;
 
@@ -3868,7 +3939,7 @@ function createRouter(init) {
     let abortController = new AbortController();
     let fetchRequest = createClientSideRequest(init.history, path, abortController.signal, submission);
     fetchControllers.set(key, abortController);
-    let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, detectErrorBoundary, router.basename);
+    let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, mapRouteProperties, basename);
 
     if (fetchRequest.signal.aborted) {
       // We can delete this so long as we weren't aborted by ou our own fetcher
@@ -3918,7 +3989,7 @@ function createRouter(init) {
     let nextLocation = state.navigation.location || state.location;
     let revalidationRequest = createClientSideRequest(init.history, nextLocation, abortController.signal);
     let routesToUse = inFlightDataRoutes || dataRoutes;
-    let matches = state.navigation.state !== "idle" ? matchRoutes(routesToUse, state.navigation.location, init.basename) : state.matches;
+    let matches = state.navigation.state !== "idle" ? matchRoutes(routesToUse, state.navigation.location, basename) : state.matches;
     invariant(matches, "Didn't find any matches after fetcher action");
     let loadId = ++incrementingLoadId;
     fetchReloadIds.set(key, loadId);
@@ -3931,7 +4002,7 @@ function createRouter(init) {
     });
 
     state.fetchers.set(key, loadFetcher);
-    let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, submission, nextLocation, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, fetchLoadMatches, routesToUse, init.basename, {
+    let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, submission, nextLocation, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, fetchLoadMatches, routesToUse, basename, {
       [match.route.id]: actionResult.data
     }, undefined // No need to send through errors since we short circuit above
     ); // Put all revalidating fetchers into the loading state, except for the
@@ -3951,11 +4022,18 @@ function createRouter(init) {
         " _hasFetcherDoneAnything ": true
       };
       state.fetchers.set(staleKey, revalidatingFetcher);
-      fetchControllers.set(staleKey, abortController);
+
+      if (rf.controller) {
+        fetchControllers.set(staleKey, rf.controller);
+      }
     });
     updateState({
       fetchers: new Map(state.fetchers)
     });
+
+    let abortPendingFetchRevalidations = () => revalidatingFetchers.forEach(rf => abortFetcher(rf.key));
+
+    abortController.signal.addEventListener("abort", abortPendingFetchRevalidations);
     let {
       results,
       loaderResults,
@@ -3966,6 +4044,7 @@ function createRouter(init) {
       return;
     }
 
+    abortController.signal.removeEventListener("abort", abortPendingFetchRevalidations);
     fetchReloadIds.delete(key);
     fetchControllers.delete(key);
     revalidatingFetchers.forEach(r => fetchControllers.delete(r.key));
@@ -4040,14 +4119,14 @@ function createRouter(init) {
     let abortController = new AbortController();
     let fetchRequest = createClientSideRequest(init.history, path, abortController.signal);
     fetchControllers.set(key, abortController);
-    let result = await callLoaderOrAction("loader", fetchRequest, match, matches, manifest, detectErrorBoundary, router.basename); // Deferred isn't supported for fetcher loads, await everything and treat it
+    let result = await callLoaderOrAction("loader", fetchRequest, match, matches, manifest, mapRouteProperties, basename); // Deferred isn't supported for fetcher loads, await everything and treat it
     // as a normal load.  resolveDeferredData will return undefined if this
     // fetcher gets aborted, so we just leave result untouched and short circuit
     // below if that happens
 
     if (isDeferredResult(result)) {
       result = (await resolveDeferredData(result, fetchRequest.signal, true)) || result;
-    } // We can delete this so long as we weren't aborted by ou our own fetcher
+    } // We can delete this so long as we weren't aborted by our our own fetcher
     // re-load which would have put _new_ controller is in fetchControllers
 
 
@@ -4061,6 +4140,7 @@ function createRouter(init) {
 
 
     if (isRedirectResult(result)) {
+      fetchRedirectIds.add(key);
       await startRedirectNavigation(state, result);
       return;
     } // Process any non-redirect errors thrown
@@ -4141,7 +4221,7 @@ function createRouter(init) {
 
     if (ABSOLUTE_URL_REGEX.test(redirect.location) && isBrowser && typeof ((_window = window) == null ? void 0 : _window.location) !== "undefined") {
       let url = init.history.createURL(redirect.location);
-      let isDifferentBasename = stripBasename(url.pathname, init.basename || "/") == null;
+      let isDifferentBasename = stripBasename(url.pathname, basename) == null;
 
       if (window.location.origin !== url.origin || isDifferentBasename) {
         if (replace) {
@@ -4225,9 +4305,9 @@ function createRouter(init) {
     // Call all navigation loaders and revalidating fetcher loaders in parallel,
     // then slice off the results into separate arrays so we can handle them
     // accordingly
-    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, manifest, detectErrorBoundary, router.basename)), ...fetchersToLoad.map(f => {
-      if (f.matches && f.match) {
-        return callLoaderOrAction("loader", createClientSideRequest(init.history, f.path, request.signal), f.match, f.matches, manifest, detectErrorBoundary, router.basename);
+    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename)), ...fetchersToLoad.map(f => {
+      if (f.matches && f.match && f.controller) {
+        return callLoaderOrAction("loader", createClientSideRequest(init.history, f.path, f.controller.signal), f.match, f.matches, manifest, mapRouteProperties, basename);
       } else {
         let error = {
           type: ResultType.error,
@@ -4240,7 +4320,7 @@ function createRouter(init) {
     })]);
     let loaderResults = results.slice(0, matchesToLoad.length);
     let fetcherResults = results.slice(matchesToLoad.length);
-    await Promise.all([resolveDeferredResults(currentMatches, matchesToLoad, loaderResults, request.signal, false, state.loaderData), resolveDeferredResults(currentMatches, fetchersToLoad.map(f => f.match), fetcherResults, request.signal, true)]);
+    await Promise.all([resolveDeferredResults(currentMatches, matchesToLoad, loaderResults, loaderResults.map(() => request.signal), false, state.loaderData), resolveDeferredResults(currentMatches, fetchersToLoad.map(f => f.match), fetcherResults, fetchersToLoad.map(f => f.controller ? f.controller.signal : null), true)]);
     return {
       results,
       loaderResults,
@@ -4307,6 +4387,7 @@ function createRouter(init) {
 
   function markFetchRedirectsDone() {
     let doneKeys = [];
+    let updatedFetchers = false;
 
     for (let key of fetchRedirectIds) {
       let fetcher = state.fetchers.get(key);
@@ -4315,10 +4396,12 @@ function createRouter(init) {
       if (fetcher.state === "loading") {
         fetchRedirectIds.delete(key);
         doneKeys.push(key);
+        updatedFetchers = true;
       }
     }
 
     markFetchersDone(doneKeys);
+    return updatedFetchers;
   }
 
   function abortStaleFetchLoads(landedId) {
@@ -4478,7 +4561,7 @@ function createRouter(init) {
 
   router = {
     get basename() {
-      return init.basename;
+      return basename;
     },
 
     get state() {
@@ -4520,9 +4603,23 @@ const UNSAFE_DEFERRED_SYMBOL = Symbol("deferred");
 function createStaticHandler(routes, opts) {
   invariant(routes.length > 0, "You must provide a non-empty routes array to createStaticHandler");
   let manifest = {};
-  let detectErrorBoundary = (opts == null ? void 0 : opts.detectErrorBoundary) || defaultDetectErrorBoundary;
-  let dataRoutes = convertRoutesToDataRoutes(routes, detectErrorBoundary, undefined, manifest);
   let basename = (opts ? opts.basename : null) || "/";
+  let mapRouteProperties;
+
+  if (opts != null && opts.mapRouteProperties) {
+    mapRouteProperties = opts.mapRouteProperties;
+  } else if (opts != null && opts.detectErrorBoundary) {
+    // If they are still using the deprecated version, wrap it with the new API
+    let detectErrorBoundary = opts.detectErrorBoundary;
+
+    mapRouteProperties = route => ({
+      hasErrorBoundary: detectErrorBoundary(route)
+    });
+  } else {
+    mapRouteProperties = defaultMapRouteProperties;
+  }
+
+  let dataRoutes = convertRoutesToDataRoutes(routes, mapRouteProperties, undefined, manifest);
   /**
    * The query() method is intended for document requests, in which we want to
    * call an optional action and potentially multiple loaders for all nested
@@ -4759,7 +4856,7 @@ function createStaticHandler(routes, opts) {
         error
       };
     } else {
-      result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, detectErrorBoundary, basename, true, isRouteRequest, requestContext);
+      result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename, true, isRouteRequest, requestContext);
 
       if (request.signal.aborted) {
         let method = isRouteRequest ? "queryRoute" : "query";
@@ -4882,7 +4979,7 @@ function createStaticHandler(routes, opts) {
       };
     }
 
-    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, manifest, detectErrorBoundary, basename, true, isRouteRequest, requestContext))]);
+    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename, true, isRouteRequest, requestContext))]);
 
     if (request.signal.aborted) {
       let method = isRouteRequest ? "queryRoute" : "query";
@@ -4933,17 +5030,62 @@ function getStaticContextFromError(routes, context, error) {
 
 function isSubmissionNavigation(opts) {
   return opts != null && "formData" in opts;
+}
+
+function normalizeTo(location, matches, basename, prependBasename, to, fromRouteId, relative) {
+  let contextualMatches;
+  let activeRouteMatch;
+
+  if (fromRouteId != null && relative !== "path") {
+    // Grab matches up to the calling route so our route-relative logic is
+    // relative to the correct source route.  When using relative:path,
+    // fromRouteId is ignored since that is always relative to the current
+    // location path
+    contextualMatches = [];
+
+    for (let match of matches) {
+      contextualMatches.push(match);
+
+      if (match.route.id === fromRouteId) {
+        activeRouteMatch = match;
+        break;
+      }
+    }
+  } else {
+    contextualMatches = matches;
+    activeRouteMatch = matches[matches.length - 1];
+  } // Resolve the relative path
+
+
+  let path = resolveTo(to ? to : ".", getPathContributingMatches(contextualMatches).map(m => m.pathnameBase), location.pathname, relative === "path"); // When `to` is not specified we inherit search/hash from the current
+  // location, unlike when to="." and we just inherit the path.
+  // See https://github.com/remix-run/remix/issues/927
+
+  if (to == null) {
+    path.search = location.search;
+    path.hash = location.hash;
+  } // Add an ?index param for matched index routes if we don't already have one
+
+
+  if ((to == null || to === "" || to === ".") && activeRouteMatch && activeRouteMatch.route.index && !hasNakedIndexQuery(path.search)) {
+    path.search = path.search ? path.search.replace(/^\?/, "?index&") : "?index";
+  } // If we're operating within a basename, prepend it to the pathname.  If
+  // this is a root navigation, then just use the raw basename which allows
+  // the basename to have full control over the presence of a trailing slash
+  // on root actions
+
+
+  if (prependBasename && basename !== "/") {
+    path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
+  }
+
+  return createPath(path);
 } // Normalize navigation options by converting formMethod=GET formData objects to
 // URLSearchParams so they behave identically to links with query params
 
 
-function normalizeNavigateOptions(to, future, opts, isFetcher) {
-  if (isFetcher === void 0) {
-    isFetcher = false;
-  }
-
-  let path = typeof to === "string" ? to : createPath(to); // Return location verbatim on non-submission navigations
-
+function normalizeNavigateOptions(normalizeFormMethod, isFetcher, path, opts) {
+  // Return location verbatim on non-submission navigations
   if (!opts || !isSubmissionNavigation(opts)) {
     return {
       path
@@ -4965,7 +5107,7 @@ function normalizeNavigateOptions(to, future, opts, isFetcher) {
   if (opts.formData) {
     let formMethod = opts.formMethod || "get";
     submission = {
-      formMethod: future.v7_normalizeFormMethod ? formMethod.toUpperCase() : formMethod.toLowerCase(),
+      formMethod: normalizeFormMethod ? formMethod.toUpperCase() : formMethod.toLowerCase(),
       formAction: stripHashFromPath(path),
       formEncType: opts && opts.formEncType || "application/x-www-form-urlencoded",
       formData: opts.formData
@@ -4981,9 +5123,9 @@ function normalizeNavigateOptions(to, future, opts, isFetcher) {
 
 
   let parsedPath = parsePath(path);
-  let searchParams = convertFormDataToSearchParams(opts.formData); // Since fetcher GET submissions only run a single loader (as opposed to
-  // navigation GET submissions which run all loaders), we need to preserve
-  // any incoming ?index params
+  let searchParams = convertFormDataToSearchParams(opts.formData); // On GET navigation submissions we can drop the ?index param from the
+  // resulting location since all loaders will run.  But fetcher GET submissions
+  // only run a single loader so we need to preserve any incoming ?index params
 
   if (isFetcher && parsedPath.search && hasNakedIndexQuery(parsedPath.search)) {
     searchParams.append("index", "");
@@ -5015,11 +5157,7 @@ function getLoaderMatchesUntilBoundary(matches, boundaryId) {
 function getMatchesToLoad(history, state, matches, submission, location, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, fetchLoadMatches, routesToUse, basename, pendingActionData, pendingError) {
   let actionResult = pendingError ? Object.values(pendingError)[0] : pendingActionData ? Object.values(pendingActionData)[0] : undefined;
   let currentUrl = history.createURL(state.location);
-  let nextUrl = history.createURL(location);
-  let defaultShouldRevalidate = // Forced revalidation due to submission, useRevalidate, or X-Remix-Revalidate
-  isRevalidationRequired || // Clicked the same link, resubmitted a GET form
-  currentUrl.toString() === nextUrl.toString() || // Search params affect all loaders
-  currentUrl.search !== nextUrl.search; // Pick navigation matches that are net-new or qualify for revalidation
+  let nextUrl = history.createURL(location); // Pick navigation matches that are net-new or qualify for revalidation
 
   let boundaryId = pendingError ? Object.keys(pendingError)[0] : undefined;
   let boundaryMatches = getLoaderMatchesUntilBoundary(matches, boundaryId);
@@ -5051,7 +5189,10 @@ function getMatchesToLoad(history, state, matches, submission, location, isReval
       nextParams: nextRouteMatch.params
     }, submission, {
       actionResult,
-      defaultShouldRevalidate: defaultShouldRevalidate || isNewRouteInstance(currentRouteMatch, nextRouteMatch)
+      defaultShouldRevalidate: // Forced revalidation due to submission, useRevalidator, or X-Remix-Revalidate
+      isRevalidationRequired || // Clicked the same link, resubmitted a GET form
+      currentUrl.toString() === nextUrl.toString() || // Search params affect all loaders
+      currentUrl.search !== nextUrl.search || isNewRouteInstance(currentRouteMatch, nextRouteMatch)
     }));
   }); // Pick fetcher.loads that need to be revalidated
 
@@ -5066,23 +5207,28 @@ function getMatchesToLoad(history, state, matches, submission, location, isReval
     // we can trigger a 404 in callLoadersAndMaybeResolveData
 
     if (!fetcherMatches) {
-      revalidatingFetchers.push(_extends({
-        key
-      }, f, {
+      revalidatingFetchers.push({
+        key,
+        routeId: f.routeId,
+        path: f.path,
         matches: null,
-        match: null
-      }));
+        match: null,
+        controller: null
+      });
       return;
     }
 
     let fetcherMatch = getTargetMatch(fetcherMatches, f.path);
 
     if (cancelledFetcherLoads.includes(key)) {
-      revalidatingFetchers.push(_extends({
+      revalidatingFetchers.push({
         key,
+        routeId: f.routeId,
+        path: f.path,
         matches: fetcherMatches,
-        match: fetcherMatch
-      }, f));
+        match: fetcherMatch,
+        controller: new AbortController()
+      });
       return;
     } // Revalidating fetchers are decoupled from the route matches since they
     // hit a static href, so they _always_ check shouldRevalidate and the
@@ -5097,15 +5243,19 @@ function getMatchesToLoad(history, state, matches, submission, location, isReval
       nextParams: matches[matches.length - 1].params
     }, submission, {
       actionResult,
-      defaultShouldRevalidate
+      // Forced revalidation due to submission, useRevalidator, or X-Remix-Revalidate
+      defaultShouldRevalidate: isRevalidationRequired
     }));
 
     if (shouldRevalidate) {
-      revalidatingFetchers.push(_extends({
+      revalidatingFetchers.push({
         key,
+        routeId: f.routeId,
+        path: f.path,
         matches: fetcherMatches,
-        match: fetcherMatch
-      }, f));
+        match: fetcherMatch,
+        controller: new AbortController()
+      });
     }
   });
   return [navigationMatches, revalidatingFetchers];
@@ -5149,7 +5299,7 @@ function shouldRevalidateLoader(loaderMatch, arg) {
  */
 
 
-async function loadLazyRouteModule(route, detectErrorBoundary, manifest) {
+async function loadLazyRouteModule(route, mapRouteProperties, manifest) {
   if (!route.lazy) {
     return;
   }
@@ -5185,27 +5335,19 @@ async function loadLazyRouteModule(route, detectErrorBoundary, manifest) {
       routeUpdates[lazyRouteProperty] = lazyRoute[lazyRouteProperty];
     }
   } // Mutate the route with the provided updates.  Do this first so we pass
-  // the updated version to detectErrorBoundary
+  // the updated version to mapRouteProperties
 
 
   Object.assign(routeToUpdate, routeUpdates); // Mutate the `hasErrorBoundary` property on the route based on the route
   // updates and remove the `lazy` function so we don't resolve the lazy
   // route again.
 
-  Object.assign(routeToUpdate, {
-    // To keep things framework agnostic, we use the provided
-    // `detectErrorBoundary` function to set the `hasErrorBoundary` route
-    // property since the logic will differ between frameworks.
-    hasErrorBoundary: detectErrorBoundary(_extends({}, routeToUpdate)),
+  Object.assign(routeToUpdate, _extends({}, mapRouteProperties(routeToUpdate), {
     lazy: undefined
-  });
+  }));
 }
 
-async function callLoaderOrAction(type, request, match, matches, manifest, detectErrorBoundary, basename, isStaticRequest, isRouteRequest, requestContext) {
-  if (basename === void 0) {
-    basename = "/";
-  }
-
+async function callLoaderOrAction(type, request, match, matches, manifest, mapRouteProperties, basename, isStaticRequest, isRouteRequest, requestContext) {
   if (isStaticRequest === void 0) {
     isStaticRequest = false;
   }
@@ -5239,11 +5381,11 @@ async function callLoaderOrAction(type, request, match, matches, manifest, detec
     if (match.route.lazy) {
       if (handler) {
         // Run statically defined handler in parallel with lazy()
-        let values = await Promise.all([runHandler(handler), loadLazyRouteModule(match.route, detectErrorBoundary, manifest)]);
+        let values = await Promise.all([runHandler(handler), loadLazyRouteModule(match.route, mapRouteProperties, manifest)]);
         result = values[0];
       } else {
         // Load lazy route module, then run any returned handler
-        await loadLazyRouteModule(match.route, detectErrorBoundary, manifest);
+        await loadLazyRouteModule(match.route, mapRouteProperties, manifest);
         handler = match.route[type];
 
         if (handler) {
@@ -5252,9 +5394,11 @@ async function callLoaderOrAction(type, request, match, matches, manifest, detec
           // previously-lazy-loaded routes
           result = await runHandler(handler);
         } else if (type === "action") {
+          let url = new URL(request.url);
+          let pathname = url.pathname + url.search;
           throw getInternalRouterError(405, {
             method: request.method,
-            pathname: new URL(request.url).pathname,
+            pathname,
             routeId: match.route.id
           });
         } else {
@@ -5266,8 +5410,13 @@ async function callLoaderOrAction(type, request, match, matches, manifest, detec
           };
         }
       }
+    } else if (!handler) {
+      let url = new URL(request.url);
+      let pathname = url.pathname + url.search;
+      throw getInternalRouterError(404, {
+        pathname
+      });
     } else {
-      invariant(handler, "Could not find the " + type + " to run on the \"" + match.route.id + "\" route");
       result = await runHandler(handler);
     }
 
@@ -5289,17 +5438,7 @@ async function callLoaderOrAction(type, request, match, matches, manifest, detec
       invariant(location, "Redirects returned/thrown from loaders/actions must have a Location header"); // Support relative routing in internal redirects
 
       if (!ABSOLUTE_URL_REGEX.test(location)) {
-        let activeMatches = matches.slice(0, matches.indexOf(match) + 1);
-        let routePathnames = getPathContributingMatches(activeMatches).map(match => match.pathnameBase);
-        let resolvedLocation = resolveTo(location, routePathnames, new URL(request.url).pathname);
-        invariant(createPath(resolvedLocation), "Unable to resolve redirect location: " + location); // Prepend the basename to the redirect location if we have one
-
-        if (basename) {
-          let path = resolvedLocation.pathname;
-          resolvedLocation.pathname = path === "/" ? basename : joinPaths([basename, path]);
-        }
-
-        location = createPath(resolvedLocation);
+        location = normalizeTo(new URL(request.url), matches.slice(0, matches.indexOf(match) + 1), basename, true, location);
       } else if (!isStaticRequest) {
         // Strip off the protocol+origin for same-origin + same-basename absolute
         // redirects. If this is a static request, we can let it go back to the
@@ -5515,12 +5654,16 @@ function processLoaderData(state, matches, matchesToLoad, results, pendingError,
   for (let index = 0; index < revalidatingFetchers.length; index++) {
     let {
       key,
-      match
+      match,
+      controller
     } = revalidatingFetchers[index];
     invariant(fetcherResults !== undefined && fetcherResults[index] !== undefined, "Did not find corresponding fetcher result");
     let result = fetcherResults[index]; // Process fetcher non-redirect errors
 
-    if (isErrorResult(result)) {
+    if (controller && controller.signal.aborted) {
+      // Nothing to do for aborted fetchers
+      continue;
+    } else if (isErrorResult(result)) {
       let boundaryMatch = findNearestBoundary(state.matches, match == null ? void 0 : match.route.id);
 
       if (!(errors && errors[boundaryMatch.route.id])) {
@@ -5709,7 +5852,7 @@ function isMutationMethod(method) {
   return validMutationMethods.has(method.toLowerCase());
 }
 
-async function resolveDeferredResults(currentMatches, matchesToLoad, results, signal, isFetcher, currentLoaderData) {
+async function resolveDeferredResults(currentMatches, matchesToLoad, results, signals, isFetcher, currentLoaderData) {
   for (let index = 0; index < results.length; index++) {
     let result = results[index];
     let match = matchesToLoad[index]; // If we don't have a match, then we can have a deferred result to do
@@ -5727,6 +5870,8 @@ async function resolveDeferredResults(currentMatches, matchesToLoad, results, si
       // Note: we do not have to touch activeDeferreds here since we race them
       // against the signal in resolveDeferredData and they'll get aborted
       // there if needed
+      let signal = signals[index];
+      invariant(signal, "Expected an AbortSignal for revalidating fetcher deferred result");
       await resolveDeferredData(result, signal, isFetcher).then(result => {
         if (result) {
           results[index] = result || results[index];
@@ -9725,36 +9870,40 @@ module.exports = g;
 /* unused harmony export UNSAFE_LocationContext */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return NavigationContext; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return RouteContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return detectErrorBoundary; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return mapRouteProperties; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return useRouteId; });
+/* unused harmony export UNSAFE_useRoutesImpl */
 /* unused harmony export createMemoryRouter */
 /* unused harmony export createRoutesFromChildren */
 /* unused harmony export createRoutesFromElements */
 /* unused harmony export renderMatches */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return useBlocker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return useBlocker; });
 /* unused harmony export useActionData */
 /* unused harmony export useAsyncError */
 /* unused harmony export useAsyncValue */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return useHref; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return useHref; });
 /* unused harmony export useInRouterContext */
 /* unused harmony export useLoaderData */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return useLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return useLocation; });
 /* unused harmony export useMatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return useMatches; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return useNavigate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return useNavigation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return useMatches; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return useNavigate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return useNavigation; });
 /* unused harmony export useNavigationType */
 /* unused harmony export useOutlet */
 /* unused harmony export useOutletContext */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return useParams; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return useResolvedPath; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return useParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return useResolvedPath; });
 /* unused harmony export useRevalidator */
 /* unused harmony export useRouteError */
 /* unused harmony export useRouteLoaderData */
 /* unused harmony export useRoutes */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__remix_run_router__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__remix_run_router__ = __webpack_require__(7);
 /* unused harmony reexport AbortedDeferredError */
 /* unused harmony reexport NavigationType */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_0__remix_run_router__["i"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["i"]; });
 /* unused harmony reexport defer */
 /* unused harmony reexport generatePath */
 /* unused harmony reexport isRouteErrorResponse */
@@ -9764,10 +9913,8 @@ module.exports = g;
 /* unused harmony reexport parsePath */
 /* unused harmony reexport redirect */
 /* unused harmony reexport resolvePath */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /**
- * React Router v6.10.0
+ * React Router v6.11.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -9779,229 +9926,6 @@ module.exports = g;
 
 
 
-
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-
-function isPolyfill(x, y) {
-  return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y // eslint-disable-line no-self-compare
-  ;
-}
-
-const is = typeof Object.is === "function" ? Object.is : isPolyfill; // Intentionally not using named imports because Rollup uses dynamic
-// dispatch for CommonJS interop named imports.
-
-const {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useDebugValue
-} = __WEBPACK_IMPORTED_MODULE_1_react__;
-let didWarnOld18Alpha = false;
-let didWarnUncachedGetSnapshot = false; // Disclaimer: This shim breaks many of the rules of React, and only works
-// because of a very particular set of implementation details and assumptions
-// -- change any one of them and it will break. The most important assumption
-// is that updates are always synchronous, because concurrent rendering is
-// only available in versions of React that also have a built-in
-// useSyncExternalStore API. And we only use this shim when the built-in API
-// does not exist.
-//
-// Do not assume that the clever hacks used by this hook also work in general.
-// The point of this shim is to replace the need for hacks by other libraries.
-
-function useSyncExternalStore$2(subscribe, getSnapshot, // Note: The shim does not use getServerSnapshot, because pre-18 versions of
-// React do not expose a way to check if we're hydrating. So users of the shim
-// will need to track that themselves and return the correct value
-// from `getSnapshot`.
-getServerSnapshot) {
-  if (false) {
-    if (!didWarnOld18Alpha) {
-      if ("startTransition" in React) {
-        didWarnOld18Alpha = true;
-        console.error("You are using an outdated, pre-release alpha of React 18 that " + "does not support useSyncExternalStore. The " + "use-sync-external-store shim will not work correctly. Upgrade " + "to a newer pre-release.");
-      }
-    }
-  } // Read the current snapshot from the store on every render. Again, this
-  // breaks the rules of React, and only works here because of specific
-  // implementation details, most importantly that updates are
-  // always synchronous.
-
-
-  const value = getSnapshot();
-
-  if (false) {
-    if (!didWarnUncachedGetSnapshot) {
-      const cachedValue = getSnapshot();
-
-      if (!is(value, cachedValue)) {
-        console.error("The result of getSnapshot should be cached to avoid an infinite loop");
-        didWarnUncachedGetSnapshot = true;
-      }
-    }
-  } // Because updates are synchronous, we don't queue them. Instead we force a
-  // re-render whenever the subscribed state changes by updating an some
-  // arbitrary useState hook. Then, during render, we call getSnapshot to read
-  // the current value.
-  //
-  // Because we don't actually use the state returned by the useState hook, we
-  // can save a bit of memory by storing other stuff in that slot.
-  //
-  // To implement the early bailout, we need to track some things on a mutable
-  // object. Usually, we would put that in a useRef hook, but we can stash it in
-  // our useState hook instead.
-  //
-  // To force a re-render, we call forceUpdate({inst}). That works because the
-  // new object always fails an equality check.
-
-
-  const [{
-    inst
-  }, forceUpdate] = useState({
-    inst: {
-      value,
-      getSnapshot
-    }
-  }); // Track the latest getSnapshot function with a ref. This needs to be updated
-  // in the layout phase so we can access it during the tearing check that
-  // happens on subscribe.
-
-  useLayoutEffect(() => {
-    inst.value = value;
-    inst.getSnapshot = getSnapshot; // Whenever getSnapshot or subscribe changes, we need to check in the
-    // commit phase if there was an interleaved mutation. In concurrent mode
-    // this can happen all the time, but even in synchronous mode, an earlier
-    // effect may have mutated the store.
-
-    if (checkIfSnapshotChanged(inst)) {
-      // Force a re-render.
-      forceUpdate({
-        inst
-      });
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  }, [subscribe, value, getSnapshot]);
-  useEffect(() => {
-    // Check for changes right before subscribing. Subsequent changes will be
-    // detected in the subscription handler.
-    if (checkIfSnapshotChanged(inst)) {
-      // Force a re-render.
-      forceUpdate({
-        inst
-      });
-    }
-
-    const handleStoreChange = () => {
-      // TODO: Because there is no cross-renderer API for batching updates, it's
-      // up to the consumer of this library to wrap their subscription event
-      // with unstable_batchedUpdates. Should we try to detect when this isn't
-      // the case and print a warning in development?
-      // The store changed. Check if the snapshot changed since the last time we
-      // read from the store.
-      if (checkIfSnapshotChanged(inst)) {
-        // Force a re-render.
-        forceUpdate({
-          inst
-        });
-      }
-    }; // Subscribe to the store and return a clean-up function.
-
-
-    return subscribe(handleStoreChange); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subscribe]);
-  useDebugValue(value);
-  return value;
-}
-
-function checkIfSnapshotChanged(inst) {
-  const latestGetSnapshot = inst.getSnapshot;
-  const prevValue = inst.value;
-
-  try {
-    const nextValue = latestGetSnapshot();
-    return !is(prevValue, nextValue);
-  } catch (error) {
-    return true;
-  }
-}
-
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @flow
- */
-function useSyncExternalStore$1(subscribe, getSnapshot, getServerSnapshot) {
-  // Note: The shim does not use getServerSnapshot, because pre-18 versions of
-  // React do not expose a way to check if we're hydrating. So users of the shim
-  // will need to track that themselves and return the correct value
-  // from `getSnapshot`.
-  return getSnapshot();
-}
-
-/**
- * Inlined into the react-router repo since use-sync-external-store does not
- * provide a UMD-compatible package, so we need this to be able to distribute
- * UMD react-router bundles
- */
-const canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
-const isServerEnvironment = !canUseDOM;
-const shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore$2;
-const useSyncExternalStore = "useSyncExternalStore" in __WEBPACK_IMPORTED_MODULE_1_react__ ? (module => module.useSyncExternalStore)(__WEBPACK_IMPORTED_MODULE_1_react__) : shim;
-
-const DataRouterContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  DataRouterContext.displayName = "DataRouter";
-}
-
-const DataRouterStateContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  DataRouterStateContext.displayName = "DataRouterState";
-}
-
-const AwaitContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  AwaitContext.displayName = "Await";
-}
-
-const NavigationContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  NavigationContext.displayName = "Navigation";
-}
-
-const LocationContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  LocationContext.displayName = "Location";
-}
-
-const RouteContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"]({
-  outlet: null,
-  matches: []
-});
-
-if (false) {
-  RouteContext.displayName = "Route";
-}
-
-const RouteErrorContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
-
-if (false) {
-  RouteErrorContext.displayName = "RouteError";
-}
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -10020,6 +9944,51 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
+const DataRouterContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  DataRouterContext.displayName = "DataRouter";
+}
+
+const DataRouterStateContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  DataRouterStateContext.displayName = "DataRouterState";
+}
+
+const AwaitContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  AwaitContext.displayName = "Await";
+}
+
+const NavigationContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  NavigationContext.displayName = "Navigation";
+}
+
+const LocationContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  LocationContext.displayName = "Location";
+}
+
+const RouteContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"]({
+  outlet: null,
+  matches: []
+});
+
+if (false) {
+  RouteContext.displayName = "Route";
+}
+
+const RouteErrorContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
+
+if (false) {
+  RouteErrorContext.displayName = "RouteError";
+}
+
 /**
  * Returns the full href for the given "to" value. This is useful for building
  * custom links that are also accessible and preserve right-click behavior.
@@ -10033,11 +10002,11 @@ function useHref(to, _temp) {
   } = _temp === void 0 ? {} : _temp;
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
-  "useHref() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  "useHref() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   let {
     basename,
     navigator
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](NavigationContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](NavigationContext);
   let {
     hash,
     pathname,
@@ -10051,7 +10020,7 @@ function useHref(to, _temp) {
   // of a trailing slash on root links
 
   if (basename !== "/") {
-    joinedPathname = pathname === "/" ? basename : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["l" /* joinPaths */])([basename, pathname]);
+    joinedPathname = pathname === "/" ? basename : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["l" /* joinPaths */])([basename, pathname]);
   }
 
   return navigator.createHref({
@@ -10067,7 +10036,7 @@ function useHref(to, _temp) {
  */
 
 function useInRouterContext() {
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](LocationContext) != null;
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](LocationContext) != null;
 }
 /**
  * Returns the current location object, which represents the current URL in web
@@ -10083,8 +10052,8 @@ function useInRouterContext() {
 function useLocation() {
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
-  "useLocation() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](LocationContext).location;
+  "useLocation() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](LocationContext).location;
 }
 /**
  * Returns the current navigation action which describes how the router came to
@@ -10094,7 +10063,7 @@ function useLocation() {
  */
 
 function useNavigationType() {
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](LocationContext).navigationType;
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](LocationContext).navigationType;
 }
 /**
  * Returns a PathMatch object if the given pattern matches the current URL.
@@ -10107,47 +10076,70 @@ function useNavigationType() {
 function useMatch(pattern) {
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
-  "useMatch() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  "useMatch() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   let {
     pathname
   } = useLocation();
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["m" /* matchPath */])(pattern, pathname), [pathname, pattern]);
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["m" /* matchPath */])(pattern, pathname), [pathname, pattern]);
 }
 /**
  * The interface for the navigate() function returned from useNavigate().
  */
 
+const navigateEffectWarning = "You should call navigate() in a React.useEffect(), not when " + "your component is first rendered."; // Mute warnings for calls to useNavigate in SSR environments
+
+function useIsomorphicLayoutEffect(cb) {
+  let isStatic = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](NavigationContext).static;
+
+  if (!isStatic) {
+    // We should be able to get rid of this once react 18.3 is released
+    // See: https://github.com/facebook/react/pull/26395
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    __WEBPACK_IMPORTED_MODULE_0_react__["useLayoutEffect"](cb);
+  }
+}
 /**
  * Returns an imperative method for changing the location. Used by <Link>s, but
  * may also be used by other elements to change the location.
  *
  * @see https://reactrouter.com/hooks/use-navigate
  */
+
+
 function useNavigate() {
+  let isDataRouter = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](DataRouterContext) != null; // Conditional usage is OK here because the usage of a data router is static
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+  return isDataRouter ? useNavigateStable() : useNavigateUnstable();
+}
+
+function useNavigateUnstable() {
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
-  "useNavigate() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  "useNavigate() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   let {
     basename,
     navigator
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](NavigationContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](NavigationContext);
   let {
     matches
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
   let {
     pathname: locationPathname
   } = useLocation();
-  let routePathnamesJson = JSON.stringify(Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["d" /* UNSAFE_getPathContributingMatches */])(matches).map(match => match.pathnameBase));
-  let activeRef = __WEBPACK_IMPORTED_MODULE_1_react__["useRef"](false);
-  __WEBPACK_IMPORTED_MODULE_1_react__["useEffect"](() => {
+  let routePathnamesJson = JSON.stringify(Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["d" /* UNSAFE_getPathContributingMatches */])(matches).map(match => match.pathnameBase));
+  let activeRef = __WEBPACK_IMPORTED_MODULE_0_react__["useRef"](false);
+  useIsomorphicLayoutEffect(() => {
     activeRef.current = true;
   });
-  let navigate = __WEBPACK_IMPORTED_MODULE_1_react__["useCallback"](function (to, options) {
+  let navigate = __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"](function (to, options) {
     if (options === void 0) {
       options = {};
     }
 
-     false ? UNSAFE_warning(activeRef.current, "You should call navigate() in a React.useEffect(), not when " + "your component is first rendered.") : void 0;
+     false ? UNSAFE_warning(activeRef.current, navigateEffectWarning) : void 0; // Short circuit here since if this happens on first render the navigate
+    // is useless because we haven't wired up our history listener yet
+
     if (!activeRef.current) return;
 
     if (typeof to === "number") {
@@ -10155,20 +10147,21 @@ function useNavigate() {
       return;
     }
 
-    let path = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["p" /* resolveTo */])(to, JSON.parse(routePathnamesJson), locationPathname, options.relative === "path"); // If we're operating within a basename, prepend it to the pathname prior
+    let path = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["p" /* resolveTo */])(to, JSON.parse(routePathnamesJson), locationPathname, options.relative === "path"); // If we're operating within a basename, prepend it to the pathname prior
     // to handing off to history.  If this is a root navigation, then we
     // navigate to the raw basename which allows the basename to have full
     // control over the presence of a trailing slash on root links
 
     if (basename !== "/") {
-      path.pathname = path.pathname === "/" ? basename : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["l" /* joinPaths */])([basename, path.pathname]);
+      path.pathname = path.pathname === "/" ? basename : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["l" /* joinPaths */])([basename, path.pathname]);
     }
 
     (!!options.replace ? navigator.replace : navigator.push)(path, options.state, options);
   }, [basename, navigator, routePathnamesJson, locationPathname]);
   return navigate;
 }
-const OutletContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createContext"](null);
+
+const OutletContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createContext"](null);
 /**
  * Returns the context (if provided) for the child route at this level of the route
  * hierarchy.
@@ -10176,7 +10169,7 @@ const OutletContext = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createCo
  */
 
 function useOutletContext() {
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](OutletContext);
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](OutletContext);
 }
 /**
  * Returns the element for the child route at this level of the route
@@ -10186,10 +10179,10 @@ function useOutletContext() {
  */
 
 function useOutlet(context) {
-  let outlet = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext).outlet;
+  let outlet = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext).outlet;
 
   if (outlet) {
-    return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](OutletContext.Provider, {
+    return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](OutletContext.Provider, {
       value: context
     }, outlet);
   }
@@ -10206,7 +10199,7 @@ function useOutlet(context) {
 function useParams() {
   let {
     matches
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
   let routeMatch = matches[matches.length - 1];
   return routeMatch ? routeMatch.params : {};
 }
@@ -10222,12 +10215,12 @@ function useResolvedPath(to, _temp2) {
   } = _temp2 === void 0 ? {} : _temp2;
   let {
     matches
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
   let {
     pathname: locationPathname
   } = useLocation();
-  let routePathnamesJson = JSON.stringify(Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["d" /* UNSAFE_getPathContributingMatches */])(matches).map(match => match.pathnameBase));
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["p" /* resolveTo */])(to, JSON.parse(routePathnamesJson), locationPathname, relative === "path"), [to, routePathnamesJson, locationPathname, relative]);
+  let routePathnamesJson = JSON.stringify(Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["d" /* UNSAFE_getPathContributingMatches */])(matches).map(match => match.pathnameBase));
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["p" /* resolveTo */])(to, JSON.parse(routePathnamesJson), locationPathname, relative === "path"), [to, routePathnamesJson, locationPathname, relative]);
 }
 /**
  * Returns the element of the route that matched the current location, prepared
@@ -10239,16 +10232,19 @@ function useResolvedPath(to, _temp2) {
  */
 
 function useRoutes(routes, locationArg) {
+  return useRoutesImpl(routes, locationArg);
+} // Internal implementation with accept optional param for RouterProvider usage
+
+function useRoutesImpl(routes, locationArg, dataRouterState) {
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
-  "useRoutes() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  "useRoutes() may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   let {
     navigator
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](NavigationContext);
-  let dataRouterStateContext = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterStateContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](NavigationContext);
   let {
     matches: parentMatches
-  } = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
+  } = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
   let routeMatch = parentMatches[parentMatches.length - 1];
   let parentParams = routeMatch ? routeMatch.params : {};
   let parentPathname = routeMatch ? routeMatch.pathname : "/";
@@ -10286,8 +10282,8 @@ function useRoutes(routes, locationArg) {
   if (locationArg) {
     var _parsedLocationArg$pa;
 
-    let parsedLocationArg = typeof locationArg === "string" ? Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["o" /* parsePath */])(locationArg) : locationArg;
-    !(parentPathnameBase === "/" || ((_parsedLocationArg$pa = parsedLocationArg.pathname) == null ? void 0 : _parsedLocationArg$pa.startsWith(parentPathnameBase))) ?  false ? UNSAFE_invariant(false, "When overriding the location using `<Routes location>` or `useRoutes(routes, location)`, " + "the location pathname must begin with the portion of the URL pathname that was " + ("matched by all parent routes. The current pathname base is \"" + parentPathnameBase + "\" ") + ("but pathname \"" + parsedLocationArg.pathname + "\" was given in the `location` prop.")) : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+    let parsedLocationArg = typeof locationArg === "string" ? Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["o" /* parsePath */])(locationArg) : locationArg;
+    !(parentPathnameBase === "/" || ((_parsedLocationArg$pa = parsedLocationArg.pathname) == null ? void 0 : _parsedLocationArg$pa.startsWith(parentPathnameBase))) ?  false ? UNSAFE_invariant(false, "When overriding the location using `<Routes location>` or `useRoutes(routes, location)`, " + "the location pathname must begin with the portion of the URL pathname that was " + ("matched by all parent routes. The current pathname base is \"" + parentPathnameBase + "\" ") + ("but pathname \"" + parsedLocationArg.pathname + "\" was given in the `location` prop.")) : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
     location = parsedLocationArg;
   } else {
     location = locationFromContext;
@@ -10295,7 +10291,7 @@ function useRoutes(routes, locationArg) {
 
   let pathname = location.pathname || "/";
   let remainingPathname = parentPathnameBase === "/" ? pathname : pathname.slice(parentPathnameBase.length) || "/";
-  let matches = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["n" /* matchRoutes */])(routes, {
+  let matches = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["n" /* matchRoutes */])(routes, {
     pathname: remainingPathname
   });
 
@@ -10306,17 +10302,17 @@ function useRoutes(routes, locationArg) {
 
   let renderedMatches = _renderMatches(matches && matches.map(match => Object.assign({}, match, {
     params: Object.assign({}, parentParams, match.params),
-    pathname: Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["l" /* joinPaths */])([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
+    pathname: Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["l" /* joinPaths */])([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
     navigator.encodeLocation ? navigator.encodeLocation(match.pathname).pathname : match.pathname]),
-    pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["l" /* joinPaths */])([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
+    pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["l" /* joinPaths */])([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
     navigator.encodeLocation ? navigator.encodeLocation(match.pathnameBase).pathname : match.pathnameBase])
-  })), parentMatches, dataRouterStateContext || undefined); // When a user passes in a `locationArg`, the associated routes need to
+  })), parentMatches, dataRouterState); // When a user passes in a `locationArg`, the associated routes need to
   // be wrapped in a new `LocationContext.Provider` in order for `useLocation`
   // to use the scoped location instead of the global location.
 
 
   if (locationArg && renderedMatches) {
-    return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](LocationContext.Provider, {
+    return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](LocationContext.Provider, {
       value: {
         location: _extends({
           pathname: "/",
@@ -10325,7 +10321,7 @@ function useRoutes(routes, locationArg) {
           state: null,
           key: "default"
         }, location),
-        navigationType: __WEBPACK_IMPORTED_MODULE_0__remix_run_router__["b" /* Action */].Pop
+        navigationType: __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["b" /* Action */].Pop
       }
     }, renderedMatches);
   }
@@ -10335,7 +10331,7 @@ function useRoutes(routes, locationArg) {
 
 function DefaultErrorComponent() {
   let error = useRouteError();
-  let message = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["k" /* isRouteErrorResponse */])(error) ? error.status + " " + error.statusText : error instanceof Error ? error.message : JSON.stringify(error);
+  let message = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["k" /* isRouteErrorResponse */])(error) ? error.status + " " + error.statusText : error instanceof Error ? error.message : JSON.stringify(error);
   let stack = error instanceof Error ? error.stack : null;
   let lightgrey = "rgba(200,200,200, 0.5)";
   let preStyles = {
@@ -10349,27 +10345,30 @@ function DefaultErrorComponent() {
   let devInfo = null;
 
   if (false) {
-    devInfo = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "\uD83D\uDCBF Hey developer \uD83D\uDC4B"), /*#__PURE__*/React.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own\xA0", /*#__PURE__*/React.createElement("code", {
+    console.error("Error handled by React Router default ErrorBoundary:", error);
+    devInfo = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "\uD83D\uDCBF Hey developer \uD83D\uDC4B"), /*#__PURE__*/React.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own ", /*#__PURE__*/React.createElement("code", {
       style: codeStyles
-    }, "ErrorBoundary"), " prop on\xA0", /*#__PURE__*/React.createElement("code", {
+    }, "ErrorBoundary"), " or", " ", /*#__PURE__*/React.createElement("code", {
       style: codeStyles
-    }, "<Route>")));
+    }, "errorElement"), " prop on your route."));
   }
 
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("h2", null, "Unexpected Application Error!"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("h3", {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0_react__["Fragment"], null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("h2", null, "Unexpected Application Error!"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("h3", {
     style: {
       fontStyle: "italic"
     }
-  }, message), stack ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("pre", {
+  }, message), stack ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("pre", {
     style: preStyles
   }, stack) : null, devInfo);
 }
 
-class RenderErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"] {
+const defaultErrorElement = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](DefaultErrorComponent, null);
+class RenderErrorBoundary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(props) {
     super(props);
     this.state = {
       location: props.location,
+      revalidation: props.revalidation,
       error: props.error
     };
   }
@@ -10389,10 +10388,11 @@ class RenderErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component
     // Whether we're in an error state or not, we update the location in state
     // so that when we are in an error state, it gets reset when a new location
     // comes in and the user recovers from the error.
-    if (state.location !== props.location) {
+    if (state.location !== props.location || state.revalidation !== "idle" && props.revalidation === "idle") {
       return {
         error: props.error,
-        location: props.location
+        location: props.location,
+        revalidation: props.revalidation
       };
     } // If we're not changing locations, preserve the location but still surface
     // any new errors that may come through. We retain the existing error, we do
@@ -10402,7 +10402,8 @@ class RenderErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component
 
     return {
       error: props.error || state.error,
-      location: state.location
+      location: state.location,
+      revalidation: props.revalidation || state.revalidation
     };
   }
 
@@ -10411,9 +10412,9 @@ class RenderErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component
   }
 
   render() {
-    return this.state.error ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](RouteContext.Provider, {
+    return this.state.error ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](RouteContext.Provider, {
       value: this.props.routeContext
-    }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](RouteErrorContext.Provider, {
+    }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](RouteErrorContext.Provider, {
       value: this.state.error,
       children: this.props.component
     })) : this.props.children;
@@ -10427,25 +10428,33 @@ function RenderedRoute(_ref) {
     match,
     children
   } = _ref;
-  let dataRouterContext = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterContext); // Track how deep we got in our render pass to emulate SSR componentDidCatch
+  let dataRouterContext = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](DataRouterContext); // Track how deep we got in our render pass to emulate SSR componentDidCatch
   // in a DataStaticRouter
 
   if (dataRouterContext && dataRouterContext.static && dataRouterContext.staticContext && (match.route.errorElement || match.route.ErrorBoundary)) {
     dataRouterContext.staticContext._deepestRenderedBoundaryId = match.route.id;
   }
 
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](RouteContext.Provider, {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](RouteContext.Provider, {
     value: routeContext
   }, children);
 }
 
 function _renderMatches(matches, parentMatches, dataRouterState) {
+  var _dataRouterState2;
+
   if (parentMatches === void 0) {
     parentMatches = [];
   }
 
+  if (dataRouterState === void 0) {
+    dataRouterState = null;
+  }
+
   if (matches == null) {
-    if (dataRouterState != null && dataRouterState.errors) {
+    var _dataRouterState;
+
+    if ((_dataRouterState = dataRouterState) != null && _dataRouterState.errors) {
       // Don't bail if we have data router errors so we can render them in the
       // boundary.  Use the pre-matched (or shimmed) matches
       matches = dataRouterState.matches;
@@ -10456,11 +10465,11 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
 
   let renderedMatches = matches; // If we have data errors, trim matches to the highest error boundary
 
-  let errors = dataRouterState == null ? void 0 : dataRouterState.errors;
+  let errors = (_dataRouterState2 = dataRouterState) == null ? void 0 : _dataRouterState2.errors;
 
   if (errors != null) {
     let errorIndex = renderedMatches.findIndex(m => m.route.id && (errors == null ? void 0 : errors[m.route.id]));
-    !(errorIndex >= 0) ?  false ? UNSAFE_invariant(false, "Could not find a matching route for the current errors: " + errors) : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+    !(errorIndex >= 0) ?  false ? UNSAFE_invariant(false, "Could not find a matching route for errors on route IDs: " + Object.keys(errors).join(",")) : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
     renderedMatches = renderedMatches.slice(0, Math.min(renderedMatches.length, errorIndex + 1));
   }
 
@@ -10470,29 +10479,23 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
     let errorElement = null;
 
     if (dataRouterState) {
-      if (match.route.ErrorBoundary) {
-        errorElement = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](match.route.ErrorBoundary, null);
-      } else if (match.route.errorElement) {
-        errorElement = match.route.errorElement;
-      } else {
-        errorElement = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](DefaultErrorComponent, null);
-      }
+      errorElement = match.route.errorElement || defaultErrorElement;
     }
 
     let matches = parentMatches.concat(renderedMatches.slice(0, index + 1));
 
     let getChildren = () => {
-      let children = outlet;
+      let children;
 
       if (error) {
         children = errorElement;
-      } else if (match.route.Component) {
-        children = /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](match.route.Component, null);
       } else if (match.route.element) {
         children = match.route.element;
+      } else {
+        children = outlet;
       }
 
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](RenderedRoute, {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](RenderedRoute, {
         match: match,
         routeContext: {
           outlet,
@@ -10505,8 +10508,9 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
     // an ancestor ErrorBoundary/errorElement
 
 
-    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](RenderErrorBoundary, {
+    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](RenderErrorBoundary, {
       location: dataRouterState.location,
+      revalidation: dataRouterState.revalidation,
       component: errorElement,
       error: error,
       children: getChildren(),
@@ -10522,6 +10526,7 @@ var DataRouterHook;
 (function (DataRouterHook) {
   DataRouterHook["UseBlocker"] = "useBlocker";
   DataRouterHook["UseRevalidator"] = "useRevalidator";
+  DataRouterHook["UseNavigateStable"] = "useNavigate";
 })(DataRouterHook || (DataRouterHook = {}));
 
 var DataRouterStateHook;
@@ -10535,6 +10540,8 @@ var DataRouterStateHook;
   DataRouterStateHook["UseRouteLoaderData"] = "useRouteLoaderData";
   DataRouterStateHook["UseMatches"] = "useMatches";
   DataRouterStateHook["UseRevalidator"] = "useRevalidator";
+  DataRouterStateHook["UseNavigateStable"] = "useNavigate";
+  DataRouterStateHook["UseRouteId"] = "useRouteId";
 })(DataRouterStateHook || (DataRouterStateHook = {}));
 
 function getDataRouterConsoleError(hookName) {
@@ -10542,34 +10549,42 @@ function getDataRouterConsoleError(hookName) {
 }
 
 function useDataRouterContext(hookName) {
-  let ctx = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterContext);
-  !ctx ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  let ctx = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](DataRouterContext);
+  !ctx ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   return ctx;
 }
 
 function useDataRouterState(hookName) {
-  let state = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterStateContext);
-  !state ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  let state = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](DataRouterStateContext);
+  !state ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   return state;
 }
 
 function useRouteContext(hookName) {
-  let route = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
-  !route ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  let route = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
+  !route ?  false ? UNSAFE_invariant(false, getDataRouterConsoleError(hookName)) : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   return route;
-}
+} // Internal version with hookName-aware debugging
+
 
 function useCurrentRouteId(hookName) {
   let route = useRouteContext(hookName);
   let thisRoute = route.matches[route.matches.length - 1];
-  !thisRoute.route.id ?  false ? UNSAFE_invariant(false, hookName + " can only be used on routes that contain a unique \"id\"") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  !thisRoute.route.id ?  false ? UNSAFE_invariant(false, hookName + " can only be used on routes that contain a unique \"id\"") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   return thisRoute.route.id;
+}
+/**
+ * Returns the ID for the nearest contextual route
+ */
+
+
+function useRouteId() {
+  return useCurrentRouteId(DataRouterStateHook.UseRouteId);
 }
 /**
  * Returns the current navigation, defaulting to an "idle" navigation when
  * no navigation is in progress
  */
-
 
 function useNavigation() {
   let state = useDataRouterState(DataRouterStateHook.UseNavigation);
@@ -10598,7 +10613,7 @@ function useMatches() {
     matches,
     loaderData
   } = useDataRouterState(DataRouterStateHook.UseMatches);
-  return __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => matches.map(match => {
+  return __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => matches.map(match => {
     let {
       pathname,
       params
@@ -10644,8 +10659,8 @@ function useRouteLoaderData(routeId) {
 
 function useActionData() {
   let state = useDataRouterState(DataRouterStateHook.UseActionData);
-  let route = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteContext);
-  !route ?  false ? UNSAFE_invariant(false, "useActionData must be used inside a RouteContext") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  let route = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteContext);
+  !route ?  false ? UNSAFE_invariant(false, "useActionData must be used inside a RouteContext") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
   return Object.values((state == null ? void 0 : state.actionData) || {})[0];
 }
 /**
@@ -10657,7 +10672,7 @@ function useActionData() {
 function useRouteError() {
   var _state$errors;
 
-  let error = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](RouteErrorContext);
+  let error = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](RouteErrorContext);
   let state = useDataRouterState(DataRouterStateHook.UseRouteError);
   let routeId = useCurrentRouteId(DataRouterStateHook.UseRouteError); // If this was a render error, we put it in a RouteError context inside
   // of RenderErrorBoundary
@@ -10674,7 +10689,7 @@ function useRouteError() {
  */
 
 function useAsyncValue() {
-  let value = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](AwaitContext);
+  let value = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](AwaitContext);
   return value == null ? void 0 : value._data;
 }
 /**
@@ -10682,7 +10697,7 @@ function useAsyncValue() {
  */
 
 function useAsyncError() {
-  let value = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](AwaitContext);
+  let value = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](AwaitContext);
   return value == null ? void 0 : value._error;
 }
 let blockerId = 0;
@@ -10698,17 +10713,52 @@ function useBlocker(shouldBlock) {
     router
   } = useDataRouterContext(DataRouterHook.UseBlocker);
   let state = useDataRouterState(DataRouterStateHook.UseBlocker);
-  let [blockerKey] = __WEBPACK_IMPORTED_MODULE_1_react__["useState"](() => String(++blockerId));
-  let blockerFunction = __WEBPACK_IMPORTED_MODULE_1_react__["useCallback"](args => {
+  let [blockerKey] = __WEBPACK_IMPORTED_MODULE_0_react__["useState"](() => String(++blockerId));
+  let blockerFunction = __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"](args => {
     return typeof shouldBlock === "function" ? !!shouldBlock(args) : !!shouldBlock;
   }, [shouldBlock]);
   let blocker = router.getBlocker(blockerKey, blockerFunction); // Cleanup on unmount
 
-  __WEBPACK_IMPORTED_MODULE_1_react__["useEffect"](() => () => router.deleteBlocker(blockerKey), [router, blockerKey]); // Prefer the blocker from state since DataRouterContext is memoized so this
+  __WEBPACK_IMPORTED_MODULE_0_react__["useEffect"](() => () => router.deleteBlocker(blockerKey), [router, blockerKey]); // Prefer the blocker from state since DataRouterContext is memoized so this
   // ensures we update on blocker state updates
 
   return state.blockers.get(blockerKey) || blocker;
 }
+/**
+ * Stable version of useNavigate that is used when we are in the context of
+ * a RouterProvider.
+ */
+
+function useNavigateStable() {
+  let {
+    router
+  } = useDataRouterContext(DataRouterHook.UseNavigateStable);
+  let id = useCurrentRouteId(DataRouterStateHook.UseNavigateStable);
+  let activeRef = __WEBPACK_IMPORTED_MODULE_0_react__["useRef"](false);
+  useIsomorphicLayoutEffect(() => {
+    activeRef.current = true;
+  });
+  let navigate = __WEBPACK_IMPORTED_MODULE_0_react__["useCallback"](function (to, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+     false ? UNSAFE_warning(activeRef.current, navigateEffectWarning) : void 0; // Short circuit here since if this happens on first render the navigate
+    // is useless because we haven't wired up our router subscriber yet
+
+    if (!activeRef.current) return;
+
+    if (typeof to === "number") {
+      router.navigate(to);
+    } else {
+      router.navigate(to, _extends({
+        fromRouteId: id
+      }, options));
+    }
+  }, [router, id]);
+  return navigate;
+}
+
 const alreadyWarned = {};
 
 function warningOnce(key, cond, message) {
@@ -10726,13 +10776,11 @@ function RouterProvider(_ref) {
     fallbackElement,
     router
   } = _ref;
-  let getState = __WEBPACK_IMPORTED_MODULE_1_react__["useCallback"](() => router.state, [router]); // Sync router state to our component state to force re-renders
-
-  let state = useSyncExternalStore(router.subscribe, getState, // We have to provide this so React@18 doesn't complain during hydration,
-  // but we pass our serialized hydration data into the router so state here
-  // is already synced with what the server saw
-  getState);
-  let navigator = __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => {
+  // Need to use a layout effect here so we are subscribed early enough to
+  // pick up on any render-driven redirects/navigations (useEffect/<Navigate>)
+  let [state, setState] = __WEBPACK_IMPORTED_MODULE_0_react__["useState"](router.state);
+  __WEBPACK_IMPORTED_MODULE_0_react__["useLayoutEffect"](() => router.subscribe(setState), [router, setState]);
+  let navigator = __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => {
     return {
       createHref: router.createHref,
       encodeLocation: router.encodeLocation,
@@ -10749,7 +10797,7 @@ function RouterProvider(_ref) {
     };
   }, [router]);
   let basename = router.basename || "/";
-  let dataRouterContext = __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => ({
+  let dataRouterContext = __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => ({
     router,
     navigator,
     static: false,
@@ -10761,16 +10809,27 @@ function RouterProvider(_ref) {
   // so we need to ensure it remains the same on the client even though
   // we don't need the <script> tag
 
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](DataRouterContext.Provider, {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0_react__["Fragment"], null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](DataRouterContext.Provider, {
     value: dataRouterContext
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](DataRouterStateContext.Provider, {
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](DataRouterStateContext.Provider, {
     value: state
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](Router, {
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](Router, {
     basename: router.basename,
     location: router.state.location,
     navigationType: router.state.historyAction,
     navigator: navigator
-  }, router.state.initialized ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](Routes, null) : fallbackElement))), null);
+  }, router.state.initialized ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](DataRoutes, {
+    routes: router.routes,
+    state: state
+  }) : fallbackElement))), null);
+}
+
+function DataRoutes(_ref2) {
+  let {
+    routes,
+    state
+  } = _ref2;
+  return useRoutesImpl(routes, undefined, state);
 }
 
 /**
@@ -10778,17 +10837,17 @@ function RouterProvider(_ref) {
  *
  * @see https://reactrouter.com/router-components/memory-router
  */
-function MemoryRouter(_ref2) {
+function MemoryRouter(_ref3) {
   let {
     basename,
     children,
     initialEntries,
     initialIndex
-  } = _ref2;
-  let historyRef = __WEBPACK_IMPORTED_MODULE_1_react__["useRef"]();
+  } = _ref3;
+  let historyRef = __WEBPACK_IMPORTED_MODULE_0_react__["useRef"]();
 
   if (historyRef.current == null) {
-    historyRef.current = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["h" /* createMemoryHistory */])({
+    historyRef.current = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["h" /* createMemoryHistory */])({
       initialEntries,
       initialIndex,
       v5Compat: true
@@ -10796,12 +10855,12 @@ function MemoryRouter(_ref2) {
   }
 
   let history = historyRef.current;
-  let [state, setState] = __WEBPACK_IMPORTED_MODULE_1_react__["useState"]({
+  let [state, setState] = __WEBPACK_IMPORTED_MODULE_0_react__["useState"]({
     action: history.action,
     location: history.location
   });
-  __WEBPACK_IMPORTED_MODULE_1_react__["useLayoutEffect"](() => history.listen(setState), [history]);
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](Router, {
+  __WEBPACK_IMPORTED_MODULE_0_react__["useLayoutEffect"](() => history.listen(setState), [history]);
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](Router, {
     basename: basename,
     children: children,
     location: state.location,
@@ -10819,20 +10878,20 @@ function MemoryRouter(_ref2) {
  *
  * @see https://reactrouter.com/components/navigate
  */
-function Navigate(_ref3) {
+function Navigate(_ref4) {
   let {
     to,
     replace,
     state,
     relative
-  } = _ref3;
+  } = _ref4;
   !useInRouterContext() ?  false ? UNSAFE_invariant(false, // TODO: This error is probably because they somehow have 2 versions of
   // the router loaded. We can help them understand how to avoid that.
-  "<Navigate> may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+  "<Navigate> may be used only in the context of a <Router> component.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
    false ? UNSAFE_warning(!React.useContext(NavigationContext).static, "<Navigate> must not be used on the initial render in a <StaticRouter>. " + "This is a no-op, but you should modify your code so the <Navigate> is " + "only ever rendered in response to some user interaction or state change.") : void 0;
-  let dataRouterState = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterStateContext);
+  let dataRouterState = __WEBPACK_IMPORTED_MODULE_0_react__["useContext"](DataRouterStateContext);
   let navigate = useNavigate();
-  __WEBPACK_IMPORTED_MODULE_1_react__["useEffect"](() => {
+  __WEBPACK_IMPORTED_MODULE_0_react__["useEffect"](() => {
     // Avoid kicking off multiple navigations if we're in the middle of a
     // data-router navigation, since components get re-rendered when we enter
     // a submitting/loading state
@@ -10864,7 +10923,7 @@ function Outlet(props) {
  * @see https://reactrouter.com/components/route
  */
 function Route(_props) {
-   false ? UNSAFE_invariant(false, "A <Route> is only ever to be used as the child of <Routes> element, " + "never rendered directly. Please wrap your <Route> in a <Routes>.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) ;
+   false ? UNSAFE_invariant(false, "A <Route> is only ever to be used as the child of <Routes> element, " + "never rendered directly. Please wrap your <Route> in a <Routes>.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) ;
 }
 
 /**
@@ -10876,27 +10935,27 @@ function Route(_props) {
  *
  * @see https://reactrouter.com/router-components/router
  */
-function Router(_ref4) {
+function Router(_ref5) {
   let {
     basename: basenameProp = "/",
     children = null,
     location: locationProp,
-    navigationType = __WEBPACK_IMPORTED_MODULE_0__remix_run_router__["b" /* Action */].Pop,
+    navigationType = __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["b" /* Action */].Pop,
     navigator,
     static: staticProp = false
-  } = _ref4;
-  !!useInRouterContext() ?  false ? UNSAFE_invariant(false, "You cannot render a <Router> inside another <Router>." + " You should never have more than one in your app.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0; // Preserve trailing slashes on basename, so we can let the user control
+  } = _ref5;
+  !!useInRouterContext() ?  false ? UNSAFE_invariant(false, "You cannot render a <Router> inside another <Router>." + " You should never have more than one in your app.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0; // Preserve trailing slashes on basename, so we can let the user control
   // the enforcement of trailing slashes throughout the app
 
   let basename = basenameProp.replace(/^\/*/, "/");
-  let navigationContext = __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => ({
+  let navigationContext = __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => ({
     basename,
     navigator,
     static: staticProp
   }), [basename, navigator, staticProp]);
 
   if (typeof locationProp === "string") {
-    locationProp = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["o" /* parsePath */])(locationProp);
+    locationProp = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["o" /* parsePath */])(locationProp);
   }
 
   let {
@@ -10906,8 +10965,8 @@ function Router(_ref4) {
     state = null,
     key = "default"
   } = locationProp;
-  let locationContext = __WEBPACK_IMPORTED_MODULE_1_react__["useMemo"](() => {
-    let trailingPathname = Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["q" /* stripBasename */])(pathname, basename);
+  let locationContext = __WEBPACK_IMPORTED_MODULE_0_react__["useMemo"](() => {
+    let trailingPathname = Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["q" /* stripBasename */])(pathname, basename);
 
     if (trailingPathname == null) {
       return null;
@@ -10930,9 +10989,9 @@ function Router(_ref4) {
     return null;
   }
 
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](NavigationContext.Provider, {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](NavigationContext.Provider, {
     value: navigationContext
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](LocationContext.Provider, {
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](LocationContext.Provider, {
     children: children,
     value: locationContext
   }));
@@ -10944,33 +11003,28 @@ function Router(_ref4) {
  *
  * @see https://reactrouter.com/components/routes
  */
-function Routes(_ref5) {
+function Routes(_ref6) {
   let {
     children,
     location
-  } = _ref5;
-  let dataRouterContext = __WEBPACK_IMPORTED_MODULE_1_react__["useContext"](DataRouterContext); // When in a DataRouterContext _without_ children, we use the router routes
-  // directly.  If we have children, then we're in a descendant tree and we
-  // need to use child routes.
-
-  let routes = dataRouterContext && !children ? dataRouterContext.router.routes : createRoutesFromChildren(children);
-  return useRoutes(routes, location);
+  } = _ref6;
+  return useRoutes(createRoutesFromChildren(children), location);
 }
 
 /**
  * Component to use for rendering lazily loaded data from returning defer()
  * in a loader function
  */
-function Await(_ref6) {
+function Await(_ref7) {
   let {
     children,
     errorElement,
     resolve
-  } = _ref6;
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](AwaitErrorBoundary, {
+  } = _ref7;
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](AwaitErrorBoundary, {
     resolve: resolve,
     errorElement: errorElement
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](ResolveAwait, null, children));
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](ResolveAwait, null, children));
 }
 var AwaitRenderStatus;
 
@@ -10982,7 +11036,7 @@ var AwaitRenderStatus;
 
 const neverSettledPromise = new Promise(() => {});
 
-class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"] {
+class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(props) {
     super(props);
     this.state = {
@@ -11048,7 +11102,7 @@ class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"
       }));
     }
 
-    if (status === AwaitRenderStatus.error && promise._error instanceof __WEBPACK_IMPORTED_MODULE_0__remix_run_router__["a" /* AbortedDeferredError */]) {
+    if (status === AwaitRenderStatus.error && promise._error instanceof __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["a" /* AbortedDeferredError */]) {
       // Freeze the UI by throwing a never resolved promise
       throw neverSettledPromise;
     }
@@ -11060,7 +11114,7 @@ class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"
 
     if (status === AwaitRenderStatus.error) {
       // Render via our errorElement
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](AwaitContext.Provider, {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](AwaitContext.Provider, {
         value: promise,
         children: errorElement
       });
@@ -11068,7 +11122,7 @@ class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"
 
     if (status === AwaitRenderStatus.success) {
       // Render children with resolved value
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](AwaitContext.Provider, {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](AwaitContext.Provider, {
         value: promise,
         children: children
       });
@@ -11085,13 +11139,13 @@ class AwaitErrorBoundary extends __WEBPACK_IMPORTED_MODULE_1_react__["Component"
  */
 
 
-function ResolveAwait(_ref7) {
+function ResolveAwait(_ref8) {
   let {
     children
-  } = _ref7;
+  } = _ref8;
   let data = useAsyncValue();
   let toRender = typeof children === "function" ? children(data) : children;
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, toRender);
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0_react__["Fragment"], null, toRender);
 } ///////////////////////////////////////////////////////////////////////////////
 // UTILS
 ///////////////////////////////////////////////////////////////////////////////
@@ -11111,8 +11165,8 @@ function createRoutesFromChildren(children, parentPath) {
   }
 
   let routes = [];
-  __WEBPACK_IMPORTED_MODULE_1_react__["Children"].forEach(children, (element, index) => {
-    if (! /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_react__["isValidElement"](element)) {
+  __WEBPACK_IMPORTED_MODULE_0_react__["Children"].forEach(children, (element, index) => {
+    if (! /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["isValidElement"](element)) {
       // Ignore non-elements. This allows people to more easily inline
       // conditionals in their route config.
       return;
@@ -11120,14 +11174,14 @@ function createRoutesFromChildren(children, parentPath) {
 
     let treePath = [...parentPath, index];
 
-    if (element.type === __WEBPACK_IMPORTED_MODULE_1_react__["Fragment"]) {
+    if (element.type === __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"]) {
       // Transparently support React.Fragment and its children.
       routes.push.apply(routes, createRoutesFromChildren(element.props.children, treePath));
       return;
     }
 
-    !(element.type === Route) ?  false ? UNSAFE_invariant(false, "[" + (typeof element.type === "string" ? element.type : element.type.name) + "] is not a <Route> component. All component children of <Routes> must be a <Route> or <React.Fragment>") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
-    !(!element.props.index || !element.props.children) ?  false ? UNSAFE_invariant(false, "An index route cannot have child routes.") : Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+    !(element.type === Route) ?  false ? UNSAFE_invariant(false, "[" + (typeof element.type === "string" ? element.type : element.type.name) + "] is not a <Route> component. All component children of <Routes> must be a <Route> or <React.Fragment>") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
+    !(!element.props.index || !element.props.children) ?  false ? UNSAFE_invariant(false, "An index route cannot have child routes.") : Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["e" /* UNSAFE_invariant */])(false) : void 0;
     let route = {
       id: element.props.id || treePath.join("-"),
       caseSensitive: element.props.caseSensitive,
@@ -11161,33 +11215,55 @@ function renderMatches(matches) {
   return _renderMatches(matches);
 }
 
-function detectErrorBoundary(route) {
-  if (false) {
-    if (route.Component && route.element) {
-      process.env.NODE_ENV !== "production" ? UNSAFE_warning(false, "You should not include both `Component` and `element` on your route - " + "`element` will be ignored.") : void 0;
+function mapRouteProperties(route) {
+  let updates = {
+    // Note: this check also occurs in createRoutesFromChildren so update
+    // there if you change this -- please and thank you!
+    hasErrorBoundary: route.ErrorBoundary != null || route.errorElement != null
+  };
+
+  if (route.Component) {
+    if (false) {
+      if (route.element) {
+        process.env.NODE_ENV !== "production" ? UNSAFE_warning(false, "You should not include both `Component` and `element` on your route - " + "`Component` will be used.") : void 0;
+      }
     }
 
-    if (route.ErrorBoundary && route.errorElement) {
-      process.env.NODE_ENV !== "production" ? UNSAFE_warning(false, "You should not include both `ErrorBoundary` and `errorElement` on your route - " + "`errorElement` will be ignored.") : void 0;
+    Object.assign(updates, {
+      element: /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](route.Component),
+      Component: undefined
+    });
+  }
+
+  if (route.ErrorBoundary) {
+    if (false) {
+      if (route.errorElement) {
+        process.env.NODE_ENV !== "production" ? UNSAFE_warning(false, "You should not include both `ErrorBoundary` and `errorElement` on your route - " + "`ErrorBoundary` will be used.") : void 0;
+      }
     }
-  } // Note: this check also occurs in createRoutesFromChildren so update
-  // there if you change this
 
+    Object.assign(updates, {
+      errorElement: /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](route.ErrorBoundary),
+      ErrorBoundary: undefined
+    });
+  }
 
-  return Boolean(route.ErrorBoundary) || Boolean(route.errorElement);
+  return updates;
 }
 
 function createMemoryRouter(routes, opts) {
-  return Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["j" /* createRouter */])({
+  return Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["j" /* createRouter */])({
     basename: opts == null ? void 0 : opts.basename,
-    future: opts == null ? void 0 : opts.future,
-    history: Object(__WEBPACK_IMPORTED_MODULE_0__remix_run_router__["h" /* createMemoryHistory */])({
+    future: _extends({}, opts == null ? void 0 : opts.future, {
+      v7_prependBasename: true
+    }),
+    history: Object(__WEBPACK_IMPORTED_MODULE_1__remix_run_router__["h" /* createMemoryHistory */])({
       initialEntries: opts == null ? void 0 : opts.initialEntries,
       initialIndex: opts == null ? void 0 : opts.initialIndex
     }),
     hydrationData: opts == null ? void 0 : opts.hydrationData,
     routes,
-    detectErrorBoundary
+    mapRouteProperties
   }).initialize();
 } ///////////////////////////////////////////////////////////////////////////////
 
@@ -14860,4 +14936,4 @@ var ProjectDetails=function ProjectDetails(_ref){var projects=_ref.projects;var 
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.9af4f96c.js.map
+//# sourceMappingURL=main.f4eccb45.js.map

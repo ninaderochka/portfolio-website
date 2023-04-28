@@ -11,6 +11,7 @@ import skills5 from '../skills/skills-05.png';
 import skills6 from '../skills/skills-06.png';
 import skills7 from '../skills/skills-07.png';
 import skills8 from '../skills/skills-08.png';
+import resume from '../Nina_Hawari_2023_Resume.pdf';
 
 
 function Bio() {
@@ -39,7 +40,12 @@ function Bio() {
 
 When I'm not working, you can find me practicing my design skills by exploring funky color combinations and shapes, taking care of stray animals, and diving into books and online research to learn new things. I'm always on the lookout for fresh challenges, and I believe that learning is the key to personal and professional growth.
     </p>
+    <div className='flex items-center justify-between'>
+
+    <h3 className='font-agrandir font-xl text-orange mt-5 mb-1 text-left'>Get to know me better</h3>
+    <a href={resume}><button className='bg-purple h-8 px-3 font-sans text-white rounded-sm cursor-pointer hover:bg-orange'>Download Resume</button></a>
   </div>
+    </div>
 <div className="relative flex-shrink-0 mt-10 md:mt-0">
   <img className="p-10 h-128 hidden md:block md:ml-24" src={nina} alt="nina" />
  <img className='absolute animate-spin h-48 w-48 bottom-0 right-0' src={spinner} alt="spin" />
