@@ -29,7 +29,7 @@ function Bio() {
 
 
   return (
-    <div className='bg-beige'>
+    <div className='bg-beige flex flex-col min-h-screen'>
       <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
   <div className="mx-auto max-w-xl">
     <h2 className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6">hey there!</h2>
@@ -56,6 +56,15 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
     </div>
+    <footer className='h-14 w-screen bg-orange flex justify-between mx-auto mt-auto p-4 px-6 items-center'>
+      <p className='font-sans text-xl'>© nina derochka</p>
+      <div className='flex text-2xl'>
+        <a href='https://www.linkedin.com/in/nina-hawari-01b442b2/' target="_blank" rel="noopener noreferrer"><AiFillLinkedin /></a>
+<a href="https://github.com/ninaderochka" target="_blank" rel="noopener noreferrer"><AiOutlineGithub /></a>
+        </div>
+
+
+    </footer>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai';
 
 const ProjectDetails = ({ projects }) => {
 
@@ -11,35 +12,31 @@ const ProjectDetails = ({ projects }) => {
   }
 
   return (
-    <div className='bg-beige'>
-      <div className='flex justify-evenly mx-auto items-center'>
-        <img src={project.imageUrl} alt={project.title} className="w-2/3 mb-8" />
-      <div className="col-md-3 portfolio-right">
-      <h1 className='font-sans text-2xl text-bold'>{project.title}</h1>
-          <ul className="project-detail-box">
-            <li><strong>Client</strong>Re:Coded</li>
-            <li><strong>Date</strong>2023</li>
-  </ul>
-          <ul className="project-type-list">
-            <li><i className="icofont icofont-diamond"></i>Design</li>
-            <li><i className="icofont icofont-light-bulb"></i>Development</li>
-            <li><i className="icofont icofont-layers"></i>Apps</li>
-          </ul>
+    <div className='bg-beige flex flex-col min-h-screen'>
+      <div className='flex mx-auto items-center'>
+        <img src={project.imageUrl} alt={project.title} className="w-2/3 ml-10 mb-8 mr-10 mt-10" />
+      <div className=" portfolio-right mt-10">
+      <h1 className='font-sans text-3xl font-light uppercase tracking-wide'>{project.title}</h1>
+      <ul className="project-detail-box">
+  <li className='font-sans text-md font-medium flex'>
+    <span className='title font-light mr-4'>Client</span> {project.client}
+  </li>
+  <li className='font-sans text-md font-medium flex'>
+    <span className='title font-light mr-4'>Date</span> {project.date}
+  </li>
+  <li className='font-sans text-md'>{project.projectType}</li>
+  <li className='font-sans text-md font-medium flex'>
+    <span className='title font-light mr-4'>Technologies</span> {project.technologies}
+  </li>
+</ul>
           <div className="post-controls">
-            <div className="post-share">
-              <ul>
-                <li> <a href="#"><i className="icofont icofont-facebook"></i></a> </li>
-                <li> <a href="#"><i className="icofont icofont-twitter"></i></a> </li>
-                <li> <a href="#"><i className="icofont icofont-linkedin"></i></a> </li>
-                <li> <a href="#"><i className="icofont icofont-behance"></i></a> </li>
-                <li> <a href="#"><i className="icofont icofont-pinterest"></i></a> </li>
-              </ul>
-            </div>
           </div>
+          <div className='flex flex-col'>
+
       {project.type === 'coding' && (
-        <div className='text-xl font-sans font-bold flex space-x-8 text-white'>
-          <button className='bg-purple h-10 px-5 m-2 rounded-sm cursor-pointer hover:bg-orange'>Code</button>
-          <button className='bg-purple h-10 px-5 m-2 rounded-sm cursor-pointer hover:bg-orange'>Demo</button>
+        <div className='text-sm font-sans font-bold flex mt-4 text-white'>
+          <Link to={project.demo}><button className='bg-purple h-8 px-3 rounded-sm cursor-pointer hover:bg-orange'>Demo</button></Link>
+          <Link to={project.code}><button className='bg-purple h-8 px-3 mx-2 rounded-sm cursor-pointer hover:bg-orange'>Code</button></Link>
         </div>
       )}
       {project.type === 'design' && (
@@ -48,8 +45,18 @@ const ProjectDetails = ({ projects }) => {
         </div>
       )}
         </div>
+       <p className='font-sans text-sm mt-10 w-5/6 text-left'>{project.description}</p>
     </div>
-       <p className='font-sans text-xl mt-20 w-2/3 text-left'>{project.description}</p>
+          </div>
+          <footer className='h-14 w-screen bg-orange flex justify-between mx-auto mt-auto p-4 px-6 items-center'>
+      <p className='font-sans text-xl'>© nina derochka</p>
+      <div className='flex text-2xl'>
+        <a href='https://www.linkedin.com/in/nina-hawari-01b442b2/' target="_blank" rel="noopener noreferrer"><AiFillLinkedin /></a>
+<a href="https://github.com/ninaderochka" target="_blank" rel="noopener noreferrer"><AiOutlineGithub /></a>
+        </div>
+
+
+    </footer>
     </div>
   );
 };
