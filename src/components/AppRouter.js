@@ -3,7 +3,6 @@ import CustomCursor from './CustomCursor';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Bio from './Bio';
-import Contact from './Contact';
 import Navbar from './Navbar';
 import Works from './Works';
 import PortfolioGrid from './PortfolioGrid';
@@ -19,7 +18,6 @@ function AppRouter() {
         <Route path="/" element={<Home />} />
         <Route path="/Bio" element={<Bio />} />
         <Route path="/Works" element={<Works />} />
-        <Route path="/Contact" element={<Contact />} />
         <Route path="/" element={<PortfolioGrid projects={projects} />} />
         <Route path="/projects/:id" element={<ProjectDetails projects={projects} />} />
       </Routes>

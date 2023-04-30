@@ -1,6 +1,7 @@
 import CrossRoads from '../projects/CrossRoads.jpg'
 import MadLibz from '../projects/MadlibzCover.jpg'
 import Muggles from '../projects/MugglesCover.jpg'
+import OnlineTherapist from '../projects/Therapist.png'
 
 const projects = [
   {
@@ -35,14 +36,27 @@ const projects = [
     imageUrl: Muggles,
     client: 'Re:Coded',
     projectType: 'Development',
-    description: 'As part of a team of three developers, I collaborated on a challenging project to create a movie listing page. We used JavaScript to fetch data from a movie database API and display it on the page. This project was a valuable learning experience for all of us, as we gained practical experience in developing with JavaScript and working with APIs. Overall, we are proud of the final product, and it was a great team effort.',
+    description: 'As part of a team of three developers, I collaborated on a challenging project to create a movie listing page. We used JavaScript and Firebase to fetch data from a movie database API and display it on the page. This project was a valuable learning experience for all of us, as we gained practical experience in developing with JavaScript and working with APIs. Overall, we are proud of the final product, and it was a great team effort.',
     type: 'coding',
     date: '2023',
-    technologies: 'Javascript | HTML | TailwindCSS',
+    technologies: 'Javascript | HTML | TailwindCSS | Firebase',
     demo: 'https://movie-project-hamadmh.vercel.app/',
     code: 'https://github.com/hamadmh/movie-project'
   },
-  // Add more projects here
+  {
+    id: 'project4',
+    title: 'Capstone Project',
+    imageUrl: OnlineTherapist,
+    client: 'Re:Coded',
+    projectType: 'Development',
+    description: 'The capstone project I worked on was an innovative online tool designed to simplify the process of booking appointments with therapists for patients. Working alongside a team of five developers, we built the website from scratch using React, Firebase, and Tailwind over a period of six weeks. The project taught us valuable skills in problem-solving, teamwork, and project management, as well as deepening our understanding of web development.',
+    type: 'coding',
+    date: '2023',
+    technologies: 'React | TailwindCSS | Firebase',
+    demo: 'https://sugar-and-thunder.netlify.app/',
+    code: 'https://github.com/ninaderochka/sugar-and-thunder'
+  },
+  
 ];
 
 export default projects
