@@ -41,7 +41,9 @@ function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Submitting form with name=${name}, email=${email}, and message=${message}`);
+    setName('');
+    setEmail('');
+    setMessage('');
   };
 
   const handleClick = () => {
