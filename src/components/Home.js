@@ -16,6 +16,7 @@ import skills8 from '../skills/skills-08.png';
 import shapeImage from '../shape.png';
 import formShape from '../formshape.png'
 import submitButton from '../submitbutton.png'
+import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
 
@@ -38,12 +39,14 @@ function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setName('');
     setEmail('');
     setMessage('');
+    setSubmitted(true)
   };
 
   const handleClick = () => {
@@ -145,11 +148,15 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
       <div className='border-solid border-2 border-black fill-beige p-2 mb-4 bg-transparent'>
         <textarea className=' bg-transparent w-96 outline-none' id="message" placeholder="your message" value={message} onChange={(e) => setMessage(e.target.value)} />
       </div>
-      <div className='flex gap-2 items-center'>
-
-      <button className="focus:outline-none" type="submit"><img className="h-24" src={submitButton} alt="submit"></img></button>
-      <img className="h-24" src={arrow} alt="arrow" />
-      </div>
+      {submitted ? (
+         <button className="focus:outline-none" type="button"><img className="h-24" src={doneButton} alt="done"></img></button>
+       
+      ) : (
+        <div className='flex gap-2 items-center'>
+          <button className="focus:outline-none" type="submit"><img className="h-24" src={submitButton} alt="submit"></img></button>
+          <img className="h-24" src={arrow} alt="arrow" />
+        </div>
+      )}
     </form>
 </div>
 

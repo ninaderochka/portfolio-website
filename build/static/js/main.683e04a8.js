@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(45);
+  module.exports = __webpack_require__(44);
 } else {
   module.exports = require('./cjs/react.development.js');
 }
@@ -1469,7 +1469,7 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(59)();
+  module.exports = __webpack_require__(58)();
 }
 
 
@@ -1609,7 +1609,7 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(46);
+  module.exports = __webpack_require__(45);
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
@@ -6271,7 +6271,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = __webpack_require__(56);
+var _lodash = __webpack_require__(55);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -7222,7 +7222,7 @@ exports.default = Events;
 /* unused harmony export AiTwotoneVideoCamera */
 /* unused harmony export AiTwotoneWallet */
 /* unused harmony export AiTwotoneWarning */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(63);
 // THIS FILE IS AUTO GENERATED
 
 function AiFillAccountBook (props) {
@@ -9603,7 +9603,7 @@ function AiTwotoneWarning (props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(34);
-var PortfolioGrid=function PortfolioGrid(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'grid md:grid-cols-3 grid-cols-1 gap-4'},__WEBPACK_IMPORTED_MODULE_2__data__["a" /* default */].map(function(project){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],{to:'/projects/'+project.id,key:project.id},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative h-full'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{src:project.imageUrl,alt:project.title,className:'w-full h-full object-cover'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'absolute inset-0 bg-purple opacity-0 hover:opacity-70 flex items-center justify-center transition duration-300'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'text-white font-sans text-lg uppercase font-medium opacity-100'},project.title))));}));};/* harmony default export */ __webpack_exports__["a"] = (PortfolioGrid);
+var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally{try{if(!_n&&_i["return"])_i["return"]();}finally{if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else{throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}var PortfolioGrid=function PortfolioGrid(){var _useState=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])([]),_useState2=_slicedToArray(_useState,2),selectedTypes=_useState2[0],setSelectedTypes=_useState2[1];var filteredProjects=selectedTypes.length>0?__WEBPACK_IMPORTED_MODULE_2__data__["a" /* default */].filter(function(project){return selectedTypes.includes(project.type);}):__WEBPACK_IMPORTED_MODULE_2__data__["a" /* default */];var handleTypeClick=function handleTypeClick(type){setSelectedTypes(selectedTypes.includes(type)?selectedTypes.filter(function(t){return t!==type;}):[].concat(_toConsumableArray(selectedTypes),[type]));};return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex flex-wrap mb-4 justify-center'},['Development','Design'].map(function(type){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{key:type,className:'mr-2 mb-2 rounded-full px-4 py-2 font-sans '+(selectedTypes.includes(type)?'bg-orange text-white':'bg-purple text-white'),onClick:function onClick(){return handleTypeClick(type);}},type);})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'grid md:grid-cols-3 grid-cols-1 gap-4'},filteredProjects.map(function(project){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],{to:'/projects/'+project.id,key:project.id},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative h-full'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{src:project.imageUrl,alt:project.title,className:'w-full h-full object-cover'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'absolute inset-0 bg-purple opacity-0 hover:opacity-70 flex items-center justify-center transition duration-300'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'text-white font-sans text-lg uppercase font-medium opacity-100'},project.title))));})));};/* harmony default export */ __webpack_exports__["a"] = (PortfolioGrid);
 
 /***/ }),
 /* 14 */
@@ -9612,7 +9612,7 @@ var PortfolioGrid=function PortfolioGrid(){return __WEBPACK_IMPORTED_MODULE_0_re
 "use strict";
 
 
-var asap = __webpack_require__(41);
+var asap = __webpack_require__(40);
 
 function noop() {}
 
@@ -11283,7 +11283,7 @@ function createMemoryRouter(routes, opts) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_icons_ai__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Nina_png__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Nina_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Nina_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__button_png__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__button_png__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__button_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__button_png__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__spinner_png__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__spinner_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__spinner_png__);
@@ -11305,16 +11305,16 @@ function createMemoryRouter(routes, opts) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__skills_skills_07_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__skills_skills_07_png__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__skills_skills_08_png__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__skills_skills_08_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__skills_skills_08_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shape_png__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shape_png__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shape_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__shape_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__formshape_png__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__formshape_png__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__formshape_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__formshape_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__submitbutton_png__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__submitbutton_png__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__submitbutton_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__submitbutton_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__arrow_png__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__arrow_png__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__arrow_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__arrow_png__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__PortfolioGrid__ = __webpack_require__(13);
-var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally{try{if(!_n&&_i["return"])_i["return"]();}finally{if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else{throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();function Home(){var images=[__WEBPACK_IMPORTED_MODULE_7__skills_skills_01_png___default.a,__WEBPACK_IMPORTED_MODULE_8__skills_skills_02_png___default.a,__WEBPACK_IMPORTED_MODULE_9__skills_skills_03_png___default.a,__WEBPACK_IMPORTED_MODULE_10__skills_skills_04_png___default.a,__WEBPACK_IMPORTED_MODULE_11__skills_skills_05_png___default.a,__WEBPACK_IMPORTED_MODULE_12__skills_skills_06_png___default.a,__WEBPACK_IMPORTED_MODULE_13__skills_skills_07_png___default.a,__WEBPACK_IMPORTED_MODULE_14__skills_skills_08_png___default.a].map(function(path,index){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-20 md:h-24 mx-auto',key:index,src:path,alt:'Skill '+(index+1)});});var _useState=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),_useState2=_slicedToArray(_useState,2),wiggle=_useState2[0],setWiggle=_useState2[1];var _useState3=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState4=_slicedToArray(_useState3,2),name=_useState4[0],setName=_useState4[1];var _useState5=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState6=_slicedToArray(_useState5,2),email=_useState6[0],setEmail=_useState6[1];var _useState7=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState8=_slicedToArray(_useState7,2),message=_useState8[0],setMessage=_useState8[1];var handleSubmit=function handleSubmit(e){e.preventDefault();console.log('Submitting form with name='+name+', email='+email+', and message='+message);};var handleClick=function handleClick(){console.log("Link clicked");var element=document.getElementById("portfolio-grid");element.scrollIntoView({behavior:"smooth"});};return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-beige overflow-x-hidden mx-auto'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'mx-auto max-w-lg'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6'},'hey there!'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12'},'I\'m nina'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans font-light md:text-3xl text-2xl tracking-tight md:leading-9 leading-6'},'I\'m a professional pixel polisher & front-end fanatic, with a passion for creating designs that are both beautiful & functional.')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative flex-shrink-0 mt-10 md:mt-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'p-10 h-128 hidden md:block md:ml-24',src:__WEBPACK_IMPORTED_MODULE_3__Nina_png___default.a,alt:'nina'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{className:'h-52 w-52 absolute bottom-0 left-0 focus:outline-none border-none cursor-pointer '+(wiggle?'animate-wiggle':''),onMouseEnter:function onMouseEnter(){return setWiggle(true);},onMouseLeave:function onMouseLeave(){return setWiggle(false);},style:wiggle?{animation:'wiggle 1s ease-in-out infinite'}:{},onClick:handleClick},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'hidden h-full w-full object-contain md:block focus:outline-none  border-none',src:__WEBPACK_IMPORTED_MODULE_4__button_png___default.a,alt:'show me'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'absolute animate-spin h-48 w-48 bottom-0 right-0',src:__WEBPACK_IMPORTED_MODULE_5__spinner_png___default.a,alt:'spin'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-2 md:space-y-1 text-3xl left-0 flex md:block'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["b" /* AiOutlineGithub */],null)))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto',style:{backgroundImage:'url('+__WEBPACK_IMPORTED_MODULE_6__purple_background_svg___default.a+')'}},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'knowledge is power'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'},images)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',{name:'portfolio-grid',id:'portfolio-grid'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'min-h-fit max-w-7xl mx-auto m-6'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_19__PortfolioGrid__["a" /* default */],null))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_scroll__["Link"],{to:'contact'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-pink min-h-fit grid grid-flow-row cursor-pointer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'need a hand?'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex flex-wrap justify-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20 md:flex flex-col'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'logo design')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'web design')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'visual identity')))))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',{name:'contact',id:'contact',className:'mx-auto md:flex md:justify-evenly m-10 space-y-4 md:space-y-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative h-fit text-left flex flex-col md:justify-between items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h1',{className:'text-orange font-agrandir md:text-8xl text-6xl relative z-10'},'let\'s',__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br',null),' talk'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{className:'underline flex justify-start text-2xl mt-14 md:mb-4',href:'mailto:nina.hawari@gmail.com'},'nina.hawari@gmail.com'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'absolute top-0 md:left-0 z-0 transform translate-x-3/4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-60 h-32 object-contain',src:__WEBPACK_IMPORTED_MODULE_16__formshape_png___default.a,alt:'Shape'}))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('form',{className:'font-sans text-left flex flex-col justify-center items-center mx-auto',onSubmit:handleSubmit},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-opacity-0 border-solid border-2 border-black p-2 mb-4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input',{className:'bg-transparent w-96 outline-none',type:'text',id:'name',placeholder:'your name',value:name,onChange:function onChange(e){return setName(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'border-solid border-2 border-black fill-beige p-2 mb-4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input',{className:' bg-transparent w-96 outline-none',type:'email',id:'email',placeholder:'email',value:email,onChange:function onChange(e){return setEmail(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'border-solid border-2 border-black fill-beige p-2 mb-4 bg-transparent'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea',{className:' bg-transparent w-96 outline-none',id:'message',placeholder:'your message',value:message,onChange:function onChange(e){return setMessage(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex gap-2 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{className:'focus:outline-none',type:'submit'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-24',src:__WEBPACK_IMPORTED_MODULE_17__submitbutton_png___default.a,alt:'submit'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-24',src:__WEBPACK_IMPORTED_MODULE_18__arrow_png___default.a,alt:'arrow'}))))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('footer',{className:'h-14 w-screen bg-orange flex justify-between mx-auto p-4 px-6 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans text-xl'},'\xA9 nina derochka'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex text-2xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["b" /* AiOutlineGithub */],null)))));}/* harmony default export */ __webpack_exports__["a"] = (Home);
+var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally{try{if(!_n&&_i["return"])_i["return"]();}finally{if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else{throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();function Home(){var images=[__WEBPACK_IMPORTED_MODULE_7__skills_skills_01_png___default.a,__WEBPACK_IMPORTED_MODULE_8__skills_skills_02_png___default.a,__WEBPACK_IMPORTED_MODULE_9__skills_skills_03_png___default.a,__WEBPACK_IMPORTED_MODULE_10__skills_skills_04_png___default.a,__WEBPACK_IMPORTED_MODULE_11__skills_skills_05_png___default.a,__WEBPACK_IMPORTED_MODULE_12__skills_skills_06_png___default.a,__WEBPACK_IMPORTED_MODULE_13__skills_skills_07_png___default.a,__WEBPACK_IMPORTED_MODULE_14__skills_skills_08_png___default.a].map(function(path,index){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-20 md:h-24 mx-auto',key:index,src:path,alt:'Skill '+(index+1)});});var _useState=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),_useState2=_slicedToArray(_useState,2),wiggle=_useState2[0],setWiggle=_useState2[1];var _useState3=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState4=_slicedToArray(_useState3,2),name=_useState4[0],setName=_useState4[1];var _useState5=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState6=_slicedToArray(_useState5,2),email=_useState6[0],setEmail=_useState6[1];var _useState7=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(''),_useState8=_slicedToArray(_useState7,2),message=_useState8[0],setMessage=_useState8[1];var handleSubmit=function handleSubmit(e){e.preventDefault();setName('');setEmail('');setMessage('');};var handleClick=function handleClick(){console.log("Link clicked");var element=document.getElementById("portfolio-grid");element.scrollIntoView({behavior:"smooth"});};return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-beige overflow-x-hidden mx-auto'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'mx-auto max-w-lg'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6'},'hey there!'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12'},'I\'m nina'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans font-light md:text-3xl text-2xl tracking-tight md:leading-9 leading-6'},'I\'m a professional pixel polisher & front-end fanatic, with a passion for creating designs that are both beautiful & functional.')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative flex-shrink-0 mt-10 md:mt-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'p-10 h-128 hidden md:block md:ml-24',src:__WEBPACK_IMPORTED_MODULE_3__Nina_png___default.a,alt:'nina'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{className:'h-52 w-52 absolute bottom-0 left-0 focus:outline-none border-none cursor-pointer '+(wiggle?'animate-wiggle':''),onMouseEnter:function onMouseEnter(){return setWiggle(true);},onMouseLeave:function onMouseLeave(){return setWiggle(false);},style:wiggle?{animation:'wiggle 1s ease-in-out infinite'}:{},onClick:handleClick},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'hidden h-full w-full object-contain md:block focus:outline-none  border-none',src:__WEBPACK_IMPORTED_MODULE_4__button_png___default.a,alt:'show me'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'absolute animate-spin h-48 w-48 bottom-0 right-0',src:__WEBPACK_IMPORTED_MODULE_5__spinner_png___default.a,alt:'spin'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-2 md:space-y-1 text-3xl left-0 flex md:block'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["b" /* AiOutlineGithub */],null)))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto',style:{backgroundImage:'url('+__WEBPACK_IMPORTED_MODULE_6__purple_background_svg___default.a+')'}},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'knowledge is power'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'},images)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',{name:'portfolio-grid',id:'portfolio-grid'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'min-h-fit max-w-7xl mx-auto m-6'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_19__PortfolioGrid__["a" /* default */],null))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_scroll__["Link"],{to:'contact'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-pink min-h-fit grid grid-flow-row cursor-pointer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'need a hand?'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex flex-wrap justify-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20 md:flex flex-col'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'logo design')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'web design')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative mx-2 md:mx-8 my-10 mt-20'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-80 h-32',src:__WEBPACK_IMPORTED_MODULE_15__shape_png___default.a,alt:'Shape'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'},'visual identity')))))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('section',{name:'contact',id:'contact',className:'mx-auto md:flex md:justify-evenly m-10 space-y-4 md:space-y-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative h-fit text-left flex flex-col md:justify-between items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h1',{className:'text-orange font-agrandir md:text-8xl text-6xl relative z-10'},'let\'s',__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br',null),' talk'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{className:'underline flex justify-start text-2xl mt-14 md:mb-4',href:'mailto:nina.hawari@gmail.com'},'nina.hawari@gmail.com'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'absolute top-0 md:left-0 z-0 transform translate-x-3/4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'md:h-60 h-32 object-contain',src:__WEBPACK_IMPORTED_MODULE_16__formshape_png___default.a,alt:'Shape'}))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('form',{className:'font-sans text-left flex flex-col justify-center items-center mx-auto',onSubmit:handleSubmit},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-opacity-0 border-solid border-2 border-black p-2 mb-4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input',{className:'bg-transparent w-96 outline-none',type:'text',id:'name',placeholder:'your name',value:name,onChange:function onChange(e){return setName(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'border-solid border-2 border-black fill-beige p-2 mb-4'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input',{className:' bg-transparent w-96 outline-none',type:'email',id:'email',placeholder:'email',value:email,onChange:function onChange(e){return setEmail(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'border-solid border-2 border-black fill-beige p-2 mb-4 bg-transparent'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea',{className:' bg-transparent w-96 outline-none',id:'message',placeholder:'your message',value:message,onChange:function onChange(e){return setMessage(e.target.value);}})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex gap-2 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{className:'focus:outline-none',type:'submit'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-24',src:__WEBPACK_IMPORTED_MODULE_17__submitbutton_png___default.a,alt:'submit'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-24',src:__WEBPACK_IMPORTED_MODULE_18__arrow_png___default.a,alt:'arrow'}))))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('footer',{className:'h-14 w-screen bg-orange flex justify-between mx-auto p-4 px-6 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans text-xl'},'\xA9 nina derochka'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex text-2xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_icons_ai__["b" /* AiOutlineGithub */],null)))));}/* harmony default export */ __webpack_exports__["a"] = (Home);
 
 /***/ }),
 /* 18 */
@@ -11328,15 +11328,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Helpers = exports.ScrollElement = exports.ScrollLink = exports.animateScroll = exports.scrollSpy = exports.Events = exports.scroller = exports.Element = exports.Button = exports.Link = undefined;
 
-var _Link = __webpack_require__(55);
+var _Link = __webpack_require__(54);
 
 var _Link2 = _interopRequireDefault(_Link);
 
-var _Button = __webpack_require__(61);
+var _Button = __webpack_require__(60);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Element = __webpack_require__(62);
+var _Element = __webpack_require__(61);
 
 var _Element2 = _interopRequireDefault(_Element);
 
@@ -11364,7 +11364,7 @@ var _scrollElement = __webpack_require__(21);
 
 var _scrollElement2 = _interopRequireDefault(_scrollElement);
 
-var _Helpers = __webpack_require__(63);
+var _Helpers = __webpack_require__(62);
 
 var _Helpers2 = _interopRequireDefault(_Helpers);
 
@@ -11399,11 +11399,11 @@ var _utils = __webpack_require__(3);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _smooth = __webpack_require__(57);
+var _smooth = __webpack_require__(56);
 
 var _smooth2 = _interopRequireDefault(_smooth);
 
-var _cancelEvents = __webpack_require__(58);
+var _cancelEvents = __webpack_require__(57);
 
 var _cancelEvents2 = _interopRequireDefault(_cancelEvents);
 
@@ -11924,13 +11924,15 @@ module.exports = __webpack_require__.p + "static/media/skills-08.88ed7bfe.png";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg__);
-var projects=[{id:'project1',title:'CrossRoads',imageUrl:__WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'The CrossRoads project was a two-week technical project that I collaborated on with a team of 5 developers. As a first technical project implementation, we designed and developed the project using HTML and CSS. The goal of the project was to create a web application that could solve a real-world problem. Our team worked together to develop the application\'s user interface and implement the necessary functionality. Through this project, I gained valuable experience working on a team and developing a project from scratch using web technologies.',type:'coding',date:'2023',technologies:'HTML | CSS',demo:'https://graceful-capybara-20c8ac.netlify.app/index.html',code:'https://github.com/ninaderochka/CrossRoads-Re-coded-project'},{id:'project2',title:'Alice is Mad',imageUrl:__WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',type:'coding',date:'2023'},{id:'project3',title:'Fancy a Movie?',imageUrl:__WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',type:'coding',date:'2023'}];/* harmony default export */ __webpack_exports__["a"] = (projects);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__projects_Therapist_png__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__projects_Therapist_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__projects_Therapist_png__);
+var projects=[{id:'project1',title:'CrossRoads',imageUrl:__WEBPACK_IMPORTED_MODULE_0__projects_CrossRoads_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'The CrossRoads project was a two-week technical project that I collaborated on with a team of 5 developers. As a first technical project implementation, we designed and developed the project using HTML and CSS. The goal of the project was to create a web application that could solve a real-world problem. Our team worked together to develop the application\'s user interface and implement the necessary functionality. Through this project, I gained valuable experience working on a team and developing a project from scratch using web technologies.',type:'coding',date:'2023',technologies:'HTML | CSS',demo:'https://graceful-capybara-20c8ac.netlify.app/index.html',code:'https://github.com/ninaderochka/CrossRoads-Re-coded-project'},{id:'project2',title:'Alice is Mad',imageUrl:__WEBPACK_IMPORTED_MODULE_1__projects_MadlibzCover_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'I collaborated with a team of two developers for two weeks to create a Mad Libs game. We used JavaScript to build the game\'s functionality and styled it using CSS. To make the game more engaging, we chose an "Alice in Wonderland" theme and added funky animations. It was an exciting and fun project that challenged our creativity and coding skills.',type:'coding',date:'2023',technologies:'Javascript | HTML | CSS',demo:'https://graceful-capybara-20c8ac.netlify.app/index.html',code:'https://github.com/ninaderochka/MadLibz'},{id:'project3',title:'Fancy a Movie?',imageUrl:__WEBPACK_IMPORTED_MODULE_2__projects_MugglesCover_jpg___default.a,client:'Re:Coded',projectType:'Development',description:'As part of a team of three developers, I collaborated on a challenging project to create a movie listing page. We used JavaScript and Firebase to fetch data from a movie database API and display it on the page. This project was a valuable learning experience for all of us, as we gained practical experience in developing with JavaScript and working with APIs. Overall, we are proud of the final product, and it was a great team effort.',type:'coding',date:'2023',technologies:'Javascript | HTML | TailwindCSS | Firebase',demo:'https://movie-project-hamadmh.vercel.app/',code:'https://github.com/hamadmh/movie-project'},{id:'project4',title:'Capstone Project',imageUrl:__WEBPACK_IMPORTED_MODULE_3__projects_Therapist_png___default.a,client:'Re:Coded',projectType:'Development',description:'The capstone project I worked on was an innovative online tool designed to simplify the process of booking appointments with therapists for patients. Working alongside a team of five developers, we built the website from scratch using React, Firebase, and Tailwind over a period of six weeks. The project taught us valuable skills in problem-solving, teamwork, and project management, as well as deepening our understanding of web development.',type:'coding',date:'2023',technologies:'React | TailwindCSS | Firebase',demo:'https://sugar-and-thunder.netlify.app/',code:'https://github.com/ninaderochka/sugar-and-thunder'}];/* harmony default export */ __webpack_exports__["a"] = (projects);
 
 /***/ }),
 /* 35 */
@@ -11962,19 +11964,12 @@ var projects=[{id:'project1',title:'CrossRoads',imageUrl:__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__skills_skills_07_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__skills_skills_07_png__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__skills_skills_08_png__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__skills_skills_08_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__skills_skills_08_png__);
-function Bio(){var images=[__WEBPACK_IMPORTED_MODULE_5__skills_skills_01_png___default.a,__WEBPACK_IMPORTED_MODULE_6__skills_skills_02_png___default.a,__WEBPACK_IMPORTED_MODULE_7__skills_skills_03_png___default.a,__WEBPACK_IMPORTED_MODULE_8__skills_skills_04_png___default.a,__WEBPACK_IMPORTED_MODULE_9__skills_skills_05_png___default.a,__WEBPACK_IMPORTED_MODULE_10__skills_skills_06_png___default.a,__WEBPACK_IMPORTED_MODULE_11__skills_skills_07_png___default.a,__WEBPACK_IMPORTED_MODULE_12__skills_skills_08_png___default.a].map(function(path,index){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-20 md:h-24 mx-auto',key:index,src:path,alt:'Skill '+(index+1)});});return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-beige flex flex-col min-h-screen'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'mx-auto max-w-xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6'},'hey there!'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12'},'I\'m nina'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans font-light md:text-lg text-lg tracking-tight md:leading-6 leading-6 md:text-left text-center'},'an Art Director with a colorful background that includes design, web development, and hospitality. As a Senior Digital Art Director at Netizency, I spend my days crafting creative ideas for digital marketing campaigns, social media platforms, and other digital channels. When I\'m not working, you can find me practicing my design skills by exploring funky color combinations and shapes, taking care of stray animals, and diving into books and online research to learn new things. I\'m always on the lookout for fresh challenges, and I believe that learning is the key to personal and professional growth.')),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative flex-shrink-0 mt-10 md:mt-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'p-10 h-128 hidden md:block md:ml-24',src:__WEBPACK_IMPORTED_MODULE_2__Nina_png___default.a,alt:'nina'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'absolute animate-spin h-48 w-48 bottom-0 right-0',src:__WEBPACK_IMPORTED_MODULE_3__spinner_png___default.a,alt:'spin'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-2 md:space-y-1 text-3xl left-0 flex md:block'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["b" /* AiOutlineGithub */],null)))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto',style:{backgroundImage:'url('+__WEBPACK_IMPORTED_MODULE_4__purple_background_svg___default.a+')'}},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'knowledge is power'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'},images)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('footer',{className:'h-14 w-screen bg-orange flex justify-between mx-auto mt-auto p-4 px-6 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans text-xl'},'\xA9 nina derochka'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex text-2xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["b" /* AiOutlineGithub */],null)))));}/* harmony default export */ __webpack_exports__["a"] = (Bio);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Nina_Hawari_2023_Resume_pdf__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Nina_Hawari_2023_Resume_pdf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__Nina_Hawari_2023_Resume_pdf__);
+function Bio(){var images=[__WEBPACK_IMPORTED_MODULE_5__skills_skills_01_png___default.a,__WEBPACK_IMPORTED_MODULE_6__skills_skills_02_png___default.a,__WEBPACK_IMPORTED_MODULE_7__skills_skills_03_png___default.a,__WEBPACK_IMPORTED_MODULE_8__skills_skills_04_png___default.a,__WEBPACK_IMPORTED_MODULE_9__skills_skills_05_png___default.a,__WEBPACK_IMPORTED_MODULE_10__skills_skills_06_png___default.a,__WEBPACK_IMPORTED_MODULE_11__skills_skills_07_png___default.a,__WEBPACK_IMPORTED_MODULE_12__skills_skills_08_png___default.a].map(function(path,index){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'h-20 md:h-24 mx-auto',key:index,src:path,alt:'Skill '+(index+1)});});return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'bg-beige flex flex-col min-h-screen'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'mx-auto max-w-xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6'},'hey there!'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12'},'I\'m nina'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans font-light md:text-lg text-lg tracking-tight md:leading-6 leading-6 md:text-left text-center'},'an Art Director with a colorful background that includes design, web development, and hospitality. As a Senior Digital Art Director at Netizency, I spend my days crafting creative ideas for digital marketing campaigns, social media platforms, and other digital channels. When I\'m not working, you can find me practicing my design skills by exploring funky color combinations and shapes, taking care of stray animals, and diving into books and online research to learn new things. I\'m always on the lookout for fresh challenges, and I believe that learning is the key to personal and professional growth.'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex items-center justify-between'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h3',{className:'font-agrandir font-xl text-orange mt-5 mb-1 text-left'},'Get to know me better'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:__WEBPACK_IMPORTED_MODULE_13__Nina_Hawari_2023_Resume_pdf___default.a},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button',{className:'bg-purple h-8 px-3 font-sans text-white rounded-sm cursor-pointer hover:bg-orange'},'Download Resume')))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'relative flex-shrink-0 mt-10 md:mt-0'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'p-10 h-128 hidden md:block md:ml-24',src:__WEBPACK_IMPORTED_MODULE_2__Nina_png___default.a,alt:'nina'}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img',{className:'absolute animate-spin h-48 w-48 bottom-0 right-0',src:__WEBPACK_IMPORTED_MODULE_3__spinner_png___default.a,alt:'spin'})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'p-2 md:space-y-1 text-3xl left-0 flex md:block'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["b" /* AiOutlineGithub */],null)))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto',style:{backgroundImage:'url('+__WEBPACK_IMPORTED_MODULE_4__purple_background_svg___default.a+')'}},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('h2',{className:'font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center'},'knowledge is power'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'},images)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('footer',{className:'h-14 w-screen bg-orange flex justify-between mx-auto mt-auto p-4 px-6 items-center'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p',{className:'font-sans text-xl'},'\xA9 nina derochka'),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'flex text-2xl'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://www.linkedin.com/in/nina-hawari-01b442b2/',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["a" /* AiFillLinkedin */],null)),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a',{href:'https://github.com/ninaderochka',target:'_blank',rel:'noopener noreferrer'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_icons_ai__["b" /* AiOutlineGithub */],null)))));}/* harmony default export */ __webpack_exports__["a"] = (Bio);
 
 /***/ }),
 /* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-function Contact(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',null,'Contact');}/* harmony default export */ __webpack_exports__["a"] = (Contact);
-
-/***/ }),
-/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11984,15 +11979,15 @@ function Contact(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createEl
 function Works(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{className:'min-h-fit max-w-7xl mx-auto m-6'},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PortfolioGrid__["a" /* default */],null));}/* harmony default export */ __webpack_exports__["a"] = (Works);
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(39);
-module.exports = __webpack_require__(44);
+__webpack_require__(38);
+module.exports = __webpack_require__(43);
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12010,12 +12005,12 @@ if (typeof Promise === 'undefined') {
   // Rejection tracking prevents a common issue where React gets into an
   // inconsistent state due to an error, but it gets swallowed by a Promise,
   // and the user has no idea what causes React's erratic future behavior.
-  __webpack_require__(40).enable();
-  window.Promise = __webpack_require__(42);
+  __webpack_require__(39).enable();
+  window.Promise = __webpack_require__(41);
 }
 
 // fetch() polyfill for making API calls.
-__webpack_require__(43);
+__webpack_require__(42);
 
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
@@ -12029,7 +12024,7 @@ if (false) {
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12148,7 +12143,7 @@ function matchWhitelist(error, list) {
 }
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12379,7 +12374,7 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12493,7 +12488,7 @@ Promise.prototype['catch'] = function (onRejected) {
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -12960,7 +12955,7 @@ Promise.prototype['catch'] = function (onRejected) {
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12969,19 +12964,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_css__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_css__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__index_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_App__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AppRouter__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_App__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AppRouter__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Home__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Bio__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Contact__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Works__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Works__ = __webpack_require__(36);
 // import Navbar from './components/Navbar';
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react___default.a.StrictMode,null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_AppRouter__["a" /* default */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Home__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Bio__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_Contact__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__components_Works__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_App__["a" /* default */],null))),document.getElementById('root'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react___default.a.StrictMode,null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_AppRouter__["a" /* default */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Home__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Bio__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_Works__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_App__["a" /* default */],null))),document.getElementById('root'));
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13011,7 +13005,7 @@ exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.u
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13026,7 +13020,7 @@ exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.u
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),m=__webpack_require__(5),r=__webpack_require__(47);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
+var aa=__webpack_require__(0),m=__webpack_require__(5),r=__webpack_require__(46);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
 function ea(a,b){ca[a]=b;for(a=0;a<b.length;a++)ba.add(b[a])}
 var fa=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ha=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,ia=Object.prototype.hasOwnProperty,
 ja={},ka={};function la(a){if(ia.call(ka,a))return!0;if(ia.call(ja,a))return!1;if(ha.test(a))return ka[a]=!0;ja[a]=!0;return!1}function ma(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -13315,21 +13309,21 @@ exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Er
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(48);
+  module.exports = __webpack_require__(47);
 } else {
   module.exports = require('./cjs/scheduler.development.js');
 }
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13356,13 +13350,13 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13371,51 +13365,50 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 function App(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"bg-beige h-screen font-agrandir text-3xl"});}/* harmony default export */ __webpack_exports__["a"] = (App);
 
 /***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomCursor__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Home__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bio__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Navbar__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Works__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__PortfolioGrid__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ProjectDetails__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__data__ = __webpack_require__(34);
+function AppRouter(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Navbar__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["d" /* Routes */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Home__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/Bio',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Bio__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/Works',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Works__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__PortfolioGrid__["a" /* default */],{projects:__WEBPACK_IMPORTED_MODULE_9__data__["a" /* default */]})}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/projects/:id',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__ProjectDetails__["a" /* default */],{projects:__WEBPACK_IMPORTED_MODULE_9__data__["a" /* default */]})})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__CustomCursor__["a" /* default */],null));}/* harmony default export */ __webpack_exports__["a"] = (AppRouter);
+
+/***/ }),
 /* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomCursor__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Home__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Bio__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Contact__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Navbar__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Works__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__PortfolioGrid__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ProjectDetails__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__data__ = __webpack_require__(34);
-function AppRouter(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Navbar__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["d" /* Routes */],null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Home__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/Bio',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Bio__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/Works',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Works__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/Contact',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Contact__["a" /* default */],null)}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__PortfolioGrid__["a" /* default */],{projects:__WEBPACK_IMPORTED_MODULE_10__data__["a" /* default */]})}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */],{path:'/projects/:id',element:__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__ProjectDetails__["a" /* default */],{projects:__WEBPACK_IMPORTED_MODULE_10__data__["a" /* default */]})})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__CustomCursor__["a" /* default */],null));}/* harmony default export */ __webpack_exports__["a"] = (AppRouter);
-
-/***/ }),
-/* 52 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_cursor_png__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_cursor_png__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__custom_cursor_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__custom_cursor_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cursor_pointer_png__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cursor_pointer_png__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cursor_pointer_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__cursor_pointer_png__);
 var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally{try{if(!_n&&_i["return"])_i["return"]();}finally{if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else{throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();var CustomCursor=function CustomCursor(){var _useState=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])({x:0,y:0}),_useState2=_slicedToArray(_useState,2),mousePosition=_useState2[0],setMousePosition=_useState2[1];var _useState3=Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),_useState4=_slicedToArray(_useState3,2),isCursorPointer=_useState4[0],setIsCursorPointer=_useState4[1];Object(__WEBPACK_IMPORTED_MODULE_0_react__["useEffect"])(function(){var onMouseMove=function onMouseMove(e){setMousePosition({x:e.clientX,y:e.clientY});};var onMouseEnter=function onMouseEnter(){setIsCursorPointer(true);};var onMouseLeave=function onMouseLeave(){setIsCursorPointer(false);};window.addEventListener("mousemove",onMouseMove);window.addEventListener("mouseenter",onMouseEnter);window.addEventListener("mouseleave",onMouseLeave);return function(){window.removeEventListener("mousemove",onMouseMove);window.removeEventListener("mouseenter",onMouseEnter);window.removeEventListener("mouseleave",onMouseLeave);};},[]);var cursorStyle={position:'fixed',top:mousePosition.y,left:mousePosition.x,width:'40px',height:'40px',backgroundImage:'url('+(isCursorPointer?__WEBPACK_IMPORTED_MODULE_2__cursor_pointer_png___default.a:__WEBPACK_IMPORTED_MODULE_1__custom_cursor_png___default.a)+')',backgroundRepeat:'no-repeat',backgroundSize:'cover',zIndex:99999,pointerEvents:'none'};return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div',{style:cursorStyle});};/* harmony default export */ __webpack_exports__["a"] = (CustomCursor);
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,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"
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAACXBIWXMAAC4jAAAuIwF4pT92AAAV30lEQVR4nO2dT4gkWVrAf7E7h5meP9Wi4sKydo4gg+zC1IDoQZaKBkUQZGrw5KlzUNg8CF0N7k3o7LOHqb6leOgsEPckU8V6EQ8ddfHgZapgRRRkMnFExT/buSsze5glPbwvsqOy8n++iPe9eN8Piu6uzor4KjN+8b33vRfvZdPpFMMw2s1XQgdgGEb9mOiGkQAmumEkgIluGAlgohtGApjohpEAJrphJICJbhgJYKIbRgKY6IaRACa6YSSAiW4YCWCiG0YCmOiGkQAmumEkwCuhA9BClmWHwF3559V0On0RMh7D8Il30d/+5Wzw2h1erX7v3z/jcJOfvfM6b3z1lfUxTf6Xuz+acLBrjIt47Q5ffvE5r3z1FX7w0y/5ts9jG0ZoMt8rzGRZNv3OH9/83jvfhDc9avnmW/DOt/wd78cT+INjfvrZmH/54nN+3bK50TZqEf2T//B6yFoxyY0USLoYZ5IbqZCs6Ca5kRJJim6SG6mR3PBa6pIPMvL57/WmFM1HYjRJUsW4FCUfZBwCXSAH3l3x0jFQAOe9Kee1B2Y0ilfRsyzLf/GX+P7F3/GGt4N6IjXJBxld4ITVci9jDPR7U4Y+YzLC4b2P/vrrfOn7mPuSkuSDjMNBRgE8YzfJAe4BzwYZo0VNfSM+Wl+MS0zyLvAJcOTpkPeA54OMU0/HMwLRatETk3yIy+J18HCQUQyy2bMARmS0VvQEJX9Q82mOwGSPlVaKbpLXxruY7FHSOtETk/yE5iQveReszx4brRI9Mclz4KNAp38gNxkjElojemKS34XgY9z9QUYncAzGhrRC9JQkF05wQ18hOSD8zcbYEO+iv3qn2VlxqUkuWfRx6DiEI5tQEwfeRf/KV5p7UCY1yYV+6ADmGIYOwFhPtE33FCWXbN50lX0d9wYZx6GDMFYTpegpSi5orXRrjcsQohM9YcnBPW6qkSOrwOsmKtFTllweWPG6xLVnLKsrJhrRU5Zc0N4P1h5f0kQhukkOoH4Y656sZmMoRL3oJvlsuqvmZntJHjoAYzGqRTfJZ+ShA9iQPHQAxmJ8i97xtfWSSX6DPHQAG5KHDsBYjHfRfeyJZpLfwtfSUHVzYMNsOlHXdDfJbxKhOFaQU4gq0U3yhXRCB7AlJrpC1Ihuki8lDx3AlnRCB2DcRoXoJnmr6IQOwLhNcNFN8rXkoQPYkk7oAIzbBBXdJG8loVe+MRYQTHST3DCaI4joJvlWWBXb2Buvor/xFq+ue41JvjUxzHE3lONV9G90+Nqq/zfJ08CeYtNHY013kzwpbMsmZTQiukmeHKPQARg3qV10kzw9elMTXRu1im6Se2ESOgAjfmoT3ST3xlXoAIz4qUV0k9wwdOFddJM8eayroRDv+6T95Z/Da3d0SC6LNnQq33rRm0bXFL4inhVmIMKuRkuuk5V4Ff2Lz/nJa3f45xCSy/5fOW7K6CFLZpQNstlfr3HDQFdA0ZtS1BzirliLyBOymm55fXRYcQOtXCeXuGvkCjjvTeP8PLLpdOrvYFnWB06bklw+uC5u8wAfU0UvgXPcBzrycLy9GWScAB+FjmMLnvamOnZtGWTcxV0bZRLwcY1cAMPelHMPx2oMr6I3hQjep94m7TVwSuC7uPyuz0Odfwee9KZht3aW7auOgfdrPM0YOIlF+KhElzt0H3jY4GknuCzfD5HlZd74J02fdw8+CHHxy7VxIl9NPgh0AXS1N+mjEV0KJufAuwHDOCOA8IOMOD4kx3tNFrLkuugTdt/4CZBrLuBFIbpktQI9j2w2Kvwg44qwN7iN6U3J1r9qfwK17lahWvbga8atQz7QAj2Sg8senw4yTiW+uhk1cA4fjJs4ySCjj3tPtEgO7vostD6iq1509Ele5SEwkuJPnajMEguoNc5BRj7IGAGP0XlNlLKre0xXtehy59beZD0Ang0yihp3VSlqOq5vahF9kHF3kDHEjT5oX3zyABiGDmIetaKLNCrGYzfkCLiScW/fjGo4Zh0Uvg8oE6FGhC22bcv7MiyqBrWi4wotGptnqzgAPpLs7q35JkW/Rvq/e+Ito0sWPwU+Jr7rAAg7l2AelaJXZjTFyhGu7557PKb2fvrY11hyZZRFU7FtW440FeZUio6/Ka0hOQCeS53BB4Wn49RF4eMgUtgs0F+b2YRu6ABKtIqehw7AI48HGecemvKFj2BqpNj3ANJUf0b8N/mSPHQAJSZ6M7wP+1XlZSKG5me9i11/UPrjBXE31RehplWiVXTtQyi78C6uKr9Pv63wFItvxrvOEpSbX0Fcz9xvjJbquzrRNRUwaqCcUNHd8ecLf6F4pdjlh+SzjmZ6b8yoE532L/5fTrDp7vCzWh+J3DouyXQF7emPq0aj6KnwbNuKvOLx9GKbF8tN7jkmeWNoFF31c72eeSxTO7dBW1a/3Gb8XCR/Vl84xiLUia71Mb8aebCl7EVNcezKxjcekzwc6kQXNA8j1cHGssvqLZren41ET1hyFYlLq+gq3pyG2Saza2m+X28yrJaw5BMtS0xpFb0IHUAgNpVdi+jDdS9IWHJQdB1rFV3LhRyCB+uG3hQ131d+TolLDoquY5WiS0FO4zBSU2wyzh76IlrZbJfJMKfNhaOS0J/RDJWiC8PQAQRmneyhL6Lhsv9QuJhnCM609M/BRNfO6bIpwQqa7wtvNEoX8wzBMHQAVdSKLs3Cs9BxBGbdyqLDBmOpcrGo2W6Sz7jUtpefWtGFPjqKTiE5AIZLnmcfNhxLybJuQ+gNNrTQDx3APKpFl6yRekEHnDy35JKi5XXDsUx609s3GBkWbOWjpltyoS2bg3LRAWTDvqYvZo0cLRljb/pGeOuGI0XDmFZprYsJipaPqqJedKEbOgAlLBpjb7ood+PGIvWDlMfKq6jdbDEK0aWJ+ih0HEp4Vi3OyYXV1FDbdfWho0rxzXDDaaGHPJcShegAvSmnWBW+ZH7d+Kaa7/PnKbAKO7gbYDd0EKuIRnQAeTOtv+7kmmUPybKXNZ/zRhFOVmy1Cru7HvPQQawjKtGFHJMdXHGuX/n3sObzzbK51AnatmLrLkyAY6398ipR7I8+T6VvaBkF7pfDObLTaF0r6L7dmzKy6a0zVO+HPk+MGb0sQOVYZgdubA4xrOkcZ5WZcENM8mvgMBbJIVLRwcnem3KIFeiq/fVT6hlqOwXrlwvXuEw+Ch3INkQreokU6J6EjiMwR4OMfk1DbZe9KVeyfXHq/fIznOTq++TzRNlHX4RciEPSbla+h1tF91OPx7yPW9prRNrv7SMZ4o2S6DN6iUxWOKT+YSbNDHGi++rOXEuh75x0Jb8G3otZcmhRRq8yyDjBPUGU4sX5FNen9pHVP8TtnPORh2PFyFOYdYmippWiw2zzviFpPlF1HzjB7eK6K2PcyMYV6d0wr3Hz1qOpqq+jtaKXSN/9lHbu0LqMMfBHwPf3OMaHuIeJUrpRTnAZPOpm+iJa00dfRm/KeW9KB1eZT2URi3vAb7J7vWKMa7KnJPkToNNGySGBjF5FJpacyFcKzdFH7Na//i7wJ6TxHp3hsvgodCB1kpToJQkJPwY+A35jy58Z0e5sPsHVb07bLnhJkqJXkQc0TmjvjK+/An5vi9d/D/j9mmIJzRhXrxm2oZK+DcmLXjLIyKG1SyL9DfDbG7zuX4G3aF8r5wInt9qFIerGRJ9DmvXHtCvL/yPwKxu87u+BX6s5lqa4xjXPz1Npnq/CRF+BjMUf4zJ97NJfs/p3+Afgmw3FUhfXuEdoh20aA/eBib4hIn2OE3+fiSih+DHw5or//0/gFxqKxSeXuCm6lrlXYKLviPTpj3Hyx5Lt/wl4Z8H3x8QzoajM2gVQpFZU2xUT3QPSr89xD9Xk6B6a+hy4EzqILbjETcMtMLF3xkSvCVlyqfqlRf4fAj9T+bemJvslbgz/CrjSuONJrJjoDSL9/A4u69/l5U2g6eGsiZwzRHaf8PL59lH5dyue1YuJrgRpAZTy34XZTQH8twZKwUvhfXKNeyb+BczkLQAsQ4fDRI8IqQVUt1AubwoAXwNenfv/kleAN+a+dxdu9Xd/Il/zlMKO5M+qxOAy8ghDLSa6QipNfHi5OcC85Ptm+S+A1/Y8Rpm94WVTHNxN4AV2A1CDiR4IGZ4r5e1UvpoY5ioLcP8N/FwD5yv75WVLYIS7CRQNnNvARK8d6Xt3eDn01kHXmLWPzL4P5U1g9mWFOf+Y6B6RJncptKYhtSr/Bny98u//AX42UCyrKMfPr3Dj56Ow4cSNib4HlWmx5ZemTL2I/wJ+fsH3Y5gZN+HmjDjL+ltgom+JrEGX46a/apdjnmWi/x+3q/LaGcNsKWqbMbcGE30NlcdWS8FjfVZ72Tz3kisWD83FwgUivjXzb2OiL0FWnon1SbV5foR7eu3ra14333+PlWvcSjLnlukdJnoFqZCf4ASPNXMv4pLNCoPPcWvCt4kznPDJri4DJnpbV5Sp8gPgG2x+4/pb4LfqCycYY14uCJlclk9W9IRWgv0z4DtbvP57wO/Q7vckiSWeqyQnugyJ9WnnIpDzDHArum4r7XeBP/UfjjqSEb71O7WUDDLuDjKGuM0HU5B8zO5Pp32LNHalfQB8OsgYSgJoLa3P6Ak10ef5XeAv2P13/jbw13v8fIy0ZvfUeVqd0WVyyxXwmPQu2F9lv9/5D3E3x5R4CIxk2+1W0cqMLll8SDvGwLflGjexZ8T+N7e3cePRKb6Pl8BJW6bati6jSxYfkebFCcy2mPLRgunL8VLZhbbKEfBJW7J7azK6ZPFT0ii0LeNJb0p/kDHC3zz8t3FTYz/2dLwYuQSOY+67tyKjy4y2grQlvxTJu/h92OZEZpU99XjM2DjC9d3z0IHsSvQZXd78c9Iqts0zAQ57U0aes3l57I78vaCdswe34cPelGHoILYl6owu2es5aUsO0BXJc/w/OnuAy+ovSLe/XuXZIOM0dBDbEq3oIvmz0HEo4GnlgY1+TefoAkgFuhXFqT15KJOvoiHKprtJPuO6N3XPkMvMrk9rPNesySoXecr1kJKz3tTdBLUTXUY3yWdMcE/dlfRrPl+38vcT3Hh96jyIJbNHldFljDzlYZ4qH5RNdhlaHFF/reK9cgJJZaQj9foIwKPeVHe/PZqMLhfWMHQcSngyt5BCl2aEm/XPrb9+g48kCakliowuGavAhnYALnrTmxdVDUNqy5gAnerEEalAP2zg3NqZDXGGDmQRsWT0PiY5uH5xt/qNmobUlnHAzboAvSknpPFI6zoOUNziVC+6XMiWMVzG6C6YhtltOI5FzfVjrDgHcKR1brz6pvsg4wrL5gD35/cqky7NDwPE8t78U11WnJtxq3ujAdUZXYbSTHI3hl0s+H6oAtCtrCXi582Hoo4DFBYpVYtO/WPDMfB0xdzqUBfUwhuMyP5hw7Fo5LG0ttSgVvQansKKkTMpdt1CZsKFau0cLBtOkpvSo2bDUYmqrK5WdMI1S7VwuWZ6Zej3p7vsP2TyyFlzoaikGzqAKipFl2ZPqivEgKtgrxM5dMZ4f1XzVG5SKct+T9MkGpWiEz5bheQayFdVbaXCraFbs/JzEtkvmglFJXnoAEq0ip6HDiAQayUXug3Esgmb3JC7pDvGnocOoESr6DFv37srm0oOei6glc13APl9ctKUXc3QsFbR1bxBDbGx5IGr7YvI170gZdm1rDOnTvS2b42zgG0yOeirX2wUT8qya0Cd6JCU6NtKDpGKDjdkT7lAFwSNoqfC1pJLf/iovpB24kBGATaiN+WFPGab8tBb45joYbhg+0wOeopw82zdyrBx9mZRJ/qShzfaxFlvuvOuH7nvYDyR7/JDIrvNjW8AdaILbV07/NGeq4Zq65+XHO36EIfMjf+A9n7mo9ABgF7RW7GDZYUJbjHHnRcQlNEIDbPhlpHv+oOy/l0OjH0Fo4SJlqWltIp+vv4l0VAW3fb9nXIPsdTJXpOc5BHXQ9q1LFUROoASE71eznCS+2ihaJ8tmO97AKnI58CTvaPRgZrrWO1SUoOMAn1DSZsywe1XNvR1wBiW1OpNyXwdqwWbZ056Uz2LT2jN6BDv6jJlU33o+biqJYfZU3VekNGXDvFOrlG1oYNa0eWDjq2/9qQ35dBTU32GlvnSG5D7PFhlck1sVfkxJvpWdInjA77ErYzar+n42vvnJZ06DiqFzA7xZPdFy3IHRbXoMjQReiWVVUxwK7T6Krgto1PjsX1S2w2pkt3vo3sY7onGSV+qRYfZhApts6cmuMpwp4a++CJiyei1F097U4relA5uAUptrb2zGlt1e6G26j6Pou2Sz4B+kxMhBhlxfEiOt5t6b2Q23ol8ha7Oq94rPRrRIeiQywRXXBk2PdMp4G4su3JrR5m6qQjfpfnZg96HUusgKtFh9qGeAg8aON21nOs8VHFFbm7PQ5x7R4LuFS4tv2OaWUX4Eld4GzVwrr2ITvQSmfvdx7/wY1yrYVhzgW0jZMngj0PHsQVPNPRT5fo4hlq29boATjUW3ZYRreglkuGP5Stn+2b9GPcQTYHL3COP4e3NIKMPPA4dxxbc2r89NJVrJMcVNncR/xKXANRdI5sQvejzyOysu6yevDGSrytt453zRCj6pcxXV410ie6yekTjChhpaNntS+tEbxsRzvm/7k2jGQ5MBvXj6EZ0qJ+TnyImumEkgImuHzWPOhrxYqLrx5rCxt6Y6IZ3dl0o0qgPE92oA6u6K8NEN4wEMNEN78Q0NTQVTHTDSAATXT+xrZtnKMREN4wEMNEN32hb3snARI+BUegAtiT6J73aiImun1HoAIz4MdH1MwodwJYUoQMwbmOi62cUOoAtUb2QR6qY6MqJcPKJ9dEVYqLHwXXoADYlwhtTEpjocRBLlozmhpQaJnocFKED2JAidADGYkz0OChCB7AhRegAjMXYKrCRMMi4QvdqM5Pe1Bac0Ipl9HgYhg5gDeehAzCWY6LHg3aRtMeXNCZ6JMg2QBeh41jCuDc10TVjosdFsF1K1zAMHYCxGhM9ImQyyjh0HHOUe8cbijHR4+MkdABznGrfqNIw0aND+sJalpeybB4JJnqcaMnqXcvmcWCiR4js1/0kcBgXVmmPBxM9UnpT+oRrwo+BbqBzGztgosfNMc1X4SfAsTXZ48JEjxiR7ZhmV149lq6DEREmeuSIdDn1yz4B7tvCEnFiorcAkb1DfQs/jIHcJI8Xe0y1ZQwy+sBjj4e8wIbRosdEbyGDjA5u/vnRHoe5BPqWxduBid5iBhmHuMk1x8DBBj8ywT1uOjTB24WJnggifQ7cBQ7lT3i5/FNhcrcXE90wEsCq7oaRACa6YSSAiW4YCWCiG0YCmOiGkQAmumEkgIluGAlgohtGApjohpEAJrphJICJbhgJYKIbRgKY6IaRACa6YSSAiW4YCWCiG0YCmOiGkQAmumEkgIluGAlgohtGApjohpEAJrphJICJbhgJ8P/DHG1O6AO6WQAAAABJRU5ErkJggg=="
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13472,7 +13465,7 @@ var LinkElement = function (_React$Component) {
 exports.default = (0, _scrollLink2.default)(LinkElement);
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -13918,7 +13911,7 @@ module.exports = throttle;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13995,7 +13988,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14018,7 +14011,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14031,7 +14024,7 @@ exports.default = {
 
 
 
-var ReactPropTypesSecret = __webpack_require__(60);
+var ReactPropTypesSecret = __webpack_require__(59);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -14090,7 +14083,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14109,7 +14102,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14165,7 +14158,7 @@ var ButtonElement = function (_React$Component) {
 exports.default = (0, _scrollLink2.default)(ButtonElement);
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14242,7 +14235,7 @@ ElementWrapper.propTypes = {
 exports.default = (0, _scrollElement2.default)(ElementWrapper);
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14573,13 +14566,13 @@ var Helpers = {
 module.exports = Helpers;
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__iconsManifest__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__iconsManifest__ = __webpack_require__(64);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iconBase__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iconBase__ = __webpack_require__(65);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__iconBase__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iconContext__ = __webpack_require__(22);
 /* unused harmony namespace reexport */
@@ -14588,7 +14581,7 @@ module.exports = Helpers;
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14786,7 +14779,7 @@ var IconsManifest = [
 ]
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14860,55 +14853,67 @@ function IconBase(props) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/button.8cc6d065.png";
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/shape.3c7f5f3f.png";
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/formshape.715b8651.png";
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/submitbutton.4a5652be.png";
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/arrow.67644d3a.png";
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/CrossRoads.f103cda6.jpg";
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/MadlibzCover.20f47d8e.jpg";
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/media/MugglesCover.98a0eff8.jpg";
 
 /***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/media/Therapist.782100e1.png";
+
+/***/ }),
 /* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/media/Nina_Hawari_2023_Resume.32ed3feb.pdf";
+
+/***/ }),
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14924,7 +14929,7 @@ window.location.assign('/#portfolio-grid');setTimeout(function(){__WEBPACK_IMPOR
 ,spy:true,exact:'true',activeClass:'active'},'Contact')))))))));}/* harmony default export */ __webpack_exports__["a"] = (Navbar);
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14936,4 +14941,4 @@ var ProjectDetails=function ProjectDetails(_ref){var projects=_ref.projects;var 
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.f4eccb45.js.map
+//# sourceMappingURL=main.683e04a8.js.map
