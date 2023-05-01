@@ -49,7 +49,7 @@ const projects = [
     imageUrl: OnlineTherapist,
     client: 'Re:Coded',
     projectType: 'Development',
-    description: 'The capstone project I worked on was an innovative online tool designed to simplify the process of booking appointments with therapists for patients. Working alongside a team of five developers, we built the website from scratch using React, Firebase, and Tailwind over a period of six weeks. The project taught us valuable skills in problem-solving, teamwork, and project management, as well as deepening our understanding of web development.',
+    description: 'The capstone project that our team developed was an innovative online tool designed to simplify the process of booking appointments with therapists for patients. Collaborating with a team of five developers, the website was built from scratch using React, Firebase, and Tailwind over a period of six weeks. The project provided valuable lessons in problem-solving, teamwork, and project management, while deepening our understanding of web development.',
     type: 'coding',
     date: '2023',
     technologies: 'React | TailwindCSS | Firebase',
