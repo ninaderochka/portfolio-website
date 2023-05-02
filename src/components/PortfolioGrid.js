@@ -33,8 +33,9 @@ const PortfolioGrid = () => {
           <Link to={`/projects/${project.id}`} key={project.id}>
             <div className="relative h-full">
               <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-purple opacity-0 hover:opacity-90 flex items-center justify-center transition duration-300">
-                <h3 className="text-white font-sans text-lg uppercase font-medium">{project.title}</h3>
+              <div className="absolute inset-0 bg-purple opacity-0 hover:opacity-90 flex flex-col items-center justify-center transition duration-300">
+                <h3 className="text-white font-sans text-lg uppercase font-medium mb-2">{project.title}</h3>
+                <p className="text-white font-sans text-sm uppercase">{project.projectType}</p>
               </div>
             </div>
           </Link>
