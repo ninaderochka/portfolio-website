@@ -6,5 +6,11 @@ module.exports = {
         require('autoprefixer'),
       ],
     },
+    webpack: {
+      optimization: {
+        minimize: false
   },
+  
+}
+  }
 }
