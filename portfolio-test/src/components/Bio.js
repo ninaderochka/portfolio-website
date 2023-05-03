@@ -35,7 +35,7 @@ function Bio() {
   <div className="mx-auto max-w-xl">
     <h2 className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6">hey there!</h2>
     <h3 className="font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12">I'm nina</h3>
-    <p className="font-sans font-light md:text-lg text-lg tracking-tight md:leading-6 leading-6 md:text-left text-center">
+    <p className="font-sans font-regular mb-6 md:text-lg text-lg tracking-tight md:leading-6 leading-6 md:text-left text-center">
     an Art Director with a colorful background that includes design, web development, and hospitality. As a Senior Digital Art Director at Netizency, I spend my days crafting creative ideas for digital marketing campaigns, social media platforms, and other digital channels.
 
 When I'm not working, you can find me practicing my design skills by exploring funky color combinations and shapes, taking care of stray animals, and diving into books and online research to learn new things. I'm always on the lookout for fresh challenges, and I believe that learning is the key to personal and professional growth.

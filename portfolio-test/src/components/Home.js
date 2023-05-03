@@ -130,7 +130,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 
     <div className='relative h-fit text-left flex flex-col md:justify-between items-center'>
   <h1 className='text-orange font-agrandir md:text-8xl text-6xl relative z-10'>let's<br /> talk</h1>
-  <a className="underline flex justify-start text-2xl mt-14 md:mb-4" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
+  <a className="underline flex justify-start text-2xl mt-14 md:mb-4 font-sans" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
   <div className="absolute top-0 md:left-0 z-0 transform translate-x-3/4">
     <img className="md:h-60 h-32 object-contain" src={formShape} alt="Shape" />
   </div>
