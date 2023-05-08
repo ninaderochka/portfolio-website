@@ -4,15 +4,6 @@ import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai';
 import nina from '../Nina.png'
 import button from '../button.png'
 import spinner from '../spinner.png'
-import purple from '../purple-background.svg'
-import skills1 from '../skills/skills-01.png';
-import skills2 from '../skills/skills-02.png';
-import skills3 from '../skills/skills-03.png';
-import skills4 from '../skills/skills-04.png';
-import skills5 from '../skills/skills-05.png';
-import skills6 from '../skills/skills-06.png';
-import skills7 from '../skills/skills-07.png';
-import skills8 from '../skills/skills-08.png';
 import shapeImage from '../shape.png';
 import formShape from '../formshape.png'
 import submitButton from '../submitbutton.png'
@@ -22,18 +13,6 @@ import PortfolioGrid from './PortfolioGrid';
 import Skills from './Skills';
 
 function Home() {
-  const images = [
-    skills1,
-    skills2,
-    skills3,
-    skills4,
-    skills5,
-    skills6,
-    skills7,
-    skills8,
-  ].map((path, index) => (
-    <img className= "h-20 md:h-24 mx-auto" key={index} src={path} alt={`Skill ${index + 1}`} />
-  ));
 
   const [ wiggle, setWiggle ] = useState(false);
 
@@ -100,13 +79,7 @@ function Home() {
   <Skills text="200" subText="clients" />
   <Skills text="100%" subText="dedication" />
 </div>
-<div
-className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto" style={{ backgroundImage: `url(${purple})` }}>
-<h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
-      <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
-    </div>
-
-    <section name="portfolio-grid" id="portfolio-grid" >
+  <section name="portfolio-grid" id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
    <PortfolioGrid />

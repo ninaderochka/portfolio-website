@@ -20,11 +20,16 @@ module.exports = {
         tight: '-.04em',
       },
       colors: {
-        'beige': '#f8ece3',
+        'beige': '#f2ece9',
         'orange': '#f85800',
         'neon': '#cfe800',
         'purple': '#9700ff',
-        'pink': '#ffcaf1'
+        'pink': '#ffcaf1',
+        'grey' :'#e9e9e9'
+      },
+      boxShadow: {
+        'custom': '6px 6px 0px 0 rgba(0, 0, 0, 100)',
+        'customHover': '4px 4px 0px 0 rgba(0, 0, 0, 100)',
       },
       keyframes: {
         wiggle: {
