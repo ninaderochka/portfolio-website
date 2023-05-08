@@ -1,38 +1,60 @@
 import React, { useState } from 'react'
-import { Link } from 'react-scroll';
+// import { Link } from 'react-scroll';
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 import nina from '../Nina.png'
 import button from '../button.png'
 import spinner from '../spinner.png'
-import purple from '../purple-background.svg'
-import skills1 from '../skills/skills-01.png';
-import skills2 from '../skills/skills-02.png';
-import skills3 from '../skills/skills-03.png';
-import skills4 from '../skills/skills-04.png';
-import skills5 from '../skills/skills-05.png';
-import skills6 from '../skills/skills-06.png';
-import skills7 from '../skills/skills-07.png';
-import skills8 from '../skills/skills-08.png';
-import shapeImage from '../shape.png';
+// import purple from '../purple-background.svg'
+// import skills1 from '../skills/skills-01.png';
+// import skills2 from '../skills/skills-02.png';
+// import skills3 from '../skills/skills-03.png';
+// import skills4 from '../skills/skills-04.png';
+// import skills5 from '../skills/skills-05.png';
+// import skills6 from '../skills/skills-06.png';
+// import skills7 from '../skills/skills-07.png';
+// import skills8 from '../skills/skills-08.png';
+// import shapeImage from '../shape.png';
 import formShape from '../formshape.png'
 import submitButton from '../submitbutton.png'
 import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
+import Skills from './Skills';
+
+
 
 function Home() {
-  const images = [
-    skills1,
-    skills2,
-    skills3,
-    skills4,
-    skills5,
-    skills6,
-    skills7,
-    skills8,
-  ].map((path, index) => (
-    <img className= "h-20 md:h-24 mx-auto" key={index} src={path} alt={`Skill ${index + 1}`} />
-  ));
+  // const images = [
+  //   skills1,
+  //   skills2,
+  //   skills3,
+  //   skills4,
+  //   skills5,
+  //   skills6,
+  //   skills7,
+  //   skills8,
+  // ].map((path, index) => (
+  //   <img className= "h-20 md:h-24 mx-auto" key={index} src={path} alt={`Skill ${index + 1}`} />
+  // ));
+
+  const logoVariants = {
+    initial: {
+      opacity: 0,
+      y: 100,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.5,
+        duration: 0.5,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  const companies = ["./Users/netizency/Desktop/Bootcamp/portfolio-website/portfolio-test/src/components/logos/Logos-02.png", "./logos/Logos-02.png", "./logos/Logos-03.png"];
 
   const [ wiggle, setWiggle ] = useState(false);
 
@@ -93,20 +115,39 @@ function Home() {
 <div className="flex overflow-x-scroll space-x-4">
     </div>
 </section>
-<img src="/clients.png" alt="Clients" className="w-full" />
-<div
+
+
+<div className='flex grid-cols-3 gap-20 justify-center'>
+  <Skills text="6+" subText="years of experience" />
+  <Skills text="200+" subText="clients" />
+  <Skills text="100%" subText="dedication" />
+</div>
+<div>
+  {companies.map((company, index) => (
+    <motion.img
+      key={index}
+      src={company}
+      variants={logoVariants}
+      initial="initial"
+      animate="animate"
+    />
+  ))}
+</div>
+
+
+{/* <div
 className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto" style={{ backgroundImage: `url(${purple})` }}>
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
       <div className='md:flex md:h-24 justify-evenly mx-auto max-w-2xl md:gap-8 mt-10 grid-col-3 grid grid-cols-4 gap-4 h-4 mb-7'>{images}</div>
-    </div>
-
-    <section name="portfolio-grid" id="portfolio-grid" >
-      <div className='min-h-fit max-w-7xl mx-auto m-6'>
-
-   <PortfolioGrid />
+    </div> */}
+    <section name="portfolio-grid" id="portfolio-grid">
+      <div className="min-h-screen">
+        <div className="max-w-screen min-h-screen mx-auto">
+          <PortfolioGrid />
+        </div>
       </div>
     </section>
-    <section><Link to="contact">
+    {/* <section><Link to="contact">
     <div className='bg-pink min-h-fit grid grid-flow-row cursor-pointer'>
   <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
   <div className='flex flex-wrap justify-center'>
@@ -125,7 +166,7 @@ className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto"
 </div>
 </div>
     </Link>
-    </section>
+    </section> */}
     <section name="contact" id="contact" className='mx-auto md:flex md:justify-evenly m-10 space-y-4 md:space-y-0'>
 
     <div className='relative h-fit text-left flex flex-col md:justify-between items-center'>
