@@ -36,7 +36,7 @@ function Home() {
   };
 
   return (
-<div className='bg-beige overflow-x-hidden mx-auto'>
+<div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container' style={{ backgroundImage: 'url("/Users/netizency/Desktop/Bootcamp/portfolio-website/portfolio-test/src/noise.gif")' }}>
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
   <div className="mx-auto max-w-lg">
     <h2 className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6">hey there!</h2>
@@ -74,7 +74,7 @@ function Home() {
     </div>
 </section>
 <img src="/clients.png" alt="Clients" className="w-full" />
-<div className='flex grid-cols-3 gap-20 justify-center'>
+<div className='flex grid-cols-3 gap-20 justify-center font-agrandir'>
   <Skills text="6+" subText="years of experience" />
   <Skills text="200" subText="clients" />
   <Skills text="100%" subText="dedication" />
