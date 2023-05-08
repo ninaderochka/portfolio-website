@@ -50,7 +50,7 @@ function Navbar() {
     </button>
     <div className={`w-full md:w-auto md:flex md:flex-grow md:justify-between z-50 ${navbarOpen ? "block" : "hidden"}`} id="navbar-default">
             <ul className="font-sans font-medium text-lg flex flex-col p-4 border border-gray-100 rounded-lg items-center bg-beige md:border-0 md:p-0 mt-4 md:flex-row md:space-x-6 md:mt-0 md:ml-auto md:text-base">
-                <li className="flex items-center"><RouterLink to="/Bio">Bio</RouterLink></li>
+                <li className="flex items-center cursor-pointer"><RouterLink to="/Bio">Bio</RouterLink></li>
                 <span className="hidden text-2xl md:flex items-center mt-2">*</span>
                 <li className="flex items-center cursor-pointer"  onClick={handleWorksClick}>
 Works
