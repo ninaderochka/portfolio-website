@@ -19,6 +19,7 @@ import submitButton from '../submitbutton.png'
 import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
+import Skills from './Skills';
 
 function Home() {
   const images = [
@@ -94,6 +95,11 @@ function Home() {
     </div>
 </section>
 <img src="/clients.png" alt="Clients" className="w-full" />
+<div className='flex grid-cols-3 gap-20 justify-center'>
+  <Skills text="6+" subText="years of experience" />
+  <Skills text="200" subText="clients" />
+  <Skills text="100%" subText="dedication" />
+</div>
 <div
 className="md:w-full h-72 md:h-72 bg-no-repeat md:bg-repeat bg-cover md:bg-auto" style={{ backgroundImage: `url(${purple})` }}>
 <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">knowledge is power</h2>
