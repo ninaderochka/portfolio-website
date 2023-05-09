@@ -1,16 +1,28 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Card = ({ title, imageSrc, type }) => {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="relative">
+    <motion.div
+      className="relative"
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <div className="group overflow-hidden">
         <img src={imageSrc} alt={title} className="w-46 h-64 border-black border-2 object-cover mb-2" />
-        <button type="button" className='rounded-full w-56 h-12 font-agrandir font-light text-xl border-black border-2 hover:bg-amber-500'>{type}</button>
-        {/* <div className="absolute inset-0 bg-black bg-opacity-75 text-white text-xl font-medium flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          {title}
-        </div> */}
+        <button type="button" className="rounded-full w-48 h-12 font-agrandir font-300 text-base border-black border-2 hover:bg-amber-500">
+          {type}
+        </button>
+        <p className='font-agrandir mt-2 font-400 text-xl'>{title}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

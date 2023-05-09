@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai';
 import nina from '../Nina.png'
@@ -11,6 +12,7 @@ import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
 import Skills from './Skills';
+import "../App.css"
 
 function Home() {
 
@@ -35,18 +37,52 @@ function Home() {
     element.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollRef = useRef(null)
+
+  const images= [
+'./clients.png',
+'./clients.png'
+  ]
+  
   return (
-<div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container' style={{ backgroundImage: 'url("/Users/netizency/Desktop/Bootcamp/portfolio-website/portfolio-test/src/noise.gif")' }}>
+<div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
-  <div className="mx-auto max-w-lg">
-    <h2 className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6">hey there!</h2>
-    <h3 className="font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12">I'm nina</h3>
-    <p className="font-sans font-light md:text-3xl text-2xl tracking-tight md:leading-9 leading-6">
-      I'm a professional pixel polisher &amp; front-end fanatic, with a passion for creating designs that are both beautiful &amp; functional.
-    </p>
-  </div>
-  <div className="relative flex-shrink-0 mt-10 md:mt-0">
-  <img className="p-10 h-128 hidden md:block md:ml-24" src={nina} alt="nina" />
+<div className="mx-auto max-w-lg">
+        <motion.h2
+          className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          hey there!
+        </motion.h2>
+        <motion.h3
+          className="font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          i'm nina
+        </motion.h3>
+        <motion.p
+          className="font-sans font-light md:text-3xl text-2xl tracking-tight md:leading-9 leading-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          Senior art director currently based in Lebanon, with a passion for learning
+           &amp; designing.
+        </motion.p>
+      </div>
+      <div className="relative flex-shrink-0 mt-10 md:mt-0">
+        <motion.img
+          className="p-10 h-128 hidden md:block md:ml-24"
+          src={nina}
+          alt="nina"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        />
  
   <button
     className={`h-52 w-52 absolute bottom-0 left-0 focus:outline-none border-none cursor-pointer ${
@@ -69,16 +105,45 @@ function Home() {
 
       </div> 
 </div>
-<section>
-<div className="flex overflow-x-scroll space-x-4">
-    </div>
-</section>
-<img src="/clients.png" alt="Clients" className="w-full" />
-<div className='flex grid-cols-3 gap-20 justify-center font-agrandir'>
-  <Skills text="6+" subText="years of experience" />
-  <Skills text="200" subText="clients" />
-  <Skills text="100%" subText="dedication" />
+<div>
+  
 </div>
+<div className=" flex items-center justify-center">
+      {/* 1. */}
+      <div className="w-[200%] h-20 overflow-hidden relative">
+        {/* 2. */}
+        <div className="w-[200%] flex items-center h-40 justify-around absolute left-0 animate-scroll">
+          {/* 3 */}
+          {images.map((i) => {
+            return (
+              <div className="flex justify-center items-start w-full h-full">
+                <img src={i} alt='client'/>
+              </div>
+            );
+          })}
+          {images.map((i) => {
+            return (
+              <div className="flex justify-center items-start w-full h-full">
+                <img src={i} alt='client'/>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+     <div ref={scrollRef} style={{ overflow: "scroll" }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ root: scrollRef }}
+      />
+
+     <div className="flex grid-cols-3 gap-20 justify-center font-agrandir">
+        <Skills text="6+" subText="years of experience" />
+        <Skills text="200" subText="clients" />
+        <Skills text="100%" subText="dedication" />
+        </div>
+    </div>
   <section name="portfolio-grid" id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
