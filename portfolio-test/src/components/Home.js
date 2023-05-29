@@ -12,6 +12,7 @@ import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
 import Skills from './Skills';
+import LogoShowcase from './LogoShowcase';
 import "../App.css"
 
 function Home() {
@@ -49,7 +50,7 @@ function Home() {
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
 <div className="mx-auto max-w-lg">
         <motion.h2
-          className="font-agrandir md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6"
+          className="font-agrandir text-900 md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -57,7 +58,7 @@ function Home() {
           hey there!
         </motion.h2>
         <motion.h3
-          className="font-agrandir md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12"
+          className="font-agrandir text-900 md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -131,6 +132,7 @@ function Home() {
         </div>
       </div>
     </div>
+    
      <div ref={scrollRef} style={{ overflow: "scroll" }}>
       <motion.div
         initial={{ opacity: 0 }}
@@ -138,12 +140,13 @@ function Home() {
         viewport={{ root: scrollRef }}
       />
 
-     <div className="flex grid-cols-3 gap-20 justify-center font-agrandir">
+     <div className="flex grid-cols-3 gap-20 justify-center font-agrandir text-900">
         <Skills text="6+" subText="years of experience" />
         <Skills text="200" subText="clients" />
         <Skills text="100%" subText="dedication" />
         </div>
     </div>
+    <LogoShowcase />
   <section name="portfolio-grid" id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
@@ -152,19 +155,19 @@ function Home() {
     </section>
     <section><Link to="contact">
     <div className='bg-pink min-h-fit grid grid-flow-row cursor-pointer'>
-  <h2 className="font-agrandir text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
+  <h2 className="font-agrandir text-900 text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
   <div className='flex flex-wrap justify-center'>
   <div className='relative mx-2 md:mx-8 my-10 mt-20 md:flex flex-col'>
     <img className="md:h-80 h-32" src={shapeImage} alt="Shape" />
-    <p className=' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>logo design</p>
+    <p className=' text-beige font-agrandir text-900 md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>logo design</p>
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
     <img className="md:h-80 h-32" src={shapeImage} alt="Shape" />
-    <p className=' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web design</p>
+    <p className=' text-beige font-agrandir text-900 md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>web design</p>
   </div>
   <div className='relative mx-2 md:mx-8 my-10 mt-20'>
     <img className="md:h-80 h-32" src={shapeImage} alt="Shape" />
-    <p className=' text-beige font-agrandir md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>visual identity</p>
+    <p className=' text-beige font-agrandir text-900 md:text-5xl text-lg text-center absolute top-0 left-0 w-full h-full flex items-center justify-center'>visual identity</p>
   </div>
 </div>
 </div>
@@ -173,7 +176,7 @@ function Home() {
     <section name="contact" id="contact" className='mx-auto md:flex md:justify-evenly m-10 space-y-4 md:space-y-0'>
 
     <div className='relative h-fit text-left flex flex-col md:justify-between items-center'>
-  <h1 className='text-orange font-agrandir md:text-8xl text-6xl relative z-10'>let's<br /> talk</h1>
+  <h1 className='text-orange font-agrandir text-900 md:text-8xl text-6xl relative z-10'>let's<br /> talk</h1>
   <a className="underline flex justify-start text-2xl mt-14 md:mb-4 font-sans" href="mailto:nina.hawari@gmail.com">nina.hawari@gmail.com</a>
   <div className="absolute top-0 md:left-0 z-0 transform translate-x-3/4">
     <img className="md:h-60 h-32 object-contain" src={formShape} alt="Shape" />

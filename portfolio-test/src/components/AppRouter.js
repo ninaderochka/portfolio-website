@@ -7,7 +7,8 @@ import Navbar from './Navbar';
 import Works from './Works';
 import PortfolioGrid from './PortfolioGrid';
 import ProjectDetails from './ProjectDetails';
-import CustomCursor from './CustomCursor';
+// import CustomCursor from './CustomCursor';
+import MouseEffect from "./FollowMouse";
 import projects from "./data";
 
 function AppRouter() {
@@ -23,7 +24,8 @@ function AppRouter() {
           <Route path="/projects/:id" element={<ProjectDetails projects={projects} />} />
         </Routes>
       </AnimatePresence>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
+      <MouseEffect />
     </BrowserRouter>
   );
 }

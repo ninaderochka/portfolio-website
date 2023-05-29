@@ -67,6 +67,7 @@ module.exports = {
         spin: 'spin 10s linear infinite',
         scroll: 'scroll 15s linear infinite;',
         linear: 'linear 25s linear infinite',
+        
       },
       height: {
         '128': '35rem',
