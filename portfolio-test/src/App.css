@@ -48,3 +48,27 @@
   opacity: 0.03;
   pointer-events: none;
 }
+
+.distort-on-touch {
+  position: relative;
+  overflow: hidden;
+}
+
+.distort-on-touch::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.distort-on-touch:hover::before,
+.distort-on-touch:active::before {
+  opacity: 1;
+  transform: scale(1.2);
+}

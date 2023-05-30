@@ -12,7 +12,6 @@ import doneButton from '../DoneButton.png'
 import arrow from '../arrow.png'
 import PortfolioGrid from './PortfolioGrid';
 import Skills from './Skills';
-import LogoShowcase from './LogoShowcase';
 import "../App.css"
 
 function Home() {
@@ -48,23 +47,23 @@ function Home() {
   return (
 <div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
-<div className="mx-auto max-w-lg">
-        <motion.h2
-          className="font-agrandir text-900 md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          hey there!
-        </motion.h2>
-        <motion.h3
-          className="font-agrandir text-900 md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          i'm nina
-        </motion.h3>
+<div className="mx-auto max-w-lg animate-liquidDistortion">
+      <motion.h2
+        className="font-agrandir text-900 md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6 animate-liquidDistortion"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        hey there!
+      </motion.h2>
+      <motion.h3
+        className="font-agrandir text-900 md:text-8xl text-6xl text-orange whitespace-nowrap mb-8 leading-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        i'm nina
+      </motion.h3>
         <motion.p
           className="font-sans font-light md:text-3xl text-2xl tracking-tight md:leading-9 leading-6"
           initial={{ opacity: 0, y: 20 }}
@@ -107,7 +106,6 @@ function Home() {
       </div> 
 </div>
 <div>
-  
 </div>
 <div className=" flex items-center justify-center">
       {/* 1. */}
@@ -132,7 +130,6 @@ function Home() {
         </div>
       </div>
     </div>
-    
      <div ref={scrollRef} style={{ overflow: "scroll" }}>
       <motion.div
         initial={{ opacity: 0 }}
@@ -146,7 +143,7 @@ function Home() {
         <Skills text="100%" subText="dedication" />
         </div>
     </div>
-    <LogoShowcase />
+
   <section name="portfolio-grid" id="portfolio-grid" >
       <div className='min-h-fit max-w-7xl mx-auto m-6'>
 
