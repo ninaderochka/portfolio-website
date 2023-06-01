@@ -44,12 +44,14 @@ function Home() {
 './clients.png'
   ]
   
+
   return (
-<div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
+<div className='bg-grey overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
+<img src='./src/Ellipse_33.png' alt='gradient'></img>
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
-<div className="mx-auto max-w-lg animate-liquidDistortion">
-      <motion.h2
-        className="font-agrandir text-900 md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6 animate-liquidDistortion"
+<div className="mx-auto max-w-lg">
+<motion.h2
+         className="font-agrandir text-900 md:text-6.5xl text-5xl text-orange whitespace-nowrap mb-6 animate-distortedText" 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
