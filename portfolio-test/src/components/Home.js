@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
-import { Link } from 'react-scroll';
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai';
 import nina from '../Nina.png'
 import button from '../button.png'
 import spinner from '../spinner.png'
-import shapeImage from '../shape.png';
 import formShape from '../formshape.png'
 import submitButton from '../submitbutton.png'
 import doneButton from '../DoneButton.png'
@@ -45,9 +43,20 @@ function Home() {
   ]
   
 
+  const svgs = [
+    require('../Clients/svg-01.svg').default,
+    require('../Clients/svg-02.svg').default,
+    require('../Clients/svg-03.svg').default,
+    require('../Clients/svg-04.svg').default,
+    require('../Clients/svg-05.svg').default,
+    require('../Clients/svg-06.svg').default,
+    require('../Clients/svg-07.svg').default,
+    require('../Clients/svg-08.svg').default
+  ];
+
+
   return (
-<div className='bg-grey overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
-<img src='./src/Ellipse_33.png' alt='gradient'></img>
+<div className='bg-beige overflow-x-hidden mx-auto site-container h-screen bg-cover bg-no-repeat bg-center site-container bg-overlay'>
 <div className="p-10 flex flex-col md:flex-row items-center justify-center mx-auto space-y-6 md:space-y-0 md:space-x-11 md:max-w-4xl max-w-full text-center">
 <div className="mx-auto max-w-lg">
 <motion.h2
@@ -109,11 +118,27 @@ function Home() {
 </div>
 <div>
 </div>
+
+<div className="logos">
+        <div className="logos-before"></div>
+        <div className="logos-after"></div>
+        <div className="logos-slide">
+          {/* Display the SVG images */}
+          {svgs.map((svg, index) => (
+            <img
+              key={index}
+              src={svg}
+              alt={`SVG ${index + 1}`}
+              className="logos-slide"
+            />
+          ))}
+        </div>
+      </div>
 <div className=" flex items-center justify-center">
-      {/* 1. */}
-      <div className="w-[200%] h-20 overflow-hidden relative">
+      1.
+      <div className="w-[200%] h-10 overflow-hidden relative">
         {/* 2. */}
-        <div className="w-[200%] flex items-center h-40 justify-around absolute left-0 animate-scroll">
+        <div className="w-[200%] flex items-center h-100 justify-around absolute left-0 animate-scroll">
           {/* 3 */}
           {images.map((i) => {
             return (
@@ -125,7 +150,7 @@ function Home() {
           {images.map((i) => {
             return (
               <div className="flex justify-center items-start w-full h-full">
-                <img src={i} alt='client'/>
+                <img className="scale-150 " src={i} alt='client'/>
               </div>
             );
           })}
@@ -152,7 +177,7 @@ function Home() {
    <PortfolioGrid />
       </div>
     </section>
-    <section><Link to="contact">
+    {/* <section><Link to="contact">
     <div className='bg-pink min-h-fit grid grid-flow-row cursor-pointer'>
   <h2 className="font-agrandir text-900 text-4xl md:text-8xl text-orange whitespace-nowrap text-center">need a hand?</h2>
   <div className='flex flex-wrap justify-center'>
@@ -171,7 +196,7 @@ function Home() {
 </div>
 </div>
     </Link>
-    </section>
+    </section> */}
     <section name="contact" id="contact" className='mx-auto md:flex md:justify-evenly m-10 space-y-4 md:space-y-0'>
 
     <div className='relative h-fit text-left flex flex-col md:justify-between items-center'>
