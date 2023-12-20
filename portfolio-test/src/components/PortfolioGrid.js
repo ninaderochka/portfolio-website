@@ -13,22 +13,24 @@ const PortfolioGrid = () => {
   return (
     <div>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-        {projects.map(project => (
-          <Link to={`/projects/${project.id}`} key={project.id}>
-            <motion.div
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-            >
-              <Card
-                title={project.title}
-                imageSrc={project.imageUrl}
-                type={project.projectType}
-              />
-            </motion.div>
-          </Link>
-        ))}
+      {projects.map((project, index) => (
+  <Link to={`/projects/${project.id}`} key={project.id}>
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`relative ${index === 0 ? 'col-span-2' : 'col-span-1'}`}
+    >
+      <Card
+        title={project.title}
+        imageSrc={project.imageUrl}
+        type={project.projectType}
+        imageSize={index === 0 ? 'large' : 'small'}
+      />
+    </motion.div>
+  </Link>
+))}
       </div>
     </div>
   );
